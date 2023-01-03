@@ -387,7 +387,7 @@ export async function handler(chatUpdate) {
             if (quequeIndex !== -1) this.msgqueue.splice(quequeIndex, 1)
         }
         // console.log(global.db.data.users[m.sender])
-        await this.sendPresenceUpdate('recording',m.chat)
+        // await this.sendPresenceUpdate('recording',m.chat)
         let user, stats = global.db.data.stats
         if (m) {
             if (m.sender && (user = global.db.data.users[m.sender])) {
