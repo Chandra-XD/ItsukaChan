@@ -23,6 +23,7 @@ global.lolkey = pickRandom(global.apilolhuman) // klo punya apikey sendiri hapus
 global.viokey = 'beta' // gausah diganti ini
 global.malesin = 'DonasiDong' // mau apikeynya..? minta bang agus
 global.calip = 'caliphkey' // registrasi atau beli sendiri di https://api.caliph.my.id
+global.itsuka = 'ItsukaChan' // gausah di ganti ini
 
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
@@ -35,7 +36,9 @@ global.APIs = {
   LeysCoder: 'https://leyscoders-api.herokuapp.com',
   violetics: 'https://violetics.pw',
   hadi: 'http://hadi-api.herokuapp.com',
-  males : 'https://malesin.xyz'
+  males: 'https://malesin.xyz',
+  can: 'https://api.pnggilajacn.my.id',
+  cn: 'https://rest-api.chandra-xd.repl.co'
 }
 global.APIKeys = {
   'https://api.lolhuman.xyz': 'MiunaShiodome',
@@ -78,7 +81,7 @@ global.hbeach = ['https://telegra.ph/file/14ae0ba2da77d74e6b80c.jpg', 'https://t
 global.bg = ['https://telegra.ph/file/2b71a8d46d29351479fbc.jpg', 'https://telegra.ph/file/ae610571b62b5ab876e9c.jpg', 'https://telegra.ph/file/cc8255d5b989eef587af2.jpg','https://telegra.ph/file/30d2e7375996abd9cfee3.jpg']
 
 //========= Pembates =========//
-global.sgc = 'https://chat.whatsapp.com/FXyktzaoWTl0biIUl6VvDM'
+global.sgc = 'https://pnggilajacn.my.id/group'
 global.sig = 'https://instagram.com/pnggilajacn'
 //====== Url Template Buttons ======//
 global.dtu = 'ᴅᴏɴᴀᴛᴇ'

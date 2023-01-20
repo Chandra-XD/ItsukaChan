@@ -347,6 +347,10 @@ export async function handler(chatUpdate) {
                     __filename
                 }
                 try {
+                    if (!isOwner) {
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return m.reply('Jangan spam kak, tunggu *10 detik*')
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 10000)) return m.reply('Jangan spam kak, tunggu *10 detik*')
+                    }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
                 } catch (e) {
@@ -410,6 +414,10 @@ export async function handler(chatUpdate) {
                     lastSuccess: m.error != null ? 0 : now
                 }
                 stat.total += 1
+                
+                if (m.isGroup) global.db.data.chats[m.chat].delay = now
+                else global.db.data.users[m.sender].delay = now
+
                 stat.last = now
                 if (m.error == null) {
                     stat.success += 1
@@ -435,6 +443,7 @@ export async function participantsUpdate({ id, participants, action }) {
     let chat = global.db.data.chats[id] || {}
     let text = ''
     switch (action) {
+    /*
         case 'add':
         case 'remove':
             if (chat.welcome) {
@@ -471,6 +480,38 @@ export async function participantsUpdate({ id, participants, action }) {
                     }
                 }
             }
+            break */
+            case 'add':
+            case 'remove':
+                if (chat.welcome) {
+                    let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
+                    for (let user of participants) {
+                        let pp = 'https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/image/ppkosong.jpg'
+                        try {
+                            pp = await this.profilePictureUrl(user, 'image')
+                        } catch (e) {
+
+                        } finally {
+                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc ? String.fromCharCode(8206).repeat(4001) + groupMetadata.desc : '') :
+                                (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', await this.getName(user))
+                            let wel = API('can', '/api/maker/welcome', {
+                                name: await this.getName(id),
+                                gpname: await this.getName(user),
+                                member: groupMetadata.participants.length,
+                                pp: pp,
+                                bg: 'https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/image/background2.jpg'
+                            })
+                            let lea = API('can', '/api/maker/goodbye', {
+                                name: await this.getName(id),
+                                gpname: await this.getName(user),
+                                member: groupMetadata.participants.length,
+                                pp: pp,
+                                bg: 'https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/image/background2.jpg'
+                            })
+                            await this.sendFile(id, action === 'add' ? wel : lea, 'pp.jpg', text, null, false, { mentions: [user] })
+                            }
+                            }
+                            }
         break
         case 'promote':
             text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
