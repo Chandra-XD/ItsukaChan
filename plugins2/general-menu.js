@@ -95,7 +95,7 @@ let judul = `*${ucapan()} ${conn.getName(m.sender)}*
 •> *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned
 
 *NOTE :*
-_Beri jeda minimal 10 detik kak saat menggunakan bot._`
+_Beri jeda minimal 30 detik kak saat menggunakan bot._`
 let sections = [{
         title: `Menuju Ultah Owner : ${days} Hari ${hours} Jam ${minute} Menit ${second} Detik`,
         rows: [
@@ -169,7 +169,7 @@ let templateButtons = [
     {index: 3, quickReplyButton: {displayText: 'ʀᴜʟᴇs', id: '.rules'}},
     {index: 4, quickReplyButton: {displayText: 'ᴏᴡɴᴇʀ', id: '.owner'}},
 ]
-let aemve = pickRandom([`https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv1.mp4`, `https://storage.${global.baseURL}/file/yae-miko.mp4`])
+let aemve = pickRandom([`https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv1.mp4`, `https://storage.pnggilajacn.my.id/file/yae-miko.mp4`])
 let videomessage = {
 video: { url: aemve },
 gifPlayback: true,
