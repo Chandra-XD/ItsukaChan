@@ -4,7 +4,7 @@ let app = global.app = express()
 
 function connect(PORT) {
 	
-	app.get('/', (req, res) => res.send('Hello World!'))
+	app.get('/', (req, res) => res.json('Hello World!'))
 	
 	app.get('/nowa', async (req, res) => {
 		let q = req.query.number, regex = /x/g
