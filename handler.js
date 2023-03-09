@@ -348,8 +348,8 @@ export async function handler(chatUpdate) {
                 }
                 try {
                     if (!isOwner) {
-                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return m.reply('Jangan spam kak, tunggu *10 detik*')
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 10000)) return m.reply('Jangan spam kak, tunggu *10 detik*')
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 30000)) return // m.reply('Jangan spam lah kak, sabar')
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 30000)) return // m.reply('Jangan spam lah kak, sabar')
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
@@ -486,7 +486,7 @@ export async function participantsUpdate({ id, participants, action }) {
                 if (chat.welcome) {
                     let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                     for (let user of participants) {
-                        let pp = 'https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/image/ppkosong.jpg'
+                        let pp = './src/avatar_contact.png'
                         try {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
@@ -499,16 +499,16 @@ export async function participantsUpdate({ id, participants, action }) {
                                 gpname: await this.getName(user),
                                 member: groupMetadata.participants.length,
                                 pp: pp,
-                                bg: 'https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/image/background2.jpg'
+                                bg: 'https://cdn.discordapp.com/attachments/850808002545319957/859359637106065408/bg.png'
                             })
                             let lea = API('can', '/api/maker/goodbye', {
                                 name: await this.getName(id),
                                 gpname: await this.getName(user),
                                 member: groupMetadata.participants.length,
                                 pp: pp,
-                                bg: 'https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/image/background2.jpg'
+                                bg: 'https://cdn.discordapp.com/attachments/850808002545319957/859359637106065408/bg.png'
                             })
-                            await this.sendFile(id, action === 'add' ? wel : lea, 'pp.jpg', text, null, false, { mentions: [user] })
+                            await this.sendFile(id, action === 'add' ? wel : lea, 'welcome.jpg', text, null, false, { mentions: [user] })
                             }
                             }
                             }
