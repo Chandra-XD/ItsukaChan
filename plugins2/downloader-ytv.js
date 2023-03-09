@@ -8,7 +8,7 @@ if (args && /(?:https?:\/{2})?(?:w{3}|m|music)?\.?youtu(?:be)?\.(?:com|be)(?:wat
 let qu = args[2] || '360'
 let q = qu + 'p'
 let v = args[0]
-let res = await fetch(`https://ytdl.${global.baseURL}/yt?url=${args[0]}`)
+let res = await fetch(`https://ytdl.pnggilajacn.my.id/yt?url=${args[0]}`)
 res = await res.json()
 if (!res) res = ''
 let { description, ownerChannelName, viewCount, uploadDate, likes, dislikes } = res.result.videoDetails

@@ -7,7 +7,7 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
   if (args && /(?:https?:\/{2})?(?:w{3}|m|music)?\.?youtu(?:be)?\.(?:com|be)(?:watch\?v=|\/)([^\s&]+)/i.test(args[0])) {
     let q = '128kbps'
     let v = args[0]
-    let res = await fetch(`https://ytdl.${global.baseURL}/yt?url=${args[0]}`)
+    let res = await fetch(`https://ytdl.pnggilajacn.my.id/yt?url=${args[0]}`)
     res = await res.json()
     if (!res) res = ''
     let { description, ownerChannelName, viewCount, uploadDate, likes, dislikes } = res.result.videoDetails
