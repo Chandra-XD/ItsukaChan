@@ -115,9 +115,10 @@ async function connectionUpdate(update) {
     console.log(await global.reloadHandler(true).catch(console.error))
     global.timestamp.connect = new Date
   }
+  // console.log(JSON.stringify(update, null, 4))
   if (global.db.data == null) loadDatabase()
-   if (update.receivedPendingNotifications) conn.reply(`6285785705233@s.whatsapp.net`, `Successfully connected by Tjandraaa`, null)
 }
+
 process.on('uncaughtException', console.error)
 // let strQuot = /(["'])(?:(?=(\\?))\2.)*?\1/
 
@@ -145,10 +146,10 @@ global.reloadHandler = async function (restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate)
   }
 
-  conn.welcome = 'Hi.., @user!\nWelcome to @subject\n\n@desc'
-  conn.bye = 'Byee.. @user!'
-  conn.spromote = '@user now admin!'
-  conn.sdemote = '@user now not admin!'
+  conn.welcome = 'Hai kak @user!\nSelamat datang di @subject'
+  conn.bye = 'Selamat tinggal @user'
+  conn.spromote = '@user sekarang admin!'
+  conn.sdemote = '@user sekarang bukan admin!'
   conn.handler = handler.handler.bind(global.conn)
   conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
   conn.onDelete = handler.deleteUpdate.bind(global.conn)
