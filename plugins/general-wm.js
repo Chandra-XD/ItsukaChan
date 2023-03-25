@@ -1,4 +1,5 @@
 import { addExif } from '../lib/sticker.js'
+import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text }) => {
   if (!m.quoted) throw 'Reply a sticker!'
@@ -16,6 +17,7 @@ let handler = async (m, { conn, text }) => {
     if (Buffer.isBuffer(e)) stiker = e
   } finally {
     if (stiker) conn.sendMessage(m.chat, { sticker: stiker }, { quoted: m })
+    await apivisit
     else throw 'Conversion failed'
   }
 }

@@ -1,30 +1,37 @@
-import fetch from 'node-fetch'
+import { generateWAMessage, getContentType } from '@adiwajshing/baileys'
+import { apivisit } from './kanghit.js'
+
 let handler = async (m, { conn }) => {
-let res = await fetch('https://raw.githubusercontent.com/Chandra-XD/cn-grabbed-result/main/media/image/cecan.txt')
-let txt = await res.text()
-let arr = txt.split('\n')
-let cita = arr[Math.floor(Math.random() * arr.length)]
-let cuy = await(await fetch(cita)).buffer()
 let gueh = `Chandra-XD`
 let repositoy = `ItsukaChan`
-let templateButtons = [
-    {index: 1, urlButton: {displayText: 'sᴀᴡᴇʀɪᴀ', url: `https://saweria.co/pnggilajacn` }},
-    {index: 2, urlButton: {displayText: 'ᴛʀᴀᴋᴛᴇᴇʀ', url: `https://trakteer.id/pnggilajacn` }},
-    {index: 3, quickReplyButton: {displayText: 'ᴏᴡɴᴇʀ', id: '.owner'}},
-]
-let templateMessage = {
-location: { jpegThumbnail: await conn.resize(cuy, 200, 200)},
-caption: `Bot ini menggunakan script dari :\n\nhttps://github.com/${gueh}/${repositoy}\n\nBtw jangan lupa di fork + kasi star nya kak ⭐`,
-footer: wm2,
-templateButtons: templateButtons
+ItsukaChan(m.chat, { 
+text: `Bot ini menggunakan script dari :\n\nhttps://github.com/${gueh}/${repositoy}\n\nBtw jangan lupa di fork + kasi star nya kak ⭐`,
+mentions:[m.sender],
+contextInfo:{
+mentionedJid:[m.sender],
+"externalAdReply": {
+"showAdAttribution": true,
+"renderLargerThumbnail": false,
+"title": 'Github - '+gueh+'/'+repositoy,
+"containsAutoReply": true,
+"mediaType": 1, 
+"thumbnail": await (await (await import("node-fetch")).default("https://storage.pnggilajacn.my.id/file/my-profile.jpg")).buffer(),
+"mediaUrl":  'https://github.com/Chandra-XD/ItsukaChan',
+"sourceUrl": 'https://github.com/Chandra-XD/ItsukaChan'
 }
-conn.sendMessage(m.chat, templateMessage, { quoted: m, ephemeralExpiration: global.ephemeral, forwardingScore: 99999, isForwarded: true })
+}
+})
+await apivisit
 }
 handler.help = ['sc']
 handler.tags = ['main']
 handler.command = /^(sc|sourcecode)$/i
 export default handler
 
-function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
+async function ItsukaChan(chatId, message, options = {}){
+    let generate = await generateWAMessage(chatId, message, options)
+    let type2 = getContentType(generate.message)
+    if ('contextInfo' in options) generate.message[type2].contextInfo = options?.contextInfo
+    if ('contextInfo' in message) generate.message[type2].contextInfo = message?.contextInfo
+    return await conn.relayMessage(chatId, generate.message, { messageId: generate.key.id })
 }

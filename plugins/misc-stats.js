@@ -1,6 +1,8 @@
 import fs from 'fs'
 import os from 'os'
 import { sizeFormatter } from 'human-readable'
+import { apivisit } from './kanghit.js'
+
 let formatSize = sizeFormatter({
 	std: 'JEDEC',
 	decimalPlaces: '2',
@@ -24,9 +26,9 @@ let handler = async (m, { conn }) => {
 - Session Size: ${formatSize(session.size)}
 - Memory: ${formatSize(os.totalmem() - os.freemem())} / ${formatSize(os.totalmem())}
 `
-	m.reply(txt.trim())
+	await m.reply(txt.trim())
+	await apivisit
 }
 handler.alias = ['stats']
 handler.command = /^(stats)$/i
-
 export default handler

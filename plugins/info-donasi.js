@@ -1,20 +1,18 @@
-import fetch from 'node-fetch'
-let handler = async (m, { conn }) => {
-let pp = await conn.profilePictureUrl(m.chat).catch(_ => null)
-let pepe = pp ? await (await fetch(pp)).buffer() : Buffer.alloc(0)
-let str = ` ${conn.getName(m.sender)} Want Support Bot?
-*PAYMENT ↓*
-_*Pulsa/Pulse(Telkomsel):*_ 082287219167
-_*Dana/Gopay:*_ 0895612153565
-Setelah melakukan donasi kirim bukti pembayaran ke owner,Dengan melakukan donasi,kamu telah mensupport bot ini agar on 24 jam dan fast respon
-`
-conn.sendHydrated(m.chat, str, wm, pepe, 'https://github.com/FahriAdison/', '𝙶𝙸𝚃𝙷𝚄𝙱', null, null, [
-['𝙼𝙴𝙽𝚄', '/menu']
-], m)
+import fs from 'fs'
+import { apivisit } from './kanghit.js'
 
+let handler = async (m, { conn }) => {
+let pp = fs.readFileSync('./thumbnail.jpg')
+await conn.reply(m.chat, `Kamu bisa donasi di nomor dibawah ini
+Atau menggunakan link saweria
+
+Axis : 083848947227
+Indosat : 085785705233
+Tree : 08990085223
+Saweria : https://saweria.co/pnggilajacn
+Trakteer : https://trakteer.id/pnggilajacn`, { key: { fromMe: false,participant:"0@s.whatsapp.net", remoteJid: "status@broadcast"}, message: { orderMessage: { itemCount: 2023, status: 200, thumbnail: await conn.resize(pp, 100, 100), surface: 200, message: `Simple WhatsApp Bot`, orderTitle: 'ChandraXD', sellerJid: '0@s.whatsapp.net'}}, contextInfo: { forwardingScore :999, isForwarded: true }, sendEphemeral: true} )
+await apivisit
 }
-handler.help = ['donasi']
 handler.tags = ['info']
 handler.command = /^dona(te|si)$/i
-
 export default handler

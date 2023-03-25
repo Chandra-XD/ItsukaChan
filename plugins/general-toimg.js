@@ -6,7 +6,7 @@ let handler = async (m, { conn }) => {
 		let img = await m.quoted.download()
 		await conn.sendMessage(m.chat, { image: img, jpegThumbnail: img }, { quoted: m })
 	} else if (m.quoted && /sticker/.test(m.quoted.mtype) && m.quoted.isAnimated) {
-		await m.reply('_In progress, please wait..._')
+		await m.reply('Sedang diproses...')
 		let img = await m.quoted.download()
 		let out = await webpToVideo(img)
 		await conn.sendMessage(m.chat, { video: out, gifPlayback: /gif/i.test(m.text), gifAttribution: ~~(Math.random() * 2) }, { quoted: m })
