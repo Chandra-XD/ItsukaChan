@@ -1,6 +1,6 @@
 <img src="https://camo.githubusercontent.com/82291b0fe831bfc6781e07fc5090cbd0a8b912bb8b8d4fec0696c881834f81ac/68747470733a2f2f70726f626f742e6d656469612f394575424971676170492e676966" width="800" height="3">
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=ItsukaBot+-+Md;Ini+sc+gratis+anj;+ketahuan+jual??;+langsung+gw+delete!!;+Btw+jangan+hapus+wm+anj;+hargain+gw+sedikit+aja;+Intinya+wm+jangan+dihapus!!;+Oiya+waifu+gwe+cantikkan+bang???;+hehehheh+:v)](https://github.com/Chandra-XD)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=ItsukaBot+-+Md;Ini+sc+gratis+anj;+ketahuan+jual??;+langsung+gw+delete!!;+Btw+jangan+hapus+wm+anj;+hargain+gw+sedikit+aja;+Intinya+wm+jangan+dihapus!!;+Oiya+waifu+gwe+cantikkan+bang???;+hehehheh+:v)](https://github.com/Chandra-XD/ItsukaChan)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/Chandra-XD/cn-grabbed-result/main/media/gif/itsuka%20kotori%20on%20Tumblr.gif" />
