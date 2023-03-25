@@ -17,6 +17,19 @@
 <br>
 <br>
 <details>
+ <summary>Changelog</summary>
+
+## Sabtu, Maret 25 2023
+
+- Release<br>
+walaupun udh lama. tapi dulu inj gwe private
+- Fix button di downloader<br>
+downloader work semua dek gada yg eror"
+- Fix button di menu<br>
+menu work gada eror" kek dulu
+- Add anoboy, otakudesu, nekopoi
+</details>
+<details>
  <summary>Cara Pemasangan</summary>
 
 ## INSTALL ON TERMUX WITH UBUNTU
@@ -190,7 +203,7 @@ gconly: false, // If that chat not from group, bot will ignore
 
 </details>
 <details>
- <summary>Sosmed Gwe</summary>
+ <summary>Sosmed Gwe</summary><br>
 
 [![Instagram Badge](https://img.shields.io/badge/-Instagram-e4405f?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/pnggilajacn)
 [![Facebook Badge](https://img.shields.io/badge/-Facebook-0088cc?style=flat-square&logo=Facebook&logoColor=white)](https://facebook.com/pnggilajacn)
