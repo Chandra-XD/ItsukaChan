@@ -348,8 +348,8 @@ export async function handler(chatUpdate) {
                 }
                 try {
                     if (!isOwner) {
-                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 30000)) return // m.reply('Jangan spam lah kak, sabar')
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 30000)) return // m.reply('Jangan spam lah kak, sabar')
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return // m.reply('Jangan spam lah kak, sabar')
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 10000)) return // m.reply('Jangan spam lah kak, sabar')
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
@@ -443,7 +443,6 @@ export async function participantsUpdate({ id, participants, action }) {
     let chat = global.db.data.chats[id] || {}
     let text = ''
     switch (action) {
-    /*
         case 'add':
         case 'remove':
             if (chat.welcome) {
@@ -480,39 +479,7 @@ export async function participantsUpdate({ id, participants, action }) {
                     }
                 }
             }
-            break */
-            case 'add':
-            case 'remove':
-                if (chat.welcome) {
-                    let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
-                    for (let user of participants) {
-                        let pp = './src/avatar_contact.png'
-                        try {
-                            pp = await this.profilePictureUrl(user, 'image')
-                        } catch (e) {
-
-                        } finally {
-                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc ? String.fromCharCode(8206).repeat(4001) + groupMetadata.desc : '') :
-                                (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', await this.getName(user))
-                            let wel = API('can', '/api/maker/welcome', {
-                                name: await this.getName(id),
-                                gpname: await this.getName(user),
-                                member: groupMetadata.participants.length,
-                                pp: pp,
-                                bg: 'https://cdn.discordapp.com/attachments/850808002545319957/859359637106065408/bg.png'
-                            })
-                            let lea = API('can', '/api/maker/goodbye', {
-                                name: await this.getName(id),
-                                gpname: await this.getName(user),
-                                member: groupMetadata.participants.length,
-                                pp: pp,
-                                bg: 'https://cdn.discordapp.com/attachments/850808002545319957/859359637106065408/bg.png'
-                            })
-                            await this.sendFile(id, action === 'add' ? wel : lea, 'welcome.jpg', text, null, false, { mentions: [user] })
-                            }
-                            }
-                            }
-        break
+            break
         case 'promote':
             text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
         case 'demote':
