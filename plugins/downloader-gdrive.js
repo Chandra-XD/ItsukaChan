@@ -1,17 +1,47 @@
 import fetch from 'node-fetch'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-if (!args[0]) throw `contoh:\n ${usedPrefix + command} https://drive.google.com/file/d/1GyUKXd1WAlv1r2wYfnZ4YO7BtmI-rNbP/view?usp=drivesdk`
-if (!args[0].includes("drive")) return m.reply(`Link Invalid`)
-let rest = await fetch(`https://malesin.xyz/gdrive?url=${args[0]}&apikey=${global.malesin}`)
-let res = await rest.json()
-if (!res) throw 'Server error 404'
-let { downloadUrl, fileName, fileSize, mimetype } = res
-await m.reply('_In progress, please wait..._')
-conn.sendMessage(m.chat, { document: { url: downloadUrl }, fileName: fileName, mimetype: mimetype }, { quoted: m })
+import { sizeFormatter } from 'human-readable'
+import { apivisit } from './kanghit.js'
+
+let formatSize = sizeFormatter({
+	std: 'JEDEC', decimalPlaces: 2, keepTrailingZeroes: false, render: (literal, symbol) => `${literal} ${symbol}B`
+})
+
+let handler = async (m, { conn, args }) => {
+	if (!args[0]) throw 'Input URL' 
+	GDriveDl(args[0]).then(async (res) => {
+		if (!res) throw res
+		await m.reply(JSON.stringify(res, null, 2))
+		conn.sendMessage(m.chat, { document: { url: res.downloadUrl }, fileName: res.fileName, mimetype: res.mimetype }, { quoted: m })
+	})
+	await apivisit
 }
-handler.help = ["gdrive"].map(v => v + ' <url>')
-handler.tags = ["downloader"]
+handler.help = ['gdrive'].map(v => v + ' <url>')
 handler.command = /^(gdrive)$/i
 handler.disabled = false
 
 export default handler
+
+async function GDriveDl(url) {
+	let id
+	if (!(url && url.match(/drive\.google/i))) throw 'Invalid URL'
+	id = (url.match(/\/?id=(.+)/i) || url.match(/\/d\/(.*?)\//))[1]
+	if (!id) throw 'ID Not Found'
+	let res = await fetch(`https://drive.google.com/uc?id=${id}&authuser=0&export=download`, {
+		method: 'post',
+		headers: {
+			'accept-encoding': 'gzip, deflate, br',
+			'content-length': 0,
+			'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+			'origin': 'https://drive.google.com',
+			'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+			'x-client-data': 'CKG1yQEIkbbJAQiitskBCMS2yQEIqZ3KAQioo8oBGLeYygE=',
+			'x-drive-first-party': 'DriveWebUi',
+			'x-json-requested': 'true' 
+		}
+	})
+	let { fileName, sizeBytes, downloadUrl } =  JSON.parse((await res.text()).slice(4))
+	if (!downloadUrl) throw 'Link Download Limit!'
+	let data = await fetch(downloadUrl)
+	if (data.status !== 200) throw data.statusText
+	return { downloadUrl, fileName, fileSize: formatSize(sizeBytes), mimetype: data.headers.get('content-type') }
+}

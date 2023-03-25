@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text }) => {
 	if (!text) throw 'Input URL'
@@ -8,8 +9,9 @@ let handler = async (m, { conn, text }) => {
 		let caption = x === 0 ? res.caption.replace(/https:\/\/t.co\/[a-zA-Z0-9]+/gi, '').trim() : ''
 		conn.sendFile(m.chat, res.media[x].url, '', caption, m)
 	}
+	await apivisit
 }
-handler.help = ['twitter'].map(v => v + ' <query / url>')
+handler.help = ['twitter'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.alias = ['twt', 'twtdl', 'twitter', 'twitterdl']
 handler.command = /^((twt|twitter)(dl)?)$/i

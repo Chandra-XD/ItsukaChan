@@ -1,55 +1,37 @@
-let limit = 80
+let limit = 30
 import fetch from 'node-fetch'
-import { youtubedl, youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
+import { youtubedlv2, youtubedlv3 } from '@bochilteam/scraper'
+import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, args, isPrems, isOwner }) => {
-  if (args && /(?:https?:\/{2})?(?:w{3}|m|music)?\.?youtu(?:be)?\.(?:com|be)(?:watch\?v=|\/)([^\s&]+)/i.test(args[0])) {
-    // let opt = args[1] && args[1].isNumber() ? args[1].replace(/\D/g, '') : ''
-    let res = await fetch(`https://yt-downloader.akkun3704.repl.co/yt?url=${args[0]}`)
-    res = await res.json()
-    if (!res) res = ''
-    let { description, ownerChannelName, viewCount, uploadDate, likes, dislikes } = res.result.videoDetails
-    let { thumbnail, video: _video, title } = await youtubedlv2(args[0]).catch(async _ => await youtubedl(args[0])).catch(async _ => await youtubedlv3(args[0]))
-    await m.reply('_In progress, please wait..._')
-    let limitedSize = (isPrems || isOwner ? 99 : limit) * 1024
-    let video, quality, link, lastError, isLimit //, source
-    for (let i in _video) {
-      try {
-        video = _video[i]
-        quality = video.quality
-        console.log(video)
-        isLimit = video.fileSize > limitedSize
-       if (isLimit && /1080p/.test(quality) || !quality.includes(opt)) continue 
-       if (isLimit && /360p/.test(quality)) continue
-        link = await video.download()
-        if (link) break
-      } catch (e) {
-        video = quality = link = null
-        lastError = e
-        continue
-      }
-    }
-    if (!link) throw 'Error: ' + (lastError || 'Can\'t download video')
-    let _thumb = {}
-    try { _thumb = { jpegThumbnail: await (await fetch(thumbnail)).buffer() } }
-    catch (e) { }
-    await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) || isLimit ? 'document' : 'video']: { url: link }, fileName: `${title}.mp4`, mimetype: 'video/mp4', ..._thumb }, { quoted: m }).then(async (msg) => {
-      let caption = `*Title:* ${title}\n*Quality:* ${quality}\n*Channel:* ${ownerChannelName || ''}\n*Views:* ${viewCount}\n*Upload Date:* ${uploadDate}${likes ? `\n*Likes:* ${likes}` : ''}${dislikes ? `\n*Dislikes*: ${dislikes}` : ''}${description ? `\n*Description:*\n${description}` : ''}`.trim()
-      await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption }, { quoted: msg })
-    })
+if (args && /(?:https?:\/{2})?(?:w{3}|m|music)?\.?youtu(?:be)?\.(?:com|be)(?:watch\?v=|\/)([^\s&]+)/i.test(args[0])) {
+let qu = args[2] || '360'
+let q = qu + 'p'
+let v = args[0]
+let res = await fetch(`https://ytdl.pnggilajacn.my.id/yt?url=${args[0]}`)
+res = await res.json()
+if (!res) res = ''
+let { description, ownerChannelName, viewCount, uploadDate, likes, dislikes } = res.result.videoDetails
+let yt = await youtubedlv2(v).catch(async _ => await youtubedlv3(v))
+let dl_url = await yt.video[q].download()
+let ttl = await yt.title
+let size = await yt.video[q].fileSizeH
+let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < size
+let _thumb = {}
+try { _thumb = { jpegThumbnail: await (await fetch(yt.thumbnail)).buffer() } }
+catch (e) { }
+await m.reply('Sedang diproses...')
+let repl = await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) || isLimit ? 'document' : 'video']: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', ..._thumb }, { quoted: m })
+let caption = `*Title:* ${ttl}\n*Quality:* ${q}\n*Channel:* ${ownerChannelName || ''}\n*Views:* ${viewCount}\n*Upload Date:* ${uploadDate}${likes ? `\n*Likes:* ${likes}` : ''}${dislikes ? `\n*Dislikes*: ${dislikes}` : ''}${description ? `\n*Description:*\n${description}` : ''}`.trim()
+await conn.sendMessage(m.chat, { image: { url: yt.thumbnail }, caption }, { quoted: repl })
+await apivisit
   } else throw 'Invalid URL'
+  	// By Chandra XD
+	// Follow bang
+	// TikTok : @pnggilajacn
+	// Github : https://github.com/Chandra-XD
 }
-handler.help = ['ytmp4'].map(v => v + ' <url>')
+handler.help = ['mp4'].map(v => 'yt' + v + ` <url>`)
 handler.tags = ['downloader']
-handler.alias = ['yt', 'ytv', 'ytmp4']
 handler.command = /^yt(v|mp4)?$/i
-handler.exp = 0
-
 export default handler
-
-async function shortUrl(url) {
-  url = encodeURIComponent(url)
-  let res = await fetch(`https://is.gd/create.php?format=simple&url=${url}`)
-  if (!res.ok) throw false
-  return await res.text()
-}

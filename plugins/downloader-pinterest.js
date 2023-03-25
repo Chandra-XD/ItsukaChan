@@ -2,6 +2,7 @@ import cheerio from 'cheerio'
 import fetch from 'node-fetch'
 import { lookup } from 'mime-types'
 import { URL_REGEX } from '@adiwajshing/baileys'
+import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	text = text.endsWith('SMH') ? text.replace('SMH', '') : text 
@@ -11,7 +12,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	let mime = await lookup(res)
 	text.match(URL_REGEX) ?
 		await conn.sendMessage(m.chat, { [mime.split('/')[0]]: { url: res }, caption: `Succes Download: ${await shortUrl(res)}` }, { quoted: m }) :
-	await conn.sendButton(m.chat, `Result From: ${text.capitalize()}`, await shortUrl(res), res, [['Next', `${usedPrefix + command} ${text}`]], m)
+	await conn.sendMessage(m.chat, { image: { url: res }, caption: `Result From: ${text.capitalize()}`}, { quoted: m })
+	await apivisit
 }
 handler.help = handler.alias = ['pinterest'].map(v => v + ' <query / url>')
 handler.tags = ['downloader']
@@ -36,8 +38,4 @@ async function pinterest(query) {
 		if (!data.length) throw `Query "${query}" not found :/`
 		return data[~~(Math.random() * (data.length))].images.orig.url
 	}
-}
-
-async function shortUrl(url) {
-	return await (await fetch(`https://tinyurl.com/api-create.php?url=${url}`)).text()
 }

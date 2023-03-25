@@ -1,25 +1,35 @@
-//Make & Help By
-//Johannes & Papah-Chan
 import jimp from 'jimp'
 import fs from 'fs'
 import fetch from 'node-fetch'
 import PhoneNumber from 'awesome-phonenumber'
 import moment from 'moment-timezone'
+import { apivisit } from './kanghit.js'
 
-let tags = {}
 const defaultMenu = {
-  before: `\n> Date: %date\n> Time: %time \n> Runtime: %uptime\n%readmore`,
-  header: '*❏═┅═━–〈 %category*',
-  body: '┊› %cmd %islimit %isPremium',
+  before: `
+Hi kak %name 👋
+
+Date: %date
+Time: %time
+Runtime: %uptime
+%readmore`,
+  header: '*%category*',
+  body: '• %cmd %islimit %isPremium',
   footer: '',
-  after: '',
+  after: `Bantu Follow Kak :\nTikTok : @pnggilajacn\nInstagram : @pnggilajacn\nGithub : Chandra-XD`,
 }
 
-let handler = async (m, { conn, usedPrefix: _p }) => {
+let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
+  let tags
+  let teks = `${args[0]}`.toLowerCase()
+  let arrayMenu = ['all']
+  if (!arrayMenu.includes(teks)) teks = '404'
+  if (teks == 'all') tags = {}
+  
   try {
     let name = m.pushName || conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
-    let locale = 'en'
+    let locale = 'id'
     // d.getTimeZoneOffset()
     // Offset -420 is 18.00
     // Offset    0 is  0.00
@@ -40,11 +50,6 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
         setTimeout(resolve, 1000)
       }) * 1000
     }
-    let res = await fetch('https://raw.githubusercontent.com/ArugaZ/grabbed-results/main/random/anime/neko.txt')
-    let txt = await res.text()
-    let arr = txt.split('\n')
-    let cita = arr[Math.floor(Math.random() * arr.length)]
-    let thumb = await(await fetch(cita)).buffer()
     let uptime = clockString(_uptime)
     let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
       return {
@@ -56,6 +61,61 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
         enabled: !plugin.disabled,
       }
     })
+    
+    
+if (teks == '404') {
+let groups = Object.keys(await conn.groupFetchAllParticipating())
+let chats = Object.keys(await conn.chats)
+let block = await conn.fetchBlocklist()
+let hit_kabeh = await fetch(`https://api.countapi.xyz/hit/ItsukaChan/visits`)
+let hk = await hit_kabeh.json()
+
+let to = new Date('April 22, 2023 00:00:00')
+let now = new Date().getTime()
+let distance = to - now
+let days = Math.floor( distance / (1000 * 60 * 60 * 24));
+let hours = Math.floor( distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
+let minute = Math.floor( distance % (1000 * 60 * 60) / (1000 * 60))
+let second = Math.floor( distance % (1000 * 60) / 1000)
+let judul = `*${ucapan()} ${conn.getName(m.sender)}*
+
+*INFO BOT*
+•> Aktif selama ${uptime}
+•> *${hk.value}* Total Hit
+•> *${groups.length}* Grup
+•> *${chats.length - groups.length}* Chat Pribadi
+•> *${Object.keys(global.db.data.users).length}* Pengguna
+•> ${block == undefined ? '*0* Diblokir' : '*' + block.length + '* Diblokir'}
+•> *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
+•> *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned`
+let infoh = `*NOTE :*\nDikarenakan user yang terlalu banyak dan spam, bot diberikan delay / jeda 1 menit.\nIni bertujuan untuk mencegah terjadinya ban dari whatsapp`
+let sections = [{
+        title: `Menuju IdulFitri : ${days} Hari ${hours} Jam ${minute} Menit ${second} Detik`,
+        rows: [
+          { title: 'Allmenu Bot', rowId: `${_p}? all`},
+          { title: 'Status Bot', rowId: `${_p}status`},
+          { title: 'Stats Bot', rowId: `${_p}stats`},
+          { title: 'Speed Bot', rowId: `${_p}speed`},
+          { title: 'Script Bot', rowId: `${_p}sc`},
+          { title: 'Owner Bot', rowId: `${_p}owner`},
+          { title: 'Rules Bot', rowId: `${_p}rules`},
+          { title: 'Rental Bot', rowId: `${_p}rental`},
+          { title: 'Support Bot', rowId: `${_p}donasi`},
+          { title: 'Thanks To', rowId: `${_p}ttq`},
+        ]
+        }]
+let listMessage = {
+      text: judul,
+      footer: infoh,
+      mentions: await conn.parseMention(judul),
+      title: '',
+      buttonText: "Continue ⎙",
+      sections
+    }
+return conn.sendMessage(m.chat, listMessage, { quoted: { key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast'}, message: { pollCreationMessage: { name: `Simple Bot WhatsApp` } } }, mentions: await conn.parseMention(judul), contextInfo: { forwardingScore: 99999, isForwarded: true }})
+await apivisit
+}
+
     for (let plugin of help)
       if (plugin && 'tags' in plugin)
         for (let tag of plugin.tags)
@@ -91,30 +151,22 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       name, date, time,
       readmore: readMore
     }
-    let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
+    let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '0@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    // const pp = await conn.profilePictureUrl(conn.user.jid, 'image').catch(_ => './src/avatar_contact.png')
+    let pp = await conn.profilePictureUrl(conn.user.jid, 'image').catch(_ => './src/avatar_contact.png')
     // if (m.isGroup) return conn.sendButton(m.chat, text.trim(), conn.getName(conn.user.jid), pp, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
     //conn.sendHydrated(m.chat, text.trim(), conn.getName(conn.user.jid), await genProfile(conn, m), 'https://youtube.com/channel/UC0hs_I8N3JntK5vO6KogavQ', 'YouTube', null, null, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
-/*   conn.sendButton(m.chat, `*${wish()}, ${name} 👋*`, text.trim(), await genProfile(conn, m), [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], false, { quoted: fkon, contextInfo: { externalAdReply: { showAdAttribution: true,
-    mediaUrl: "https://Instagram.com/bot_whangsaf",
-    mediaType: "VIDEO",
-    description: "https://Instagram.com/bot_whangsaf", 
-    title: 'Simple Bot Esm',
-    body: wm,
-    thumbnail: thumb,
-    sourceUrl: sgc
-}
-} }) */
-conn.sendMessage(m.chat, { video: { url: 'https://telegra.ph/file/c82d5c358495e8ef15916.mp4' }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: text.trim(), footer: await conn.getName(conn.user.jid) , templateButtons: [{ quickReplyButton: { displayText: 'Speedtest', id: _p +`ping` }}, { quickReplyButton: { displayText: 'Owner', id: _p + `owner` }} ] }, { quoted: m, ephemeralExpiration: global.ephemeral, forwardingScore: 99999, isForwarded: true })
+let url = pickRandom([`https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv1.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv2.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv3.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv4.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv5.mp4`])
+conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: text.trim()}, { quoted: m })
+await apivisit
   } catch (e) {
     m.reply('An error occurred')
     throw e
   }
-}
+  }
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(allmenu|menu|help|\?)$/i
+handler.command = /^(m|menu|help|\?)$/i
 
 export default handler
 
@@ -128,27 +180,9 @@ function clockString(ms) {
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
 
-function wish() {
-    let wishloc = ''
-  const time = moment.tz('Asia/Kolkata').format('HH')
-  wishloc = ('Hi')
-  if (time >= 0) {
-    wishloc = ('Night Rider')
+function pickRandom(list) {
+     return list[Math.floor(Math.random() * list.length)]
   }
-  if (time >= 4) {
-    wishloc = ('Good Morning')
-  }
-  if (time >= 12) {
-    wishloc = ('Good Afternoon')
-  }
-  if (time >= 16) {
-    wishloc = ('️Good Evening')
-  }
-  if (time >= 23) {
-    wishloc = ('Night Rider')
-  }
-  return wishloc
-}
 
 async function genProfile(conn, m) {
   let font = await jimp.loadFont('./names.fnt'),
@@ -167,4 +201,23 @@ async function genProfile(conn, m) {
     await welcome.print(font, 550, 500, 'Number:')
     await welcome.print(font, 650, 575, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'))
     return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
+}
+
+function ucapan() {
+        const hour_now = moment.tz('Asia/Jakarta').format('HH')
+        var ucapanWaktu = 'Ohayou...'
+        if (hour_now >= '03' && hour_now <= '10') {
+          ucapanWaktu = 'Ohayou...'
+        } else if (hour_now >= '10' && hour_now <= '15') {
+          ucapanWaktu = 'Konnichiwa...'
+        } else if (hour_now >= '15' && hour_now <= '17') {
+          ucapanWaktu = 'Konnichiwa...'
+        } else if (hour_now >= '17' && hour_now <= '18') {
+          ucapanWaktu = 'Konbanwa...'
+        } else if (hour_now >= '18' && hour_now <= '23') {
+          ucapanWaktu = 'Konbanwa...'
+        } else {
+          ucapanWaktu = 'Konbanwa'
+        }	
+        return ucapanWaktu
 }

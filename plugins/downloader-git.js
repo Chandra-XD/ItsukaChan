@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, args }) => {
 	let regex = /(?:https?|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
@@ -11,11 +12,11 @@ let handler = async (m, { conn, args }) => {
 	if (res.status !== 200) throw res.statusText
 	let fileName = res.headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
 	let mimetype = res.headers.get('content-type')
-	await m.reply('_In progress, please wait..._')
+	await await m.reply('Sedang diproses...')
 	conn.sendMessage(m.chat, { document: { url }, fileName, mimetype }, { quoted: m })
+	await apivisit
 }
-handler.help = handler.alias = ['gitclone']
+handler.help = handler.alias = ['gitclone'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.command = /^(gitclone)$/
-
 export default handler
