@@ -1,3 +1,7 @@
+<img src="https://camo.githubusercontent.com/82291b0fe831bfc6781e07fc5090cbd0a8b912bb8b8d4fec0696c881834f81ac/68747470733a2f2f70726f626f742e6d656469612f394575424971676170492e676966" width="800" height="3">
+
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=ItsukaBot+-+Md;Ini+sc+gratis+anj;+ketahuan+jual??;+langsung+gw+delete!!;+Btw+jangan+hapus+wm+anj;+hargain+gw+sedikit+aja;+Intinya+wm+jangan+dihapus!!;+Oiya+waifu+gwe+cantikkan+bang???;+hehehheh+:v)](https://github.com/Chandra-XD)
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/Chandra-XD/cn-grabbed-result/main/media/gif/itsuka%20kotori%20on%20Tumblr.gif" />
 </p>
@@ -10,58 +14,10 @@
 <a href="https://github.com/Chandra-XD/ItsukaChan/issues?q=is%3Aissue+is%3Aclosed"><img title="Issues" src="https://img.shields.io/github/issues-closed/Chandra-XD/ItsukaChan?label=Issues&color=red&style=flat-square"></a>
 <a href="https://github.com/Chandra-XD/ItsukaChan/pulls"><img title="Pull Request" src="https://img.shields.io/github/issues-pr/Chandra-XD/ItsukaChan?label=PullRequest&color=success&style=flat-square"></a>
 <a href="https://github.com/Chandra-XD/ItsukaChan/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Chandra-XD/ItsukaChan?label=PullRequest&color=red&style=flat-square"></a>
-
-# ItsukaBot-Md
-
-Script ini gratis jika ketahuan dijual maka akan di delete atau berhenti berkembang. <br>
-Btw jangan hapus wm cuy hargain gw sedikit aja dah, intinya wm jangan dihapus!!
-
-## FOR REPLIT
-[![Run on Repl.it](https://repl.it/badge/github/FadliDarmawan/haruno)](https://repl.it/github/Chandra-XD/ItsukaChan)
-```cmd
-Buka Console
-------------
-> npm i
-> npm i qrcode
-> install-pkg webp
-> install-pkg ffmpeg
--------------
-Click Run
-```
-## Heroku Buildpack
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Chandra-XD/ItsukaChan)
-
-| BuildPack | LINK |
-|--------|--------|
-| **FFMPEG** |[here](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
-| **IMAGEMAGICK** | [here](https://github.com/DuckyTeam/heroku-buildpack-imagemagick) |
-
----------
-
-## HOW TO CONNECT TO MONGODB WHEN RUN IN HEROKU
-
-* Create account and database in mongodb atlas [`watch here`](https://youtu.be/rPqRyYJmx2g)
-* when you already have a database, you just need to take mongourl
-* Put mongourl in Procfile `web: node . --db 'mongourl'`
-* Example `web: node . -- db 'Your Mongo URI'`
-
----------
-
-## FOR TERMUX/UBUNTU/SSH USER
-
-```bash
-apt update && apt upgrade
-apt install git -y
-apt install nodejs -y
-apt install ffmpeg -y
-apt install imagemagick -y
-git clone https://github.com/Chandra-XD/ItsukaChan
-cd ItsukaChan
-pkg install yarn
-yarn
-
-```
----------
+<br>
+<br>
+<details>
+ <summary>Cara Pemasangan</summary>
 
 ## INSTALL ON TERMUX WITH UBUNTU
 
@@ -74,6 +30,7 @@ proot-distro install ubuntu
 echo "proot-distro login ubuntu" > $PREFIX/bin/ubuntu
 ubuntu
 ```
+
 ---------
 
 [ INSTALLING REQUIRED PACKAGES ]
@@ -100,6 +57,39 @@ npm update
 
 ---------
 
+## FOR REPLIT
+[![Run on Repl.it](https://repl.it/badge/github/FadliDarmawan/haruno)](https://repl.it/github/Chandra-XD/ItsukaChan)
+```cmd
+Buka Console
+
+------------
+> npm i
+> npm i qrcode
+> install-pkg webp
+> install-pkg ffmpeg
+-------------
+Click Run
+```
+
+---------
+
+## FOR TERMUX/UBUNTU/SSH USER
+
+```bash
+apt update && apt upgrade
+apt install git -y
+apt install nodejs -y
+apt install ffmpeg -y
+apt install imagemagick -y
+git clone https://github.com/Chandra-XD/ItsukaChan
+cd ItsukaChan
+pkg install yarn
+yarn
+
+```
+
+---------
+
 ## FOR WINDOWS/VPS/RDP USER
 
 * Download And Install Git [`Click Here`](https://git-scm.com/downloads)
@@ -113,26 +103,6 @@ cd ItsukaChan
 npm install
 npm update
 ```
-
----------
-
-## FOR OKTETO
-
-* Okteto [`Click Here`](https://okteto.com)
-
-```bash
-Login with your github
-Click Launch Dev Environment
-Choose your repo
-```
-
-
----------
-
-## PANEL/RDP/VPS
-
-* Amiruldev [`Click Here`](https://www.amiruldev.my.id)
-
 
 ---------
 
@@ -218,32 +188,51 @@ gconly: false, // If that chat not from group, bot will ignore
 
 ---------
 
+</details>
+<details>
+ <summary>Sosmed Gwe</summary>
+
+[![Instagram Badge](https://img.shields.io/badge/-Instagram-e4405f?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/pnggilajacn)
+[![Facebook Badge](https://img.shields.io/badge/-Facebook-0088cc?style=flat-square&logo=Facebook&logoColor=white)](https://facebook.com/pnggilajacn)
+[![Telegram Badge](https://img.shields.io/badge/-Telegram-0088cc?style=flat-square&logo=Telegram&logoColor=white)](https://t.me/pnggilajacn)
+[![Whatsapp Badge](https://img.shields.io/badge/-Whatsapp-%808080?style=flat-square&logo=Whatsapp&logoColor=white)](https://s.id/pnggilajacn)
+[![Email Badge](https://img.shields.io/badge/Email-3b5998?style=flat-square&logo=email&logoColor=white)](mailto:cuancari074@gmail.com)
+<a href="https://github.com/Chandra-XD"><img src="https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github" /> 
+<a href="https://komarev.com/ghpvc/?username=ChandraXD307&color=blue&style=flat-square&label=Profile+Views"><img title="Watching" src="https://komarev.com/ghpvc/?username=ChandraXD307&color=green&style=flat-square&label=Profile+View"></a>
+[![Twitter Badge](https://img.shields.io/badge/-Twitter-0088cc?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/@Chandra_XD307)
+<a href="https://tiktok.com/@pnggilajacn"><img src="https://img.shields.io/badge/-TikTok-black?style=flat-square&logo=tiktok" /> 
+[![YouTube Badge](https://img.shields.io/badge/-YouTube-e4405f?style=flat-square&logo=YouTube&logoColor=white)](https://youtube.com/@ChandraXD307)
+
+</details>
+
+<details>
+ <summary>Donasi bang</summary>
+
+### Pulsa
+- Axis: 083848947227
+- Indosat: 085785705233
+- Three: 08990085223
+
+### Uang digital
+- [Saweria](https://saweria.co/pnggilajacn)
+- [Trakteer](https://trakteer.id/pnggilajacn)
+</details>
+<details>
+ <summary>Thanks To</summary>
+
+
 #### Thank's To
 
-Allah SWT,
+- Allah SWT
+- Orang Tua
+- [Adiwajshing](https://github.com/adiwajshing)
+- [Nurutomo](https://github.com/Nurutomo)
+- [BochilGaming](https://github.com/BochilGaming)
+- [Ariffb25](https://github.com/ariffb25)
+- All creator bot
+- Dan semua yang selalu mendukung
 
-Orang Tua,
-
-Semua yang selalu mendukung
-
-#### Special Thank's To
-[![Nurutomo](https://github.com/Nurutomo.png?size=100)](https://github.com/Nurutomo)
-[![BochilGaming](https://github.com/BochilGaming.png?size=100)](https://github.com/BochilGaming)
-[![ariffb25](https://github.com/ariffb25.png?size=100)](https://github.com/ariffb25)
-
-
-## Contributor
-
-[![Darrma23](https://github.com/Darrma23.png?size=100)](https://github.com/Darrma23)
-[![aniq12](https://github.com/aniq12.png?size=100)](https://github.com/aniq12)
-[![amiruldev20](https://github.com/amiruldev20.png?size=100)](https://github.com/amiruldev20)
-[![Chacax](https://github.com/Chacax.png?size=100)](https://github.com/Chacax)
-[![rahmad13](https://github.com/rahmad13.png?size=100)](https://github.com/rahmad13)
-[![Kangsad01](https://github.com/Kangsad01.png?size=100)](https://github.com/Kangsad01)
-[![Fokus-ID](https://github.com/Fokusdotid.png?size=100)](https://github.com/Fokusdotid)
-[![NurFy](https://github.com/NurFy.png?size=100)](https://github.com/NurFy)
-[![SudoAnirudh](https://github.com/SudoAnirudh.png?size=100)](https://github.com/SudoAnirudh)
-[![Ri](https://github.com/PixieID.png?size=100)](https://github.com/PixieID)
-
-## Penulis Ulang
+## Recode By
 [![Chandra-XD](https://github.com/Chandra-XD.png?size=100)](https://github.com/Chandra-XD)
+</details>
+<img src="https://camo.githubusercontent.com/82291b0fe831bfc6781e07fc5090cbd0a8b912bb8b8d4fec0696c881834f81ac/68747470733a2f2f70726f626f742e6d656469612f394575424971676170492e676966" width="800" height="3">
