@@ -56,7 +56,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, text, command }) => {
   let txt = await res.text()
   let arr = txt.split('\n')
   let cita = arr[Math.floor(Math.random() * arr.length)]
-  let cuy = await(await fetch(cita)).buffer()
+  let url = await(await fetch(cita)).buffer()
   let tulisan = `     *––––––『 BOT INFO 』––––––*
 ɴᴀᴍᴇ: ${_package.name}
 ᴠᴇʀsɪᴏɴ: ${_package.version}
@@ -79,17 +79,7 @@ sᴇʀᴠᴇʀ ɪɴғᴏ :
 • ${chats.length - groupsIn.length} - Personal Chats
 • ${chats.length} - Total Chats
 `.trim()
-let templateButtons = [
-    {index: 1, urlButton: {displayText: 'sᴀᴡᴇʀɪᴀ', url: `https://saweria.co/pnggilajacn` }},
-    {index: 2, quickReplyButton: {displayText: 'ᴏᴡɴᴇʀ', id: '.owner'}},
-]
-let templateMessage = {
-location: { jpegThumbnail: await conn.resize(cuy, 200, 200)},
-caption: tulisan,
-footer: wm2,
-templateButtons: templateButtons
-}
-conn.sendMessage(m.chat, templateMessage, { quoted: m, ephemeralExpiration: global.ephemeral, forwardingScore: 99999, isForwarded: true })
+conn.sendMessage(m.chat, { image: { url }, caption: tulisan}, { quoted: m })
 }
 handler.help = ['infobot']
 handler.tags = ['info']
