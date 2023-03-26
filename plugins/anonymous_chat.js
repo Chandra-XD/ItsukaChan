@@ -8,7 +8,7 @@ async function handler(m, { command }) {
             if (!room) return this.sendButton(m.chat, '_Kamu tidak sedang berada di anonymous chat_', author, null, [['Cari Partner', `.start`]], m)
             m.reply('Ok')
             let other = room.other(m.sender)
-            if (other) await this.sendButton(other, '_Partner meninggalkan chat_', author, null, [['Cari Partner', `.start`]], m)
+            if (other) await conn.reply(other, '_Partner meninggalkan chat_\n\nKetik /start ( untuk mencari  partner )', m)
             delete this.anonymous[room.id]
             if (command === 'leave') break
         }
@@ -16,10 +16,10 @@ async function handler(m, { command }) {
             if (Object.values(this.anonymous).find(room => room.check(m.sender))) return this.sendButton(m.chat, '_Kamu masih berada di dalam anonymous chat, menunggu partner_', author, null, [['Keluar', `.leave`]], m)
             let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
             if (room) {
-                await this.sendButton(room.a, '_Partner ditemukan!_', author, null, [['Next', `.next`]], m)
+                await conn.reply(room.a, '_Partner ditemukan!_\n\nKetik /next ( untuk mencari partner lagi )', m)
                 room.b = m.sender
                 room.state = 'CHATTING'
-                await this.sendButton(room.b, '_Partner ditemukan!_', author, null, [['Next', `.next`]], m)
+                await conn.reply(room.b, '_Partner ditemukan!_\n\nKetik /next ( untuk mencari partner lagi )', m)
             } else {
                 let id = + new Date
                 this.anonymous[id] = {
@@ -34,7 +34,7 @@ async function handler(m, { command }) {
                         return who === this.a ? this.b : who === this.b ? this.a : ''
                     },
                 }
-                await this.sendButton(m.chat, '_Menunggu partner..._', author, null, [['Keluar', `.leave`]], m)
+                await conn.reply(m.chat, '_Menunggu partner...\n\nKetik /leave ( untuk keluar dari anonymous )', m)
             }
             break
         }
