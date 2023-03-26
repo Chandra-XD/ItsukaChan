@@ -1,6 +1,6 @@
 async function handler(m, { command }) {
     command = command.toLowerCase()
-    this.anonymous = this.anonymous ? this.anonymous : {}
+    conn.anonymous = conn.anonymous ? conn.anonymous : {}
     switch (command) {
         case 'next':
         case 'leave': {
