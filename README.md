@@ -19,7 +19,7 @@
 <details>
  <summary>Changelog</summary>
 
-## Sabtu, Maret 25 2023
+## Sabtu, 25 Maret 2023
 
 - Release<br>
 walaupun udh lama. tapi dulu inj gwe private
@@ -28,6 +28,14 @@ downloader work semua dek gada yg eror"
 - Fix button di menu<br>
 menu work gada eror" kek dulu
 - Add anoboy, otakudesu, nekopoi
+
+## Minggu, 26 Maret 2023
+- Fix anonymous
+- Fix wikihow
+- Fix Menu ngga muncul
+- Fix Grup antilink
+- Fix downloader tiktok
+## Untuk yang lain nya coming soon ya
 </details>
 <details>
  <summary>Cara Pemasangan</summary>
