@@ -50,7 +50,7 @@ let handler = async (m, { conn, isRowner}) => {
   })
 
   let old = performance.now()
-  await m.reply(`${htjava} *T e s t i n g. . .*`)
+  await m.reply(`*T e s t i n g. . .*`)
   let neww = performance.now()
   let speed = neww - old
   await conn.reply(m.chat,`*S P E E D*
