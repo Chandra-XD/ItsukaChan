@@ -11,13 +11,12 @@ async function handler(m, { command, conn, text }) {
 	var number = who.split('@')[0]
 	let tks = `➔ Nomor: ${m.sender.split`@`[0]}
 ➔ Nama: ${name}`
-    this.reply(m.chat, 'Menggirimkan Kontak...')
-	if (other) this.reply(other, `Partner mengirimkan kontak kepadamu`)
-	if (other) this.sendHydrated(other, `${htki} ᴀɴᴏɴʏᴍᴏᴜs ᴄʜᴀᴛs ${htka}`, tks, await conn.profilePictureUrl(m.sender, 'image').catch(_ => './src/avatar_contact.png'), `wa.me/${m.sender.split`@`[0]}`, 'ᴛᴜʀɴ ᴄʜᴀᴛ ᴘᴀʀᴛɴᴇʀ', null,null, [['ʟᴇᴀᴠᴇ', '.leave'],[null,null],[null,null]], m, { viewOnce: m })
+        conn.reply(m.chat, 'Menggirimkan Kontak...')
+	if (other) conn.reply(other, `Partner mengirimkan kontak kepadamu`)
+	if (other) conn.sendMessage(other, { image: { url: await conn.profilePictureUrl(m.sender, 'image').catch(_ => './src/avatar_contact.png')}, caption: tks }, { quoted: m })
 }
 handler.help = ['sendkontak']
 handler.tags = ['anonymous']
 handler.command = /^(sendkontak)$/i
 handler.private = true
-
 export default handler
