@@ -8,7 +8,7 @@ let teks = `*───────[ BIODATA OWNER ]───────*
 *⏰ Tanggal lahir* : 13 Maret 2007
 *🎨 Umur* : 16
 *🧮 Kelas* : 10
-*🧩 Hobby* : Nonton Hanime, Chatting, Dengerin Musik
+*🧩 Hobby* : Nonton Anime, Chatting, Dengerin Musik
 *💬 Sifat* : Baik, Sopan, Seru Orangnya
 *🗺️ Tinggal* : Bogor, Citeureup, Jawa barat Indonesia
 *❤️ Suka* : Suasana yang tenang
