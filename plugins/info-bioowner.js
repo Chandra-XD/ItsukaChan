@@ -1,30 +1,29 @@
 let handler = async (m, { conn }) => {
-let ppown = await conn.profilePictureUrl(nomorown + '@s.whatsapp.net', 'image').catch(_ => hwaifu[1]) 
-let teksbio = `*───────[ BIODATA OWNER ]───────*
-*💌 Nama* : Sad-Bot
-*✉️ Nama RL* : Fahri
+let url = await conn.profilePictureUrl(global.owner[0] + '@s.whatsapp.net', 'image').catch(_ => `https://storage.pnggilajacn.my.id/file/my-profile.jpg`) 
+let teks = `*───────[ BIODATA OWNER ]───────*
+*💌 Nama* : Chandra XD 3.07
+*✉️ Nama RL* : Candra
 *♂️ Gender* : Laki - laki
 *🕋 Agama* : Islam
-*⏰ Tanggal lahir* : 10 Juni 2007
-*🎨 Umur* : 15
-*🧮 Kelas* : 9
-*🧩 Hobby* : Nonton Hanime, Chatting, Recode script bot
-*💬 Sifat* : Idiot, Tidak Ramah, Kanjut, Prik, Pedofil
-*🗺️ Tinggal* : Indo, Riau, Indragiri Hulu, Air Molek
-*❤️ Suka* : warnah kuning & biru, Hanime, waifu, loli, trap, furry, kucing
-*💔 Benci* : autis, anak epep, seleb
+*⏰ Tanggal lahir* : 13 Maret 2007
+*🎨 Umur* : 16
+*🧮 Kelas* : 10
+*🧩 Hobby* : Nonton Hanime, Chatting, Dengerin Musik
+*💬 Sifat* : Baik, Sopan, Seru Orangnya
+*🗺️ Tinggal* : Bogor, Citeureup, Jawa barat Indonesia
+*❤️ Suka* : Suasana yang tenang
+*💔 Benci* : Anak kecil atau kakak² yang gasopan
 
 *───────[ SOSIAL MEDIA ]───────*
-*📷 instagran* : @bot_whangsaf
-*🇫  Facebook* : Adison Fahri
-*🏮 Chanel Youtube* : Papah-Chan
-*🐈 Github:* FahriAdison
+*📷 instagran* : @pnggilajacn
+*🇫  Facebook* : @pnggilajacn
+*🏮 Chanel Youtube* : @ChandraXD307
+*🐈 Github:* @Chandra-XD
 
 `
-conn.sendHydrated(m.chat, teksbio, wm, ppown, "wa.me/" + nomorown, "💬 ᴄʜᴀᴛs", null,null, [["ᴅᴏɴᴀsɪ", '.donasi'], [null, null],[null,null]], m)
+conn.sendMessage(m.chat, { image: { url }, caption: teks }, { quoted: m})
 }
 handler.help = ['bioowner']
 handler.tags = ['info']
 handler.command = /^(bioowner)$/i
-
 export default handler
