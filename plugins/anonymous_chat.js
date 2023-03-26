@@ -13,7 +13,7 @@ async function handler(m, { command }) {
             if (command === 'leave') break
         }
         case 'start': {
-            if (Object.values(this.anonymous).find(room => room.check(m.sender))) return this.sendButton(m.chat, '_Kamu masih berada di dalam anonymous chat, menunggu partner_', author, null, [['Keluar', `.leave`]], m)
+            if (Object.values(this.anonymous).find(room => room.check(m.sender))) return conn.reply(m.chat, '_Kamu masih berada di dalam anonymous chat, menunggu partner_\n\nKetik /leave ( untuk keluar dari anonymous )', m)
             let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
             if (room) {
                 await conn.reply(room.a, '_Partner ditemukan!_\n\nKetik /next ( untuk mencari partner lagi )', m)
