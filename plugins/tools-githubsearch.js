@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 let handler = async (m, { text }) => {
-    if (!text) throw 'Cari apa?'
+    if (!text) throw 'Imput Query?'
     let res = await fetch(global.API('https://api.github.com', '/search/repositories', {
         q: text
     }))
@@ -18,13 +18,11 @@ ${repo.open_issues} Issue${repo.description ? `
 *Clone:* \`\`\`$ git clone ${repo.clone_url}\`\`\`
 `.trim()
     }).join('\n\n')
-   conn.sendHydrated(m.chat, str,wm, null, ["github.com/FahriAdison"], ['Github Owner'], null,null,[null,null],m)
+   m.reply(str)
 }
-handler.help = ['githubsearch'].map(v => v + ' <pencarian>')
+handler.help = ['githubsearch'].map(v => v + ' <query>')
 handler.tags = ['tools']
-
 handler.command = /^g(ithub|h)search$/i
-
 export default handler
 
 function formatDate(n, locale = 'id') {
