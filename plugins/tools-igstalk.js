@@ -17,7 +17,7 @@ ${res.description}
   if (res.profilePic) return conn.sendMessage(m.chat, { image: { url: res.profilePic }, caption }, { quoted: m })
   m.reply(caption)
 }
-handler.help = ['igstalk']
+handler.help = ['igstalk'].map(v => v + ' <username>')
 handler.tags = ['tools']
 handler.alias = ['igstalk', 'stalkig']
 handler.command = /^(igstalk|stalkig)$/i
