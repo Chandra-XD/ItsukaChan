@@ -13,5 +13,4 @@ async function handler(m, { isAdmin, isOwner }) {
 handler.help = ['q']
 handler.tags = ['tools']
 handler.command = /^q$/i
-
 export default handler 
