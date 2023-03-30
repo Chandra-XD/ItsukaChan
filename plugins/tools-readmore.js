@@ -4,20 +4,9 @@ let handler = async (m, { conn, text }) => {
   if (!r) r = ''
   conn.reply(m.chat, l + readMore + r, m)
 }
-handler.help = ['readmore'].map(v => v + ' <teks>|<teks>')
+handler.help = ['readmore'].map(v => v + ' <teks1>|<teks2>')
 handler.tags = ['tools']
 handler.command = /^(spoiler|hidetext|readmore|selengkapnya)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
-
 export default handler
 
 const more = String.fromCharCode(8206)
