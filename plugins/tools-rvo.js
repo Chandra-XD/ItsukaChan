@@ -8,5 +8,4 @@ let handler = async (m, { conn }) => {
 handler.help = ['readviewonce']
 handler.tags = ['tools']
 handler.command = /^(retrieve|rvo|readviewonce)$/i
-
 export default handler
