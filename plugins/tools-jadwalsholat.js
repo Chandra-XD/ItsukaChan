@@ -10,7 +10,7 @@ let handler = async (m, { text }) => {
 	}).join`\n\n`
 	m.reply(res)
 }
-handler.help = handler.alias = ['jadwalsholat']
+handler.help = handler.alias = ['jadwalsholat'].map(v => v + ' <daerah>')
 handler.tags = ['tools']
 handler.command = /^(jadwalsholat)$/i
 
