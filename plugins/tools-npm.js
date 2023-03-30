@@ -10,8 +10,7 @@ let handler = async (m, { text }) => {
 	}).join`\n\n`
 	m.reply(txt)
 }
-handler.help = ['npmsearch']
+handler.help = ['npmsearch'].map(v => v + ' <query>')
 handler.tags = ['tools']
 handler.command = /^npm(js|search)?$/i
-
 export default handler
