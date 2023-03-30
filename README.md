@@ -35,7 +35,14 @@ menu work gada eror" kek dulu
 - Fix Menu ngga muncul
 - Fix Grup antilink
 - Fix downloader tiktok
-## Untuk yang lain nya coming soon ya
+
+## Jum'at, 31 Maret 2023
+- Fix loli
+- Fix ssweb
+- Fix nobg
+- Rapihin plugins" yg berantakan
+
+## Untuk yang lain nya coming soon yaaa
 </details>
 <details>
  <summary>Cara Pemasangan</summary>
