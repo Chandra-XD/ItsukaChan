@@ -6,7 +6,7 @@ let handler = async(m, { conn, args }) => {
 
 let code = (args[0] || '').replace(/\D/g, '')
 if (!code) throw 'Input code' 
-	await m.reply('_In progress, please wait..._')
+	await m.reply('Sedang diproses...')
 let data = await nhentaiScraper(code)
 let pages = []
 let thumb = `https://external-content.duckduckgo.com/iu/?u=https://t.nhentai.net/galleries/${data.media_id}/thumb.jpg`	
@@ -21,7 +21,7 @@ await conn.sendMessage(m.chat, { document: imagepdf, jpegThumbnail, fileName: da
 } 
 handler.command = /^(nhentai|nhpdf)$/i
 handler.tags = ['nsfw']
-handler.help = ['nhentai <code> ']
+handler.help = ['nhentai'].map(v => v + ' <code>')
 export default handler 
 
 async function nhentaiScraper(id) {

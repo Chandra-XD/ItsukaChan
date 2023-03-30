@@ -12,9 +12,8 @@ let handler = async (m) => {
 	} else throw 'No media found'
 }
 handler.help = ['tourl2']
-// handler.tags = ['tools']
+handler.tags = ['tools']
 handler.command = /^(tourl2)$/i
-
 export default handler
 
 async function uploadFile(path) {

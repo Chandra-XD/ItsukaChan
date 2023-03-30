@@ -8,7 +8,7 @@ let handler = async (m, { conn, text }) => {
   let txt = Object.keys(res).map((v) => `*${v.capitalize()}:* ${res[v]}`).join`\n`
   await conn.sendFile(m.chat, img, '', txt, m)
 }
-handler.help = ['tiktokstalk']
+handler.help = ['tiktokstalk'].map(v => v + ' <username>')
 handler.tags = ['tools']
 handler.command = /^t(tstalk|iktokstalk)$/i
 

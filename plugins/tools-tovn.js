@@ -12,7 +12,5 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 }
 handler.help = ['tovn (reply)']
 handler.tags = ['audio']
-
 handler.command = /^to(vn|(ptt)?)$/i
-
 export default handler

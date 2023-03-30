@@ -5,8 +5,8 @@ let totalf = Object.values(global.plugins).filter(
 conn.reply(m.chat, `Total Fitur saat ini: ${totalf}`,m)
 }
 
-// handler.help = ['totalfitur']
-// handler.tags = ['tools']
+handler.help = ['totalfitur']
+handler.tags = ['tools']
 handler.command = ['totalfitur']
 handler.limit = true
-export default handler 
+export default handler
