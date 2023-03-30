@@ -11,7 +11,6 @@ let handler = async (m, { text }) => {
 handler.help = ['jadwaltv']
 handler.tags = ['tools']
 handler.command = /^jadwaltv$/i
-
 export default handler
 
 async function jadwalTV(name) {
@@ -27,32 +26,3 @@ async function jadwalTV(name) {
 	})
 	return { channel: data.channel.toUpperCase(), result }
 }
-/*
-async function listJadwalTV() {
-	let html = (await axios.get('https://www.jadwaltv.net/jadwal-pay-tv')).data
-	let $ = cheerio.load(html), result = []
-	$('#channelPayTVDropdown.dropdown > option').get().map((v) => {
-		let name = $(v).text().toLowerCase()
-		result.push({ value: $(v).val(), channel: name, isPay: true })
-	})
-	return [
-		{ value: 'channel/antv', channel: 'antv', isPay: false },
-		{ value: 'channel/gtv', channel: 'gtv', isPay: false },
-		{ value: 'channel/indosiar', channel: 'indosiar', isPay: false },
-		{ value: 'channel/inewstv', channel: 'inews tv', isPay: false },
-		{ value: 'channel/kompastv', channel: 'kompas tv', isPay: false },
-		{ value: 'channel/metrotv', channel: 'metro tv', isPay: false },
-		{ value: 'channel/mnctv', channel: 'mnctv', isPay: false },
-		{ value: 'channel/nettv', channel: 'net tv', isPay: false },
-		{ value: 'channel/ochannel', channel: 'ochannel', isPay: false },
-		{ value: 'channel/rcti', channel: 'rcti', isPay: false },
-		{ value: 'channel/rtv', channel: 'rtv', isPay: false },
-		{ value: 'channel/sctv', channel: 'sctv', isPay: false },
-		{ value: 'channel/trans7', channel: 'trans7', isPay: false },
-		{ value: 'channel/transtv', channel: 'transtv', isPay: false },
-		{ value: 'channel/tvone', channel: 'tvone', isPay: false },
-		{ value: 'channel/tvri', channel: 'tvri', isPay: false },
-		...result
-	]
-}
-*/
