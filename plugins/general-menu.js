@@ -5,14 +5,9 @@ import PhoneNumber from 'awesome-phonenumber'
 import moment from 'moment-timezone'
 import { apivisit } from './kanghit.js'
 
+let tags = {}
 const defaultMenu = {
-  before: `
-Hi kak %name 👋
-
-Date: %date
-Time: %time
-Runtime: %uptime
-%readmore`,
+  before: `%readmore`,
   header: '*%category*',
   body: '• %cmd %islimit %isPremium',
   footer: '',
@@ -20,12 +15,17 @@ Runtime: %uptime
 }
 
 let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
-  let tags
+/*  let tags
   let teks = `${args[0]}`.toLowerCase()
   let arrayMenu = ['all']
   if (!arrayMenu.includes(teks)) teks = '404'
   if (teks == 'all') tags = {}
-  
+Hi kak %name 👋
+
+Date: %date
+Time: %time
+Runtime: %uptime
+*/
   try {
     let name = m.pushName || conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
@@ -63,7 +63,7 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
     })
     
     
-if (teks == '404') {
+// if (teks == '404') {
 let groups = Object.keys(await conn.groupFetchAllParticipating())
 let chats = Object.keys(await conn.chats)
 let block = await conn.fetchBlocklist()
@@ -89,7 +89,7 @@ let judul = `*${ucapan()} ${conn.getName(m.sender)}*
 •> *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
 •> *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned`
 let infoh = `*NOTE :*\nDikarenakan user yang terlalu banyak dan spam, bot diberikan delay / jeda 1 menit.\nIni bertujuan untuk mencegah terjadinya ban dari whatsapp`
-let sections = [{
+/* let sections = [{
         title: `Menuju IdulFitri : ${days} Hari ${hours} Jam ${minute} Menit ${second} Detik`,
         rows: [
           { title: 'Allmenu Bot', rowId: `${_p}? all`},
@@ -115,7 +115,7 @@ let listMessage = {
 return conn.sendMessage(m.chat, listMessage, { quoted: { key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast'}, message: { pollCreationMessage: { name: `Simple Bot WhatsApp` } } }, mentions: await conn.parseMention(judul), contextInfo: { forwardingScore: 99999, isForwarded: true }})
 await apivisit
 }
-
+*/
     for (let plugin of help)
       if (plugin && 'tags' in plugin)
         for (let tag of plugin.tags)
@@ -157,7 +157,7 @@ await apivisit
     // if (m.isGroup) return conn.sendButton(m.chat, text.trim(), conn.getName(conn.user.jid), pp, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
     //conn.sendHydrated(m.chat, text.trim(), conn.getName(conn.user.jid), await genProfile(conn, m), 'https://youtube.com/channel/UC0hs_I8N3JntK5vO6KogavQ', 'YouTube', null, null, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
 let url = pickRandom([`https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv1.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv2.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv3.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv4.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv5.mp4`])
-conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: text.trim()}, { quoted: m })
+conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: `${judul}\n\n${infoh}\n${text.trim()}`}, { quoted: m })
 await apivisit
   } catch (e) {
     m.reply('An error occurred')
@@ -167,7 +167,6 @@ await apivisit
 handler.help = ['menu']
 handler.tags = ['main']
 handler.command = /^(m|menu|help|\?)$/i
-
 export default handler
 
 const more = String.fromCharCode(8206)
