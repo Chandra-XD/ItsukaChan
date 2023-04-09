@@ -4,14 +4,14 @@ import { watchFile, unwatchFile } from 'fs'
 
 // Ini owner real no fek"
 global.owner = [
-  ['6285785705233'], // global owner 0
-  ['628990085223'], // global owner 1
-  ['6283848947227'], // global owner 2
-  ['6285785705233', 'Chandra XD', true] // global owner 3
+  ['6285321775809'], // global owner 0
+  ['6285321775809'], // global owner 1
+  ['6285321775809'], // global owner 2
+  ['6285321775809', 'Zans XD', true] // global owner 3
 ]
 
 global.mods = [] // Want some help?
-global.prems = [] // Premium user has unlimited limit
+global.prems = ['6285321775809'] // Premium user has unlimited limit
 global.APIs = {
   can: 'https://pnggilajacn.my.id',
   violetics: 'https://violetics.pw'
@@ -31,19 +31,19 @@ global.thumbnailUrl = [
 
 //====== Url Template Buttons ======//
 global.dtu = 'ᴅᴏɴᴀᴛᴇ'
-global.urlnya = "https://pnggilajacn.my.id/contacts"
+global.urlnya = "https://instagram.com/@Zan_Ofc"
 //========== callButtons ==========//
 global.dtc = 'ᴄᴀʟʟ ᴏᴡɴᴇʀ'
-global.phn = '+62 857-8570-5233'
+global.phn = '+62 853-2177-5809'
 
 // Sticker WM
-global.packname = `ItsukaBot-Md`
+global.packname = `Little Moona`
 global.author = `© 2021-2023`
 
 // Random
-global.wm = `Powered by https://pnggilajacn.my.id`
+global.wm = `Powered by little moona`
 global.doc = pickRandom(["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/pdf"])
-global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
+global.ephemeral = 'null' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
 global.multiplier = 69 // The higher, The harder levelup
 
 let file = fileURLToPath(import.meta.url)
