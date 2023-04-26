@@ -67,8 +67,9 @@ Runtime: %uptime
 let groups = Object.keys(await conn.groupFetchAllParticipating())
 let chats = Object.keys(await conn.chats)
 let block = await conn.fetchBlocklist()
-let hit_kabeh = await fetch(`https://api.countapi.xyz/hit/ItsukaChan/visits`)
-let hk = await hit_kabeh.json()
+let hit_kabeh;
+try { hit_kabeh = await fetch('https://api.countapi.xyz/hit/ItsukaChan/visits')} catch { hit_kabeh = { value: "-" } }
+let hk = `${hit_kabeh.value == undefined ? '-' : hit_kabeh.value}`
 
 let to = new Date('April 22, 2023 00:00:00')
 let now = new Date().getTime()
@@ -81,7 +82,7 @@ let judul = `*${ucapan()} ${conn.getName(m.sender)}*
 
 *INFO BOT*
 •> Aktif selama ${uptime}
-•> *${hk.value}* Total Hit
+•> *${hk}* Total Hit
 •> *${groups.length}* Grup
 •> *${chats.length - groups.length}* Chat Pribadi
 •> *${Object.keys(global.db.data.users).length}* Pengguna
@@ -157,7 +158,8 @@ await apivisit
     // if (m.isGroup) return conn.sendButton(m.chat, text.trim(), conn.getName(conn.user.jid), pp, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
     //conn.sendHydrated(m.chat, text.trim(), conn.getName(conn.user.jid), await genProfile(conn, m), 'https://youtube.com/channel/UC0hs_I8N3JntK5vO6KogavQ', 'YouTube', null, null, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
 let url = pickRandom([`https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv1.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv2.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv3.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv4.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv5.mp4`])
-conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: `${judul}\n\n${infoh}\n${text.trim()}`}, { quoted: m })
+// conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: `${judul}\n\n${infoh}\n${text.trim()}`}, { quoted: m })
+conn.sendMessage(m.chat, { text: `${judul}\n\n${infoh}\n${text.trim()}`}, { quoted: m })
 await apivisit
   } catch (e) {
     m.reply('An error occurred')
