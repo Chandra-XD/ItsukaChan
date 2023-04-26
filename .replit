@@ -1,2 +1,2 @@
 language = "nix"
-run = "node ."
+run = "node . --server"
