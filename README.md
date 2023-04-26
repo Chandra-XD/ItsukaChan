@@ -16,6 +16,9 @@
 <a href="https://github.com/Chandra-XD/ItsukaChan/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Chandra-XD/ItsukaChan?label=PullRequest&color=red&style=flat-square"></a>
 <br>
 <br>
+
+> **Warning** : Gunakan baileys versi 4.4.0 dikarenakan script ini belum update ke multi sesion dan belum support button dan list ([ownernya](https://pnggilajacn.my.id/contacts) mager njir)
+
 <details>
  <summary>Changelog</summary>
 
