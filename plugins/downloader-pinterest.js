@@ -39,3 +39,7 @@ async function pinterest(query) {
 		return data[~~(Math.random() * (data.length))].images.orig.url
 	}
 }
+
+async function shortUrl(url) {
+	return await (await fetch(`https://tinyurl.com/api-create.php?url=${url}`)).text()
+}
