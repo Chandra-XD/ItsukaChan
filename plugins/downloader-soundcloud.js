@@ -3,7 +3,8 @@ import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) throw m.reply('Putting *URL* SoundCloud...')
-    if (!args[0].includes("soundcloud")) return m.reply(`_Invalid Url..._`)
+    if (!/http?:s\/\/soundcloud\//i.test(args[0]))
+	return m.reply(`_Invalid Url..._`)
     let res = (await axios.get(API('can', '/api/download/soundcloud', { url: args[0] } ))).data;
 	await m.reply('Sedang diproses...')
 	try {
@@ -18,7 +19,7 @@ let handler = async (m, { conn, args }) => {
 	// Github : https://github.com/Chandra-XD
 	} catch (e) {
 		console.log(e)
-		m.reply(`Invalid Soundcloud URL / terjadi kesalahan.`)
+		m.reply(`Invalid Soundcloud URL / Terjadi Kesalahan.`)
 	}
 }
 handler.help = ['soundcloud'].map(v => v + ' <url>')
