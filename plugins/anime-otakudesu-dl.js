@@ -1,15 +1,18 @@
 import axios from 'axios'
 import { apivisit } from './kanghit.js'
 
-let handler = async (m, { conn, args }) => {
-    if (!args[0]) throw `Link?`
-    if (!args[0].includes("episode")) throw `Invalid Url...`
-    let res = (await axios.get(API('can', '/api/anime/otakudesu/dl', { link: args[0] } ))).data;
-    if (res.status != 200) throw res.message;
-    if (!res) throw res.message;
+let handler = async (m, { conn, text }) => {
+    if (!text) throw `Link?`
+    if (!text.includes("episode")) throw `Invalid Url...`
+    let res = (await axios.get(API('can', '/api/anime/otakudesu/dl', { link: text } ))).data;
     let x = res.result
+    try {
     await conn.reply(m.chat, `*Title :* ${x.title}\n\n*Download Quality 360p :* ${x.low}\n*Download Quality 480p :* ${x.medium}\n*Download Quality 720p :* ${x.high}`, m)
     await apivisit
+    } catch (e) {
+		console.log(e)
+		m.reply(`Error :(`)
+	}
 	// By Chandra XD
 	// Follow bang
 	// TikTok : @pnggilajacn

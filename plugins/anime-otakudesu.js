@@ -1,16 +1,21 @@
 import axios from 'axios'
 import { apivisit } from './kanghit.js'
 
-let handler = async (m, { conn, args }) => {
-    if (!args[0]) throw `Judul anime?\nContoh : anime date a live`
+let handler = async (m, { conn, args, usedPrefix: _p }) => {
+    if (!args[0]) throw `Judul anime?\nContoh : date a live`
     let res = (await axios.get(API('can', '/api/anime/otakudesu/search', { query: args[0] } ))).data;
-    if (res.status != 200) throw res.message;
-    if (!res) throw res.message;
-    let v = res.result
+    let vs = res.result
 	let arr = []
-	for (let x of v) arr.push({ title: x.title, rowId: `#otakuinfo ${x.link}` })
+	let tekss = res.result.map(v => { return `${v.title}\n${v.link}`}).filter(v => v).join('\n\n')
+	for (let x of vs) arr.push({ title: x.title, rowId: `${_p}otakuinfo ${x.link}` })
+	try {
+	if (m.isGroup) return m.reply(tekss)
 	await conn.sendMessage(m.chat, { text: `Result from : ${args[0]}`, footer: null, title: null, buttonText: 'Click Here!', sections: [{ title: 'Otakudesu', rows: arr }] }, { quoted: m })
 	await apivisit
+	} catch (e) {
+		console.log(e)
+		m.reply(`Terjadi kesalahan atau server sedang mengalami gangguan.`)
+	}
 	// By Chandra XD
 	// Follow bang
 	// TikTok : @pnggilajacn
