@@ -11,11 +11,8 @@ let handler = async (m, { conn, text }) => {
     }
 }
 handler.help = ['tahta <teks>']
-handler.tags = ['nulis']
+handler.tags = ['misc']
 handler.command = /^((harta)?tahta)$/i
-
-handler.limit = true
-
 export default handler
 
 import { spawn } from 'child_process'
