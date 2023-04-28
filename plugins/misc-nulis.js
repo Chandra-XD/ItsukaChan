@@ -1,5 +1,4 @@
 import { format } from 'util'
-// let path = require('path')
 import { spawn } from 'child_process'
 
 // Font By MFarelS:V
@@ -13,7 +12,6 @@ let handler = async (m, { conn, args }) => {
     let tgl = d.toLocaleDateString('id-Id')
     let hari = d.toLocaleDateString('id-Id', { weekday: 'long' })
     let teks = args.join` `
-    // conn.reply(m.chat, util.format({fontPath, inputPath, outputPath, tgl, hari, teks}), m)
     let bufs = []
     const [_spawnprocess, ..._spawnargs] = [...(global.support.gm ? ['gm'] : global.support.magick ? ['magick'] : []),
         'convert',
