@@ -9,6 +9,4 @@ let handler = async (m, { text, usedPrefix, command }) => {
 handler.help = ['kisahnabi <name>']
 handler.tags = ['quran']
 handler.command = /^kisahnabi$/i
-handler.limit = true
-
 export default handler
