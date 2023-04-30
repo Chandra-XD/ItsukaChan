@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 async function apivisit() {
-axios.get(`https://api.countapi.xyz/hit/ItsukaChan/visits`);
-axios.get(`https://api.countapi.xyz/hit/ItsukaChan/visits`);
+axios.get(`https://status.pnggilajacn.my.id`);
+axios.get(`https://status.pnggilajacn.my.id`);
 }
 	// By Chandra XD
 	// Follow bang
