@@ -67,10 +67,6 @@ Runtime: %uptime
 let groups = Object.keys(await conn.groupFetchAllParticipating())
 let chats = Object.keys(await conn.chats)
 let block = await conn.fetchBlocklist()
-let hit_kabeh;
-try { hit_kabeh = await fetch('https://api.countapi.xyz/hit/ItsukaChan/visits')} catch { hit_kabeh = { value: "-" } }
-let hk = `${hit_kabeh.value == undefined ? '-' : hit_kabeh.value}`
-
 let to = new Date('April 22, 2023 00:00:00')
 let now = new Date().getTime()
 let distance = to - now
@@ -82,7 +78,6 @@ let judul = `*${ucapan()} ${conn.getName(m.sender)}*
 
 *INFO BOT*
 •> Aktif selama ${uptime}
-•> *${hk}* Total Hit
 •> *${groups.length}* Grup
 •> *${chats.length - groups.length}* Chat Pribadi
 •> *${Object.keys(global.db.data.users).length}* Pengguna
