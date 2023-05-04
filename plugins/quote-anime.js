@@ -8,6 +8,6 @@ let handler = async(m, { conn, text }) => {
   conn.sendButton(m.chat, `${indo}\n\nBy: ~ _${character}_ ~`, `Anime:\n${anime}`, [['Kata² Anime', '.quotesanime']], m)
 }
 handler.help = ['quotesanime']
-handler.tags = ['anime', 'quotes']
+handler.tags = ['quotes']
 handler.command = /^(quotesanime|kataanime)$/i
 export default handler 
