@@ -12,5 +12,7 @@ let handler = async (m, { conn, args, usedPrefix: _p, command: cmd }) => {
 	else await conn.sendMessage(m.chat, { video: { url: res?.result?.[0]?.url || res?.hd?.url || res?.url?.[0]?.url }, caption: res?.description || res?.meta?.title || '' }, { quoted: m })
 	await apivisit
 }
+handler.help = handler.alias = ['facebook'].map(v => v + ' <url>')
+handler.tags = ['downloader']
 handler.command = /^((facebook|fb)(dl)?)$/i
-export default handler 
+export default handler
