@@ -1,17 +1,7 @@
 import { apivisit } from './kanghit.js'
-import fs from 'fs'
 
 let handler = async (m, { conn }) => {
-let url = API('can', '/api/cecan/random', {}, 'apikey')
-let pp = fs.readFileSync('./thumbnail.jpg')
-let a = {
-document: { url: `./src/font/Roboto-ThinItalic.ttf`},
-jpegThumbnail: await conn.resize(url, 200, 200),
-mimetype: global.doc,
-fileName: `Thanks To`,
-fileLength: 999999999999999,
-pageCount: 1234567890123456789012345,
-caption: `*• Thanks To •*
+let tekss = `*• Thanks To •*
 *- Allah SWT*
 *- Orang tua*
 *- Teman²*
@@ -41,14 +31,13 @@ caption: `*• Thanks To •*
 *- LitRHap* _https://github.com/LitRHap_
 *- Rlxfly* _https://github.com/Rlxfly_
 *- Fahri* _https://github.com/FahriAdison_
-*- Ri* _https://github.com/PixieID_
+*- Rio* _https://github.com/PixieID_
 
 Terimakasih atas kalian jika tidak ada kalian maka bot ini tidak akan berkembang....`
-}
-await conn.sendMessage(m.chat, a, { quoted: { key: { fromMe: false,participant:"0@s.whatsapp.net", remoteJid: "status@broadcast"}, message: { orderMessage: { itemCount: 2023, status: 200, thumbnail: await conn.resize(pp, 100, 100), surface: 200, message: `Simple WhatsApp Bot`, orderTitle: 'ChandraXD', sellerJid: '0@s.whatsapp.net'}}, contextInfo: { forwardingScore :999, isForwarded: true }, sendEphemeral: true}, ephemeralExpiration: global.ephemeral, forwardingScore: 99999, isForwarded: true })
+await m.reply(tekss)
 await apivisit
 }
 handler.help = ['thanksto']
-handler.tags = ['main']
+handler.tags = ['info']
 handler.command = /^(ttq|thanksto)$/i
 export default handler
