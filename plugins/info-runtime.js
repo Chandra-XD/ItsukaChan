@@ -1,6 +1,8 @@
 export default function handler(m) {
 	m.reply(clockString(process.uptime()))
 }
+handler.help = ['runtime']
+handler.tags = ['info']
 handler.command = /^(up|run)time$/i
 
 function clockString(ms) {
