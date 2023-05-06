@@ -1,9 +1,9 @@
 import fetch from 'node-fetch'
 import { apivisit } from './kanghit.js'
 
-let handler = async (m, { conn, args }) => {
-    if (!args[0]) return
-    let ress = await fetch(`http://weeb-scraper.onrender.com/api/anoboy/` + args[0])
+let handler = async (m, { conn, text }) => {
+    if (!text) throw `Id?`
+    let ress = await fetch(`http://weeb-scraper.onrender.com/api/anoboy/` + text)
     if (!ress) throw 'Error 404 Not Found'
     let res = await ress.json()
     let v = res.data
@@ -22,5 +22,7 @@ let handler = async (m, { conn, args }) => {
 	// TikTok : @pnggilajacn
 	// Github : https://github.com/Chandra-XD
 	}
+handler.help = ['anoboydl'].map(v => v + ' <id>')
+handler.tags = ['tools']
 handler.command = /^(anoboydl)$/i
 export default handler
