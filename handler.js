@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import { format } from 'util'
 import path, { join } from 'path'
-import knights from 'knights-canvas'
 import { fileURLToPath } from 'url'
 import { smsg } from './lib/simple.js'
 import { unwatchFile, watchFile } from 'fs'
@@ -181,7 +180,9 @@ export async function handler(chatUpdate) {
             }, time)
         }
         
-        if (m.isBaileys || m.chat === 'status@broadcast') return
+//      if(m.isBaileys || m.chat === 'status@broadcast') return
+        if(m.isBaileys) return
+        if(m.chat.endsWith('broadcast')) return setTimeout(() => { conn.readMessages([m.key]) }, 60000) // 1 minutes
         m.exp += Math.ceil(Math.random() * 10)
         let usedPrefix
         let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
@@ -348,8 +349,8 @@ export async function handler(chatUpdate) {
                 }
                 try {
                     if (!isOwner) {
-                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return // m.reply('Jangan spam lah kak, sabar')
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 10000)) return // m.reply('Jangan spam lah kak, sabar')
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 30000)) return
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 30000)) return
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
@@ -390,8 +391,6 @@ export async function handler(chatUpdate) {
             const quequeIndex = this.msgqueue.indexOf(m.id || m.key.id)
             if (quequeIndex !== -1) this.msgqueue.splice(quequeIndex, 1)
         }
-        // console.log(global.db.data.users[m.sender])
-        // await this.sendPresenceUpdate('recording',m.chat)
         let user, stats = global.db.data.stats
         if (m) {
             if (m.sender && (user = global.db.data.users[m.sender])) {
@@ -400,6 +399,9 @@ export async function handler(chatUpdate) {
             }
             let stat
             if (m.plugin) {
+              let rn = ['recording','composing']
+              let jd = rn[Math.floor(Math.random() * rn.length)]
+              await this.sendPresenceUpdate(jd,m.chat)
                 let now = +new Date
                 if (m.plugin in stats) {
                     stat = stats[m.plugin]
@@ -431,7 +433,7 @@ export async function handler(chatUpdate) {
         } catch (e) {
             console.log(m, m.quoted, e)
         }
-        if (opts['autoread']) await this.readMessages([m.key]) //this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
+        if (opts['autoread']) await this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
     }
 }
 
@@ -443,43 +445,23 @@ export async function participantsUpdate({ id, participants, action }) {
     let chat = global.db.data.chats[id] || {}
     let text = ''
     switch (action) {
-        case 'add':
-        case 'remove':
-            if (chat.welcome) {
+    case 'add': 
+         case 'remove': 
+             if (chat.welcome) {
                 let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                 for (let user of participants) {
                     let pp = './src/avatar_contact.png'
-                    let ppgc = './src/avatar_contact.png'
                     try {
                         pp = await this.profilePictureUrl(user, 'image')
-                        ppgc = await this.profilePictureUrl(id, 'image')
                     } catch (e) {
                     } finally {
-                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-                            (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', await this.getName(user))
-              let wel = await new knights.Welcome()
-                .setUsername(this.getName(user))
-                .setGuildName(groupMetadata.subject)
-                .setGuildIcon(ppgc)
-                .setMemberCount(groupMetadata.participants.length)
-                .setAvatar(pp)
-                .setBackground("https://telegra.ph/file/4b90043328ec4825c0e71.jpg")
-                .toAttachment()
-
-              let lea = await new knights.Goodbye()
-                .setUsername(this.getName(user))
-                .setGuildName(groupMetadata.subject)
-                .setGuildIcon(ppgc)
-                .setMemberCount(groupMetadata.participants.length)
-                .setAvatar(pp)
-                .setBackground("https://telegra.ph/file/4b90043328ec4825c0e71.jpg")
-                .toAttachment()
-                            
-                         this.sendFile(id, action === 'add' ? wel : lea, pp, 'pp.jpg', text, null, false, { mentions: [user] })
-                    }
-                }
-            }
-            break
+                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Selamat datang, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknown') :
+                            (chat.sBye || this.bye || conn.bye || 'Selamat tinggal, @user!')).replace('@user', `${this.getName(user)}`)
+                        this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
+                        }
+                 } 
+             }
+             break
         case 'promote':
             text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
         case 'demote':
@@ -487,6 +469,23 @@ export async function participantsUpdate({ id, participants, action }) {
             text = text.replace('@user', '@' + participants[0].split('@')[0])
             if (chat.detect) this.sendMessage(id, { text, mentions: this.parseMention(text) })
         break
+    }
+}
+
+export async function groupsUpdate(groupsUpdate) {
+    if (opts['self'])
+        return
+    for (const groupUpdate of groupsUpdate) {
+        const id = groupUpdate.id
+        if (!id) continue
+        let chats = global.db.data.chats[id], text = ''
+        if (!chats?.detect) continue
+        if (groupUpdate.desc) text = (chats.sDesc || this.sDesc || conn.sDesc || '```Description has been changed to```\n@desc').replace('@desc', groupUpdate.desc)
+        if (groupUpdate.subject) text = (chats.sSubject || this.sSubject || conn.sSubject || '```Subject has been changed to```\n@subject').replace('@subject', groupUpdate.subject)
+        if (groupUpdate.icon) text = (chats.sIcon || this.sIcon || conn.sIcon || '```Icon has been changed to```').replace('@icon', groupUpdate.icon)
+        if (groupUpdate.revoke) text = (chats.sRevoke || this.sRevoke || conn.sRevoke || '```Group link has been changed to```\n@revoke').replace('@revoke', groupUpdate.revoke)
+        if (!text) continue
+        await this.sendMessage(id, { text, mentions: this.parseMention(text) })
     }
 }
 
