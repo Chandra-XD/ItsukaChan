@@ -44,7 +44,7 @@ global.author = `© 2021-2023`
 global.wm = `Powered by https://pnggilajacn.my.id`
 global.doc = pickRandom(["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/pdf"])
 global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
-global.monitor = `YOUR-API` // ambil di https://uptimerobot.com
+global.monitor = `YOUR-API` // Ambil di https://uptimerobot.com
 global.multiplier = 69 // The higher, The harder levelup
 
 let file = fileURLToPath(import.meta.url)
