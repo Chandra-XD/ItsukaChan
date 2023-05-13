@@ -13,12 +13,10 @@ global.owner = [
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = {
-  can: 'https://pnggilajacn.my.id',
-  violetics: 'https://violetics.pw'
+  can: 'https://pnggilajacn.my.id'
 }
 global.APIKeys = {
-  'https://pnggilajacn.my.id': 'ItsukaChan',
-  'https://violetics.pw': 'beta'
+  'https://pnggilajacn.my.id': 'ItsukaChan'
 }
 
 global.thumbnailUrl = [
