@@ -17,36 +17,8 @@
 <br>
 <br>
 
-> **Warning** : Gunakan baileys versi 4.4.0 dikarenakan script ini belum update ke multi sesion dan belum support button dan list ([ownernya](https://pnggilajacn.my.id/contacts) mager njir)
+> **Warning** : Jika ada bug atau error segera lapor ke ([owner](https://pnggilajacn.my.id/contacts)), jika ingin pull req silahkan saja selagi tidak menggunakan rest api.
 
-<details>
- <summary>Changelog</summary>
-
-## Sabtu, 25 Maret 2023
-
-- Release<br>
-walaupun udh lama. tapi dulu inj gwe private
-- Fix button di downloader<br>
-downloader work semua dek gada yg eror"
-- Fix button di menu<br>
-menu work gada eror" kek dulu
-- Add anoboy, otakudesu, nekopoi
-
-## Minggu, 26 Maret 2023
-- Fix anonymous
-- Fix wikihow
-- Fix Menu ngga muncul
-- Fix Grup antilink
-- Fix downloader tiktok
-
-## Jum'at, 31 Maret 2023
-- Fix loli
-- Fix ssweb
-- Fix nobg
-- Rapihin plugins" yg berantakan
-
-## Untuk yang lain nya coming soon yaaa
-</details>
 <details>
  <summary>Cara Pemasangan</summary>
 
@@ -91,13 +63,10 @@ npm update
 ## FOR REPLIT
 [![Run on Repl.it](https://repl.it/badge/github/FadliDarmawan/haruno)](https://repl.it/github/Chandra-XD/ItsukaChan)
 ```cmd
-Buka Console
+Buka Shell
 
 ------------
-> npm i
-> npm i qrcode
-> install-pkg webp
-> install-pkg ffmpeg
+> yarn
 -------------
 Click Run
 ```
