@@ -24,8 +24,11 @@ import { Low, JSONFile } from 'lowdb'
 import pino from 'pino'
 const {
   useSingleFileAuthState,
+  useMultiFileAuthState,
   DisconnectReason
 } = await import('@adiwajshing/baileys')
+import storeSystem from './lib/store.js'
+const store = storeSystem.makeInMemoryStore()
 
 const { CONNECTING } = ws
 const { chain } = lodash
@@ -72,6 +75,7 @@ global.loadDatabase = async function loadDatabase() {
 }
 loadDatabase()
 
+/*
 global.authFile = `${opts._[0] || 'session'}.data.json`
 const { state, saveState } = useSingleFileAuthState(global.authFile)
 
@@ -81,8 +85,41 @@ const connectionOptions = {
   logger: pino({ level: 'silent'}),
   version: [2, 2204, 13]
   // logger: pino({ level: 'trace' })
-}
+} */
 
+// bates
+global.authFile = global.opts['single'] ? `${global.opts._[0] || 'session'}.data.json` : 'session'
+const { state, saveState, saveCreds } = global.opts['single'] ? await useSingleFileAuthState(global.authFile) : await useMultiFileAuthState(global.authFile)
+
+const connectionOptions = {
+  printQRInTerminal: true,
+  auth: state,
+  browser: ['ItsukaChan By Chandra-XD', 'Safari', '3.1.0'],
+  patchMessageBeforeSending: (message) => {
+    const requiresPatch = !!(
+      message.buttonsMessage
+      || message.templateMessage
+      || message.listMessage
+    );
+    if (requiresPatch) {
+      message = {
+        viewOnceMessage: {
+          message: {
+            messageContextInfo: {
+              deviceListMetadataVersion: 2,
+              deviceListMetadata: {},
+            },
+            ...message,
+          },
+        },
+      };
+    }
+    return message;
+  },
+  logger: pino({ level: 'silent' }),
+  getMessage: async (key) => (conn.loadMessage(key.id) || store.loadMessage(key.id) || {}).message || { conversation: null }, // 'Please send messages again' }
+}
+// bates
 global.conn = makeWASocket(connectionOptions)
 conn.isInit = false
 
@@ -122,7 +159,7 @@ async function connectionUpdate(update) {
 process.on('uncaughtException', console.error)
 // let strQuot = /(["'])(?:(?=(\\?))\2.)*?\1/
 
-let isInit = true
+let isInit = true;
 let handler = await import('./handler.js')
 global.reloadHandler = async function (restatConn) {
   try {
@@ -141,6 +178,7 @@ global.reloadHandler = async function (restatConn) {
   if (!isInit) {
     conn.ev.off('messages.upsert', conn.handler)
     conn.ev.off('group-participants.update', conn.participantsUpdate)
+    conn.ev.off('groups.update', conn.groupsUpdate)
     conn.ev.off('message.delete', conn.onDelete)
     conn.ev.off('connection.update', conn.connectionUpdate)
     conn.ev.off('creds.update', conn.credsUpdate)
@@ -148,16 +186,22 @@ global.reloadHandler = async function (restatConn) {
 
   conn.welcome = 'Hai kak @user!\nSelamat datang di @subject'
   conn.bye = 'Selamat tinggal @user'
-  conn.spromote = '@user sekarang admin!'
-  conn.sdemote = '@user sekarang bukan admin!'
+  conn.spromote = '@user Sekarang telah menjadi admin!'
+  conn.sdemote = '@user Sekarang bukan admin!'
+  conn.sDesc = 'Deskripsi grub telah diubah ke\n@desc'
+  conn.sSubject = 'Nama grup telah diubah ke\n@subject'
+  conn.sIcon = 'Icon grup telah diubah!'
+  conn.sRevoke = 'Link group telah diubah ke\n@revoke'
   conn.handler = handler.handler.bind(global.conn)
   conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
+  conn.groupsUpdate = handler.groupsUpdate.bind(global.conn)
   conn.onDelete = handler.deleteUpdate.bind(global.conn)
   conn.connectionUpdate = connectionUpdate.bind(global.conn)
-  conn.credsUpdate = saveState.bind(global.conn)
+  conn.credsUpdate = global.opts['single'] ? saveState.bind(global.conn) : saveCreds.bind(global.conn)
 
   conn.ev.on('messages.upsert', conn.handler)
   conn.ev.on('group-participants.update', conn.participantsUpdate)
+  conn.ev.on('groups.update', conn.groupsUpdate)
   conn.ev.on('message.delete', conn.onDelete)
   conn.ev.on('connection.update', conn.connectionUpdate)
   conn.ev.on('creds.update', conn.credsUpdate)
