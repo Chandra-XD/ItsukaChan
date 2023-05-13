@@ -9,6 +9,5 @@ let handler = async (m, { text, usedPrefix, command }) => {
 handler.help = ['sf'].map(v => v + ' <teks>')
 handler.tags = ['owner']
 handler.command = /^sf$/i
-
-handler.rowner = true
+handler.owner = true
 export default handler
