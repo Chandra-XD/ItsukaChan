@@ -7,9 +7,8 @@ export async function before(m) {
 	console.log({ text: m.text, type: m.quoted?.mtype })
 	if ((m.text === 'BALAS PESAN' || m.text === '') && m.quoted.mtype == 'buttonsMessage') return m.reply("Silahkan kirim pesan balasan kamu.\nKetik pesan sesuatu lalu kirim, maka pesan otomatis masuk ke target balas pesan.");
 	else {
-		let imgr = flaaa.getRandom()
 		let txt = `Hai kak @${mf.dari.split('@')[0]}, kamu menerima balasan nih.\n\nPesan yang kamu kirim sebelumnya:\n${mf.pesan}\n\nPesan balasannya:\n${m.text}\n`.trim();
-		await this.sendButton(mf.dari, bottime, txt, `${imgr + 'Menfess'}`, [['BALAS PESAN', '.balasmenfess']], null).then(() => {
+		await this.reply(mf.dari, txt, null).then(() => {
 			m.reply('Berhasil Mengirim balasan.')
 			delay(1500)
 			delete this.menfess[mf.id]
