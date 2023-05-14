@@ -8,10 +8,10 @@ let handler = async (m, { conn, args, usedPrefix: _p }) => {
     let vs = res.animeList
 	let arr = []
 	let tekss = res.animeList.map(v => { return `${v.title}\n${v.episode || '-'}, ${v.uploaded_on || '-'} Hari Update ${v.day_updated || '-'}\n${v.link}`}).filter(v => v).join('\n\n')
-	for (let x of vs) arr.push({ title: x.title, description: `${x.episode}, ${x.uploaded_on} Hari Update ${x.day_updated}`, rowId: `${_p}otakuinfo ${x.link}` })
+	// for (let x of vs) arr.push({ title: x.title, description: `${x.episode}, ${x.uploaded_on} Hari Update ${x.day_updated}`, rowId: `${_p}otakuinfo ${x.link}` })
 	try {
-	if (m.isGroup) return m.reply(tekss)
-	await conn.sendMessage(m.chat, { text: `Otakudesu Latest`, footer: null, title: null, buttonText: 'Click Here!', sections: [{ title: 'Otakudesu', rows: arr }] }, { quoted: m })
+	await m.reply(tekss)
+	// await conn.sendMessage(m.chat, { text: `Otakudesu Latest`, footer: null, title: null, buttonText: 'Click Here!', sections: [{ title: 'Otakudesu', rows: arr }] }, { quoted: m })
 	await apivisit
 	} catch (e) {
 		console.log(e)

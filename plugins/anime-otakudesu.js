@@ -7,10 +7,10 @@ let handler = async (m, { conn, args, usedPrefix: _p }) => {
     let vs = res.result
 	let arr = []
 	let tekss = res.result.map(v => { return `${v.title}\n${v.link}`}).filter(v => v).join('\n\n')
-	for (let x of vs) arr.push({ title: x.title, rowId: `${_p}otakuinfo ${x.link}` })
+	// for (let x of vs) arr.push({ title: x.title, rowId: `${_p}otakuinfo ${x.link}` })
 	try {
-	if (m.isGroup) return m.reply(tekss)
-	await conn.sendMessage(m.chat, { text: `Result from : ${args[0]}`, footer: null, title: null, buttonText: 'Click Here!', sections: [{ title: 'Otakudesu', rows: arr }] }, { quoted: m })
+	await m.reply(tekss)
+	// await conn.sendMessage(m.chat, { text: `Result from : ${args[0]}`, footer: null, title: null, buttonText: 'Click Here!', sections: [{ title: 'Otakudesu', rows: arr }] }, { quoted: m })
 	await apivisit
 	} catch (e) {
 		console.log(e)
