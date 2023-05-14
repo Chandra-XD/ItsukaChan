@@ -4,13 +4,12 @@ import { apivisit } from './kanghit.js'
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) throw `Input Query\nExample : ${usedPrefix + command} 1girl, blush, looking to viewer, warm smile`
     let randomS = randomId()
-    let res = await fetch(global.API('can', '/api/maker/diffusion', { text: text, seed: randomS }, 'apikey'))
+    let res = await fetch(global.API('can', '/api/maker/diffusion', { text: encodeURIComponent(m.text), seed: randomS }, 'apikey'))
     let json = await res.json()
     if(!json.base64Img) throw `Server Error 404`
-    let saveFilename = `./tmp/image.${json.ext}`;
     let buffer = Buffer.from(json.base64Img, "base64");
     try {
-    await conn.sendFile(m.chat, buffer, saveFilename, `Request from : `+ text, m)
+    await conn.sendFile(m.chat, buffer, ``, `Request from : `+ text, m)
     await apivisit
     } catch (e) {
 		console.log(e)
