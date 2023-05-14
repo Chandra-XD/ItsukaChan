@@ -10,9 +10,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let mf = Object.values(conn.menfess).find(mf => mf.status === true)
     if (mf) return !0
     	let id = + new Date
-        let tek = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Menfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}\n\nMau balas pesan ini kak? bisa kok kak. tinggal ketik pesan kakak lalu kirim, nanti saya sampaikan ke *${name}*.`.trim();
-        let imgr = fla.getRandom()
-        await conn.sendButton(data.jid, bottime, tek, `${imgr + 'Menfess'}`, [['BALAS PESAN', '.balasmenfess']], fkontak)
+        let tek = `Hai @${data.jid.split('@')[0]}, kamu menerima pesan Menfess nih.\n\nDari: *${name}*\nPesan: \n${pesan}`.trim()
+        await conn.reply(data.jid, tek, null)
         .then(() => {
             m.reply('Berhasil mengirim pesan menfess.')
             conn.menfess[id] = {
@@ -30,5 +29,4 @@ handler.tags = ['main']
 handler.help = ['menfess', 'menfes'].map(v => v + ' <nomor|nama pengirim|pesan>')
 handler.command = /^(menfess|menfes)$/i
 handler.private = true
-
 export default handler
