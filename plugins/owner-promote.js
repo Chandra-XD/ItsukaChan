@@ -10,14 +10,12 @@ let handler = async (m, { conn, participants }) => {
     m.reply('Succes')
 
 }
-handler.help = ['opromote @tag']
+handler.help = ['opromote'].map(v => v + ' @tag')
 handler.tags = ['owner']
 handler.command = /^(opromote)$/i
-
 handler.owner = true
 handler.group = true
 handler.botAdmin = true
-
 export default handler
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
