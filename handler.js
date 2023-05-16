@@ -433,7 +433,7 @@ export async function handler(chatUpdate) {
         } catch (e) {
             console.log(m, m.quoted, e)
         }
-        if (opts['autoread']) await this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
+        if (opts['autoread']) await this.readMessages([m.key]) // this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
     }
 }
 
@@ -457,7 +457,8 @@ export async function participantsUpdate({ id, participants, action }) {
                     } finally {
                         text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Selamat datang, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknown') :
                             (chat.sBye || this.bye || conn.bye || 'Selamat tinggal, @user!')).replace('@user', `${this.getName(user)}`)
-                        this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
+                        // this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
+                        this.sendMessage(id, {text: text, mentions: [user] })
                         }
                  } 
              }
