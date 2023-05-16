@@ -20,9 +20,8 @@ export default handler
 */
 import Jimp from 'jimp'
 import { URL_REGEX } from '@adiwajshing/baileys'
-import { apivisit } from './kanghit.js'
 
-let handler = async (m, { conn, args }) => {
+let handler = async (m, { conn }) => {
 let q = m.quoted ? m.quoted : m
 let mime = (q.msg || q).mimetype || q.mediaType || ''
 let group = m.chat
@@ -45,7 +44,6 @@ var media = await q.download()
             ]
             })
             m.reply(`Succes update profile group ✓`)
-            await apivisit
 } else if (args[0] && args[0].match(URL_REGEX)) {
             var { img } = await generateProfilePicture(args[0])
             await conn.query({
@@ -64,11 +62,10 @@ var media = await q.download()
             ]
             })
             m.reply(`Succes update profile group ✓`)
-            await apivisit
             } else throw 'Where\'s the media?'
 }
 handler.help = ['setppgrup']
-// handler.tags = ['group']
+handler.tags = ['group']
 handler.alias = ['setppgc', 'setppgrup', 'setppgroup']
 handler.command = /^setpp(gc|grup|group)$/i
 handler.group = handler.admin = handler.botAdmin = true

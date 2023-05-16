@@ -11,11 +11,10 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 `.trim()
     await conn.groupSettingUpdate(m.chat, isClose)
 }
-handler.help = ['group *open / close*']
+handler.help = ['group'].map(v => v + ' <open / close>')
 handler.tags = ['group']
-handler.command = /^(group)$/i
-
+handler.command = /^(group|grup)$/i
+handler.group = true
 handler.admin = true
 handler.botAdmin = true
-
 export default handler

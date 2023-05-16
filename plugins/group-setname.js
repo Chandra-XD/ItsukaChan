@@ -8,9 +8,10 @@ conn.groupUpdateSubject(m.chat, text)}
 } catch (e) {
 throw '*[Info] Error*'
 }}
-handler.help = ['setname <text>']
+handler.help = ['setname'].map(v => v + ' <text>')
 handler.tags = ['group']
 handler.command = /^(setname)$/i
 handler.group = true
 handler.admin = true
+handler.botAdmin = true
 export default handler

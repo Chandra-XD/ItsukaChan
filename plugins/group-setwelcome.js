@@ -6,10 +6,9 @@ let handler = async (m, { conn, text, isROwner, isOwner }) => {
     m.reply('Welcome berhasil diatur\n@user (Mention)\n@subject (Judul Grup)')
   } else throw 'Teksnya mana?'
 }
-handler.help = ['setwelcome <teks>']
+handler.help = ['setwelcome'].map(v => v + ' <text>')
 handler.tags = ['group']
 handler.command = /^setwelcome$/i
-
 handler.group = true
 handler.admin = true
 
