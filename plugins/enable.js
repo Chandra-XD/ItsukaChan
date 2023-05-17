@@ -1,33 +1,20 @@
 let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isROwner }) => {
-	const sections = [
-   {
-	title: `┊• List Options`,
-	rows: [
-	{title: "✨ | Welcome", rowId: `${usedPrefix + command} welcome`},
-	{title: "🚫 | Delete", rowId: `${usedPrefix + command} delete`},
-	{title: "🌎 | Public", rowId: `${usedPrefix + command} public`},
-	{title: "🗣️ | Simi", rowId: `${usedPrefix + command} simi`},
-	{title: "🔗 | Antilink", rowId: `${usedPrefix + command} antilink`},
-	{title: "🚫 | Antidelete", rowId: `${usedPrefix + command} antidelete`},
-	{title: "🔎 | Detect", rowId: `${usedPrefix + command} detect`},
-	{title: "📑 | Document", rowId: `${usedPrefix + command} document`},
-	{title: "❗ | Restrict", rowId: `${usedPrefix + command} restrick`},
-	{title: "😐 | Nyimak", rowId: `${usedPrefix + command} nyimak`},
-	{title: "☑️ | Autoread", rowId: `${usedPrefix + command} autoread`},
-	{title: "💬 | PcOnly", rowId: `${usedPrefix + command} pconly`},
-	{title: "🏢 | GcOnly", rowId: `${usedPrefix + command} gconly`},
-	{title: "📷 | SwOnly", rowId: `${usedPrefix + command} swonly`},
-	]
-    },
-]
+let tulisan = `List Options
 
-const listMessage = {
-  text: ' ',
-  footer: wm,
-  title: `*––––––『 OPTIONS 』––––––*`,
-  buttonText: "Click Here!",
-  sections
-}
+Welcome ( ${usedPrefix + command} welcome )
+Delete ( ${usedPrefix + command} delete )
+Public ( ${usedPrefix + command} public )
+Simi ( ${usedPrefix + command} simi )
+Antilink ( ${usedPrefix + command} antilink )
+Antidelete ( ${usedPrefix + command} antidelete )
+Detet ( ${usedPrefix + command} detect )
+Documen ( ${usedPrefix + command} document )
+Restrict ( ${usedPrefix + command} restrick )
+Nyimak ( ${usedPrefix + command} nyimak )
+Autoread ( ${usedPrefix + command} autoread )
+PcOnly ( ${usedPrefix + command} pconly )
+GcOnly ( ${usedPrefix + command} gconly )
+SwOnly ( ${usedPrefix + command} swonly )`
 
   let isEnable = /true|enable|(turn)?on|1/i.test(command)
   let chat = global.db.data.chats[m.chat]
@@ -157,14 +144,14 @@ const listMessage = {
       global.opts['swonly'] = isEnable
       break
     default:
-      if (!/[01]/.test(command)) return await conn.sendMessage(m.chat, listMessage)
+      if (!/[01]/.test(command)) return await m.reply(tulisan)
       throw false
   }
   m.reply(`*––––––『 OPTIONS 』––––––*
-🗂️ *Type:* ${type} 
-📊 *Status:* Succes ✅
-🎚️ *Options:* ${isEnable ? 'Enable' : 'Disable'}
-📣 *For:* ${isAll ? 'This Bot' : isUser ? '' : 'This Chats'}
+*Type:* ${type} 
+*Status:* Succes ✅
+*Options:* ${isEnable ? 'Enable' : 'Disable'}
+*For:* ${isAll ? 'This Bot' : isUser ? '' : 'This Chats'}
 `)
 }
 handler.help = ['en', 'dis'].map(v => v + 'able <option>')
