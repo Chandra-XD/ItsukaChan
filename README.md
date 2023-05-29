@@ -175,7 +175,7 @@ conn.logger.level = 'debug'
 
 ## Settings
 
-Now set using switch [o-enable.js](https://github.com/Chandra-XD/ItsukaChan/blob/main/plugins/o-enable.js), among others are
+Now set using switch [enable.js](https://github.com/Chandra-XD/ItsukaChan/blob/main/plugins/enable.js), among others are
 
 ```js
 autoread: false, // If true all chats are automatically read
