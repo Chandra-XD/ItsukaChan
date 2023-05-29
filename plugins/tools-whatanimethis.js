@@ -26,5 +26,5 @@ let handler = async (m, { conn, usedPrefix }) => {
 handler.help = ["whatanime"];
 handler.tags = ["tools"];
 handler.command = /^(wait|whatanime|source)$/i;
-handler.limit = true
+//handler.limit = true
 export default handler;
