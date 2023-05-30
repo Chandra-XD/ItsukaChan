@@ -1,16 +1,22 @@
-import { search } from 'yt-search'
+import yts from 'yt-search'
+import ytdl from 'ytdl-core'
 import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text }) => {
   if (!text) throw 'Input Query'
-  let vid = await search(text)
+  let vid = await yts(ytdl.validateURL(text) ? { videoId: await ytdl.getURLVideoID(text) } : { query: text })
+	vid = vid.videos ? vid.videos[0] : vid
   if (!vid) throw 'Video/Audio Tidak Ditemukan'
-  let anu = vid.videos[Math.floor(Math.random() * vid.videos.length)]
-  let { title, thumbnail, videoId, duration, description, views, ago } = anu
-  let url = 'https://youtu.be/' + videoId 
-  let capt = `*Title:* ${title}\n*Published:* ${ago}\n*Duration:* ${duration}\n*Views:* ${views}\n*Description:* ${description}\n*Url:* ${url}`
-  await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: capt }, { quoted: m })
+  let { title, description, url, seconds, timestamp, views, ago, image } = vid
+  let capt = `*Title:* ${title}\n*Published:* ${ago}\n*Views:* ${views}\n*Description:* ${description}\n*Url:* ${url}`
+  try {
+  let aud = await conn.sendMessage(m.chat, { [seconds > 1900 ? 'document' : 'audio']: { url: `https://ytdl.pnggilajacn.my.id/?url=`+url+`&filter=audioonly&quality=highestaudio&contenttype=audio/mpeg` }, mimetype: 'audio/mpeg', fileName: `${title}.mp3` }, { quoted: m })
+  conn.sendMessage(m.chat, { text: capt }, { quoted: aud })
   await apivisit
+  } catch (e) {
+		console.log(e)
+		m.reply(`Terjadi kesalahan.`)
+	}
 	// By Chandra XD
 	// Follow bang
 	// TikTok : @pnggilajacn
