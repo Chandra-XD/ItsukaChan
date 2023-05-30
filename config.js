@@ -13,10 +13,12 @@ global.owner = [
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = {
-  can: 'https://pnggilajacn.my.id'
+  can: 'https://pnggilajacn.my.id',
+  skizo: 'https://xznsenpai.xyz'
 }
 global.APIKeys = {
-  'https://pnggilajacn.my.id': 'ItsukaChan'
+  'https://pnggilajacn.my.id': 'ItsukaChan',
+  'https://xznsenpai.xyz': 'Rippanteq7'
 }
 
 global.thumbnailUrl = [
