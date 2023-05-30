@@ -15,7 +15,7 @@ export async function before(m, { isAdmin, isBotAdmin }) {
         if (isBotAdmin && bot.restrict) {
         return conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } })
         // await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
-        } else if (!bot.restrict) return m.reply('Owner disable auto kick!')
+        } else if (!bot.restrict) return conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender } }) // m.reply('Owner disable auto kick!')
     }
     return !0
 }
