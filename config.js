@@ -14,11 +14,11 @@ global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = {
   can: 'https://pnggilajacn.my.id',
-  skizo: 'https://xznsenpai.xyz'
+  skizo: 'https://xzn.wtf'
 }
 global.APIKeys = {
   'https://pnggilajacn.my.id': 'ItsukaChan',
-  'https://xznsenpai.xyz': 'Rippanteq7'
+  'https://xzn.wtf': 'Rippanteq7'
 }
 
 global.thumbnailUrl = [
