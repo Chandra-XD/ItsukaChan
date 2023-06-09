@@ -3,7 +3,7 @@ import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) throw `Judul anime?\nContoh : date a live`
-    let res = (await axios.get(API('can', '/api/oploverz', { search: args[0] } ))).data;
+    let res = (await axios.get(API('skizo', '/api/oploverz', { search: args[0] }, 'apikey' ))).data;
 	try {
 	let tekss = res.list_episode.map(v => { return `${v.title}\n${v.url}`}).filter(v => v).join('\n\n')
 	await m.reply(`*Title :* ${res.title}\n\n*Description :* ${res.description}\n\n${tekss}`)

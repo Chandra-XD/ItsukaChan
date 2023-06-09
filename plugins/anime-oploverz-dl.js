@@ -3,7 +3,7 @@ import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text }) => {
     if (!text) throw `Input *URL* Oploverz`
-    let v = (await axios.get(API('skizo', '/api/oploverzdl', { url: text }, {
+    let v = (await axios.get(API('skizo', '/api/oploverzdl', { url: text }, 'apikey', {
 	responseType: 'arrayjson'
 	}))).data
     let str = `Status: ${v.status}\nTitle: ${v.next}\n\n`

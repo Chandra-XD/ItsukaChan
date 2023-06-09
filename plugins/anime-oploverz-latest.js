@@ -1,11 +1,10 @@
-import fetch from 'node-fetch'
+import axios from 'axios'
 import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn }) => {
-    let api = await fetch(global.API('skizo', '/api/oploverz/ongoing'))
-    let res = await api.json()
+    let api = (await axios.get(API('skizo', '/api/oploverz/ongoing', { apikey: APIKeys["https://xzn.wtf"]}))).data
 	try {
-	let tekss = res.map(v => { return `${v.title}\n${v.link}`}).filter(v => v).join('\n\n')
+	let tekss = api.map(v => { return `${v.title}\n${v.link}`}).filter(v => v).join('\n\n')
 	await m.reply(tekss)
 	await apivisit
 	} catch (e) {
