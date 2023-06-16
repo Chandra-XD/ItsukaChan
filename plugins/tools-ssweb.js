@@ -12,13 +12,10 @@ await conn.sendFile(m.chat, phone.result, '',res, m, false)
 if (command === 'ssweb' || command === 'sstablet') {
 await conn.sendFile(m.chat, tablet.result, '',res, m, false)
 }
-if (command === 'sspc') {
-await conn.sendFile(m.chat, desktop.result, '',res, m, false)
 }
-}
-handler.help = ['ssweb','sspc','sshp','sstablet']
+handler.help = ['ssweb','sshp','sstablet']
 handler.tags = ['internet']
-handler.command = /^(ssweb|sstablet|sspc|sshp)$/i
+handler.command = /^(ssweb|sstablet|sshp)$/i
 export default handler
 
 async function ssweb(url, device = 'desktop'){
