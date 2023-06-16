@@ -21,7 +21,7 @@ export default handler
 import Jimp from 'jimp'
 import { URL_REGEX } from '@adiwajshing/baileys'
 
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn, args }) => {
 let q = m.quoted ? m.quoted : m
 let mime = (q.msg || q).mimetype || q.mediaType || ''
 let group = m.chat
