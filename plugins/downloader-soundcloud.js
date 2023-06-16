@@ -3,15 +3,12 @@ import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) throw m.reply('Putting *URL* SoundCloud...')
-    if (!/http?:s\/\/soundcloud\//i.test(args[0]))
-	return m.reply(`_Invalid Url..._`)
+    try {
     let res = (await axios.get(API('can', '/api/download/soundcloud', { url: args[0] } ))).data;
 	await m.reply('Sedang diproses...')
-	try {
 	let caption = `Title : ${res.result.title}\nDurasi : ${res.result.duration}\nQuality : ${res.result.quality}`
     let repl = await conn.sendMessage(m.chat, { audio: { url: res.result.download}, mimetype: 'audio/mpeg' }, { quoted: m })
-    let a = res.result.thumbnail
-    await conn.sendMessage(m.chat, { image: await conn.resize(a, 300, 200), caption }, { quoted: repl })
+    await conn.sendMessage(m.chat, { text: caption }, { quoted: repl })
     await apivisit
 	// By Chandra XD
 	// Follow bang
