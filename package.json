@@ -37,7 +37,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "npm:baileys@^6.0.9",
+        "@adiwajshing/baileys": "npm:baileys",
         "@bochilteam/scraper": "^2.0.0",
         "@vitalets/google-translate-api": "^8.0.0",
         "awesome-phonenumber": "^2.68.0",
@@ -59,7 +59,6 @@
         "jimp": "^0.16.1",
         "jsbarcode": "^3.11.5",
         "jsdom": "^19.0.0",
-        "link-preview-js": "^2.1.13",
         "lodash": "^4.17.21",
         "lowdb": "^3.0.0",
         "mime-types": "^2.1.34",
