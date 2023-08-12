@@ -9,13 +9,16 @@ let handler = async (m, { conn, text }) => {
   if (!vid) throw 'Video/Audio Tidak Ditemukan'
   let { title, description, url, seconds, timestamp, views, ago, image } = vid
   let capt = `*Title:* ${title}\n*Published:* ${ago}\n*Views:* ${views}\n*Description:* ${description}\n*Url:* ${url}`
+  conn.sendMessage(m.chat, { react: { text: `⌚`, key: m.key }})
   try {
-  let aud = await conn.sendMessage(m.chat, { [seconds > 1900 ? 'document' : 'audio']: { url: `https://ytdl.pnggilajacn.my.id/?url=`+url+`&filter=audioonly&quality=highestaudio&contenttype=audio/mpeg` }, mimetype: 'audio/mpeg', fileName: `${title}.mp3` }, { quoted: m })
+  let aud = await conn.sendMessage(m.chat, { [seconds > 1900 ? 'document' : 'audio']: { url: `https://popcat.xyz/download?url=`+url+`&filter=audio&filename=temp` }, mimetype: 'audio/mpeg', fileName: `${title}.mp3` }, { quoted: m })
   conn.sendMessage(m.chat, { text: capt }, { quoted: aud })
   await apivisit
   } catch (e) {
 		console.log(e)
-		m.reply(`Terjadi kesalahan.`)
+  let aud = await conn.sendMessage(m.chat, { [seconds > 1900 ? 'document' : 'audio']: { url: `https://popcat.xyz/download?url=`+url+`&filter=audio&filename=temp` }, mimetype: 'audio/mpeg', fileName: `${title}.mp3` }, { quoted: m })
+  conn.sendMessage(m.chat, { text: capt }, { quoted: aud })
+		// m.reply(`Terjadi kesalahan.`)
 	}
 	// By Chandra XD
 	// Follow bang
