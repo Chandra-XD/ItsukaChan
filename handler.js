@@ -157,16 +157,17 @@ export async function handler(chatUpdate) {
             console.error(e)
         }
         
+        const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+        const isOwner = isROwner || m.fromMe
+        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+        // const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+        const isPrems = isROwner || db.data.users[m.sender].premium
+        
         if (opts['nyimak']) return
         if (opts['pconly'] && m.chat.endsWith('g.us')) return
         if (opts['gconly'] && !m.chat.endsWith('g.us')) return
         if (opts['swonly'] && m.chat !== 'status@broadcast') return
         if (typeof m.text !== 'string') m.text = ''
-        
-        const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-        const isOwner = isROwner || m.fromMe
-        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-        const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         
         if (!isOwner && opts['self']) return
         // if (opts['queque'] && m.text && !(isMods || isPrems))
@@ -349,8 +350,8 @@ export async function handler(chatUpdate) {
                 }
                 try {
                     if (!isOwner) {
-                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 30000)) return
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 30000)) return
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 10000)) return
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
