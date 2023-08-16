@@ -17,7 +17,7 @@
 <br>
 <br>
 
-> **Warning** : Jika ada bug atau error segera lapor ke ([owner](https://pnggilajacn.my.id/contacts)), jika ingin pull req silahkan saja selagi tidak menggunakan rest api.
+> **Warning** : Jika ada bug atau error segera lapor ke ([owner](https://pnggilajacn.my.id)), jika ingin pull req silahkan saja selagi tidak menggunakan rest api.
 
 <details>
  <summary>Cara Pemasangan</summary>
