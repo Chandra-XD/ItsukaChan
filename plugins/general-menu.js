@@ -1,6 +1,5 @@
 import jimp from 'jimp'
 import fs from 'fs'
-import fetch from 'node-fetch'
 import PhoneNumber from 'awesome-phonenumber'
 import moment from 'moment-timezone'
 import { apivisit } from './kanghit.js'
@@ -15,17 +14,6 @@ const defaultMenu = {
 }
 
 let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
-/*  let tags
-  let teks = `${args[0]}`.toLowerCase()
-  let arrayMenu = ['all']
-  if (!arrayMenu.includes(teks)) teks = '404'
-  if (teks == 'all') tags = {}
-Hi kak %name 👋
-
-Date: %date
-Time: %time
-Runtime: %uptime
-*/
   try {
     let name = m.pushName || conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
@@ -62,19 +50,10 @@ Runtime: %uptime
       }
     })
     
-    
-// if (teks == '404') {
+    /*
 let groups = Object.keys(await conn.groupFetchAllParticipating())
 let chats = Object.keys(await conn.chats)
 let block = await conn.fetchBlocklist()
-let to = new Date('April 22, 2023 00:00:00')
-let now = new Date().getTime()
-let distance = to - now
-let days = Math.floor( distance / (1000 * 60 * 60 * 24));
-let hours = Math.floor( distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
-let minute = Math.floor( distance % (1000 * 60 * 60) / (1000 * 60))
-let second = Math.floor( distance % (1000 * 60) / 1000)
-let judul = `*${ucapan()} ${conn.getName(m.sender)}*
 
 *INFO BOT*
 •> Aktif selama ${uptime}
@@ -83,35 +62,15 @@ let judul = `*${ucapan()} ${conn.getName(m.sender)}*
 •> *${Object.keys(global.db.data.users).length}* Pengguna
 •> ${block == undefined ? '*0* Diblokir' : '*' + block.length + '* Diblokir'}
 •> *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
-•> *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned`
-let infoh = `*NOTE :*\nDikarenakan user yang terlalu banyak dan spam, bot diberikan delay / jeda 1 menit.\nIni bertujuan untuk mencegah terjadinya ban dari whatsapp`
-/* let sections = [{
-        title: `Menuju IdulFitri : ${days} Hari ${hours} Jam ${minute} Menit ${second} Detik`,
-        rows: [
-          { title: 'Allmenu Bot', rowId: `${_p}? all`},
-          { title: 'Status Bot', rowId: `${_p}status`},
-          { title: 'Stats Bot', rowId: `${_p}stats`},
-          { title: 'Speed Bot', rowId: `${_p}speed`},
-          { title: 'Script Bot', rowId: `${_p}sc`},
-          { title: 'Owner Bot', rowId: `${_p}owner`},
-          { title: 'Rules Bot', rowId: `${_p}rules`},
-          { title: 'Rental Bot', rowId: `${_p}rental`},
-          { title: 'Support Bot', rowId: `${_p}donasi`},
-          { title: 'Thanks To', rowId: `${_p}ttq`},
-        ]
-        }]
-let listMessage = {
-      text: judul,
-      footer: infoh,
-      mentions: await conn.parseMention(judul),
-      title: '',
-      buttonText: "Continue ⎙",
-      sections
-    }
-return conn.sendMessage(m.chat, listMessage, { quoted: { key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast'}, message: { pollCreationMessage: { name: `Simple Bot WhatsApp` } } }, mentions: await conn.parseMention(judul), contextInfo: { forwardingScore: 99999, isForwarded: true }})
-await apivisit
-}
+•> *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned
+
 */
+
+let judul = `*${ucapan()} ${conn.getName(m.sender)}*
+
+_Join grup bot agar kamu bisa akses bot dimode gruponly_
+https://chat.whatsapp.com/FXyktzaoWTl0biIUl6VvDM
+`
     for (let plugin of help)
       if (plugin && 'tags' in plugin)
         for (let tag of plugin.tags)
@@ -147,20 +106,19 @@ await apivisit
       name, date, time,
       readmore: readMore
     }
-    let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '0@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let pp = await conn.profilePictureUrl(conn.user.jid, 'image').catch(_ => './src/avatar_contact.png')
-    // if (m.isGroup) return conn.sendButton(m.chat, text.trim(), conn.getName(conn.user.jid), pp, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
-    //conn.sendHydrated(m.chat, text.trim(), conn.getName(conn.user.jid), await genProfile(conn, m), 'https://youtube.com/channel/UC0hs_I8N3JntK5vO6KogavQ', 'YouTube', null, null, [['Speedtest', _p + 'ping'], ['Owner', _p + 'owner']], m)
-let url = pickRandom([`https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv1.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv2.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv3.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv4.mp4`, `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv5.mp4`])
-// conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: `${judul}\n\n${infoh}\n${text.trim()}`}, { quoted: m })
-conn.sendMessage(m.chat, { text: `${judul}\n\n${infoh}\n${text.trim()}`}, { quoted: m })
+    
+let url = `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv${pickRandom([`1`,`2`,`3`,`4`,`5`])}.mp4`
+let captione = `${judul}${text.trim()}`
+// conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: captione }, { quoted: m })
+await conn.sendMessage(m.chat, { text: captione, contextInfo: { externalAdReply: { title: conn.user.name, body: '', thumbnailUrl: pp, sourceUrl: "https://wa.me/"+ global.owner[0], mediaType: 1, renderLargerThumbnail: true }}})
 await apivisit
   } catch (e) {
     m.reply('An error occurred')
     throw e
   }
-  }
+  } // Klo mau ganti tampilan menu terserah, asal lu tau caranya kontl, udh gabisa maksa pula
 handler.help = ['menu']
 handler.tags = ['main']
 handler.command = /^(m|menu|help|\?)$/i
