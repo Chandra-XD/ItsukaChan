@@ -2,9 +2,9 @@ import axios from 'axios'
 import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text }) => {
-  try {
 	if (!text) throw 'Input URL'
 	if (!text.match(/(twitter.com)/gi)) throw `Invalid *URL*`
+	try {
 	let res = (await axios.get(API('can', '/api/download/twitter', { url: text }))).data;
 	await m.reply('Sedang diproses...')
 	await apivisit
