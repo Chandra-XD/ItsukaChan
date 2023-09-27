@@ -1,2 +1,5 @@
 language = "nix"
 run = "node . --server"
+
+[nix]
+channel = "unstable"

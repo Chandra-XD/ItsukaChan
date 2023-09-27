@@ -1,8 +1,8 @@
 { pkgs }: {
     deps = [
-        pkgs.nodejs
+        pkgs.nodejs_20
         pkgs.nodePackages.typescript
-        pkgs.ffmpeg
+        pkgs.jellyfin-ffmpeg
         pkgs.imagemagick
         pkgs.git
         pkgs.neofetch
@@ -18,3 +18,4 @@
         ];
     };
 }
+
