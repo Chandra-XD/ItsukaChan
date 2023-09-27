@@ -2,7 +2,7 @@ import './config.js'
 import path, { join } from 'path'
 import { platform } from 'process'
 import { fileURLToPath, pathToFileURL } from 'url'
-import { createRequire } from 'module' // Bring in the ability to create the 'require' method
+import { createRequire } from 'module'
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 import * as ws from 'ws'
 import {
@@ -22,13 +22,15 @@ import { format } from 'util'
 import { makeWASocket, protoType, serialize } from './lib/simple.js'
 import { Low, JSONFile } from 'lowdb'
 import pino from 'pino'
+import store from './lib/store.js'
 const {
-  useSingleFileAuthState,
-  useMultiFileAuthState,
-  DisconnectReason
-} = await import('@adiwajshing/baileys')
-import storeSystem from './lib/store.js'
-const store = storeSystem.makeInMemoryStore()
+    proto,
+    DisconnectReason,
+    useMultiFileAuthState,
+    MessageRetryMap,
+    fetchLatestBaileysVersion,
+    makeCacheableSignalKeyStore
+} = await (await import('@whiskeysockets/baileys')).default;
 
 const { CONNECTING } = ws
 const { chain } = lodash
@@ -75,50 +77,37 @@ global.loadDatabase = async function loadDatabase() {
 }
 loadDatabase()
 
-/*
-global.authFile = `${opts._[0] || 'session'}.data.json`
-const { state, saveState } = useSingleFileAuthState(global.authFile)
-
+global.authFile = `session`
+const { state, saveState, saveCreds } = await useMultiFileAuthState(global.authFile)
+const msgRetryCounterMap = (MessageRetryMap) => { }
+const { version } = await fetchLatestBaileysVersion()
 const connectionOptions = {
-  printQRInTerminal: true,
-  auth: state,
-  logger: pino({ level: 'silent'}),
-  version: [2, 2204, 13]
-  // logger: pino({ level: 'trace' })
-} */
-
-// bates
-global.authFile = global.opts['single'] ? `${global.opts._[0] || 'session'}.data.json` : 'session'
-const { state, saveState, saveCreds } = global.opts['single'] ? await useSingleFileAuthState(global.authFile) : await useMultiFileAuthState(global.authFile)
-
-const connectionOptions = {
-  printQRInTerminal: true,
-  auth: state,
-  browser: ['ItsukaChan By Chandra-XD', 'Safari', '3.1.0'],
-  patchMessageBeforeSending: (message) => {
-    const requiresPatch = !!(
-      message.buttonsMessage
-      || message.templateMessage
-      || message.listMessage
-    );
-    if (requiresPatch) {
-      message = {
-        viewOnceMessage: {
-          message: {
-            messageContextInfo: {
-              deviceListMetadataVersion: 2,
-              deviceListMetadata: {},
-            },
-            ...message,
-          },
-        },
-      };
-    }
-    return message;
-  },
-  logger: pino({ level: 'silent' }),
-  getMessage: async (key) => (conn.loadMessage(key.id) || store.loadMessage(key.id) || {}).message || { conversation: null }, // 'Please send messages again' }
+printQRInTerminal: true,
+patchMessageBeforeSending: (message) => {
+const requiresPatch = !!( message.buttonsMessage || message.templateMessage || message.listMessage )
+if (requiresPatch) {
+message = {viewOnceMessage: {message: {messageContextInfo: {deviceListMetadataVersion: 2, deviceListMetadata: {}}, ...message}}}
 }
+return message
+},
+getMessage: async (key) => {
+if (store) {
+const msg = await store.loadMessage(key.remoteJid, key.id)
+return conn.chats[key.remoteJid] && conn.chats[key.remoteJid].messages[key.id] ? conn.chats[key.remoteJid].messages[key.id].message : undefined
+}
+return proto.Message.fromObject({})
+},
+msgRetryCounterMap,
+logger: pino({level: 'silent'}),
+auth: {
+creds: state.creds,
+keys: makeCacheableSignalKeyStore(state.keys, pino({level: 'silent'})),
+},
+browser: ['ItsukaChan By Chandra-XD', 'Safari', '3.1.0'],
+version,
+defaultQueryTimeoutMs: undefined,
+}
+
 // bates
 global.conn = makeWASocket(connectionOptions)
 conn.isInit = false
