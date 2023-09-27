@@ -30,7 +30,7 @@ const {
     MessageRetryMap,
     fetchLatestBaileysVersion,
     makeCacheableSignalKeyStore
-} = await (await import('@whiskeysockets/baileys')).default;
+} = await (await import('@adiwajshing/baileys')).default;
 
 const { CONNECTING } = ws
 const { chain } = lodash
