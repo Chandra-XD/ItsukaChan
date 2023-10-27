@@ -47,9 +47,7 @@ async function processing(urlPath, method) {
 }
 let handler = async (m, { conn, usedPrefix, command }) => {
 	switch (command) {
-		case "enhancer":
 		case "unblur":
-		case "enhance":
 			{
 				conn.enhancer = conn.enhancer ? conn.enhancer : {};
 				if (m.sender in conn.enhancer)
@@ -61,7 +59,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				if (!/image\/(jpe?g|png)/.test(mime))
 					throw `Mime ${mime} tidak support`
 				else conn.enhancer[m.sender] = true
-				m.reply('Sedang diproses...')
+				conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
 				let img = await q.download?.();
 				let error;
 				try {
@@ -78,7 +76,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			}
 			break
 		case "colorize":
-		case "colorizer":
 			{
 				conn.recolor = conn.recolor ? conn.recolor : {};
 				if (m.sender in conn.recolor)
@@ -90,11 +87,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				if (!/image\/(jpe?g|png)/.test(mime))
 					throw `Mime ${mime} tidak support`
 				else conn.recolor[m.sender] = true
-				m.reply('Sedang diproses...')
+				conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
 				let img = await q.download?.();
 				let error;
 				try {
-					const This = await processing(img, "enhance")
+					const This = await processing(img, "recolor")
 					conn.sendFile(m.chat, This, "", wm, m)
 				} catch (er) {
 					error = true
@@ -108,6 +105,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			break
 		case "hd":
 		case "hdr":
+		case "remini":
 			{
 				conn.hdr = conn.hdr ? conn.hdr : {};
 				if (m.sender in conn.hdr)
@@ -119,11 +117,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				if (!/image\/(jpe?g|png)/.test(mime))
 					throw `Mime ${mime} tidak support`
 				else conn.hdr[m.sender] = true
-				m.reply('Sedang diproses...')
+				conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
 				let img = await q.download?.();
 				let error;
 				try {
-					const This = await processing(img, "enhance")
+					const This = await processing(img, "dehaze")
 					conn.sendFile(m.chat, This, "", wm, m)
 				} catch (er) {
 					error = true
@@ -137,7 +135,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			break
 	}
 }
-handler.help = ["enhancer", "hdr", "colorize"]
+handler.command = handler.help = ["unblur", "hd", "remini", "colorize"]
 handler.tags = ["tools"]
-handler.command = ["unblur", "enchaner", "enhance", "hdr", "colorize"]
 export default handler
