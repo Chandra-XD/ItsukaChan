@@ -11,14 +11,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		let mime = (q.msg || q).mimetype || q.mediaType || ''
 		if (/webp/g.test(mime)) {
 			let img = await q.download?.()
-			stiker = await addExif(img, global.packname || '', global.author || '')
+			stiker = await addExif(img, packname || '', author || '')
 		} else if (/image/g.test(mime)) {
 			let img = await q.download?.()
-			stiker = await createSticker(img, false, global.packname, global.author)
+			stiker = await createSticker(img, false, packname || '', author || '')
 		} else if (/video/g.test(mime)) {
 		//	if ((q.msg || q).seconds > 10) throw 'Max 10 seconds!'
 			let img = await q.download?.()
-			stiker = await mp4ToWebp(img, { pack: global.packname, author: global.author })
+			stiker = await mp4ToWebp(img, { pack: packname || '', author: author || '' })
 		} else if (args[0] && isUrl(args[0])) {
 			stiker = await createSticker(false, args[0], '', author, 20)
 		} else throw `Reply an image/video/sticker with command ${usedPrefix + command}`
@@ -112,4 +112,3 @@ async function mp4ToWebp(file, stickerMetadata) {
 	})
 	return Buffer.from((await res.text()).split(';base64,')[1], 'base64')
 }
-
