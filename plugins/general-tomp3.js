@@ -1,5 +1,4 @@
 import { toAudio } from '../lib/converter.js'
-import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, usedPrefix, command }) => {
     let q = m.quoted ? m.quoted : m
@@ -9,8 +8,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     if (!media) throw 'Can\'t download media'
     let audio = await toAudio(media, 'mp4')
     if (!audio.data) throw 'Can\'t convert media to audio'
-    await conn.sendMessage(m.chat, { audio: audio.data,  mimetype: 'audio/mpeg' }, { quoted: m })
-    await apivisit
+    await conn.sendMessage(m.chat, { audio: audio.data, mimetype: 'audio/mpeg' }, { quoted: m})
 }
 handler.help = ['tomp3']
 handler.tags = ['general']
