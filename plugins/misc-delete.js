@@ -10,7 +10,7 @@ try {
 			...m.quoted.vM.key, participant: m.quoted.sender }
 		})}
 } catch (e) {
-throw "Reply message"
+return
 }
 }
 handler.alias = ["del", "delete"];
