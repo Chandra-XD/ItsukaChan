@@ -1,47 +1,50 @@
-import axios from "axios"
-import cheerio from "cheerio"
-import { apivisit } from './kanghit.js'
+import cheerio from 'cheerio';
+import fetch from 'node-fetch';
 
-async function wikipedia(querry) {
-  try {
-    const link = await axios.get(`https://id.m.wikipedia.org/wiki/${querry}`)
-    const $ = cheerio.load(link.data)
-    let judul = $('#firstHeading').text().trim()
-    let thumb = $('#mw-content-text').find('div.mw-parser-output > div:nth-child(1) > table > tbody > tr:nth-child(2) > td > a > img').attr('src') || `//i.postimg.cc/Z5b1WDwD/1675949861324.jpg`
-    let isi = []
-    $('#mw-content-text > div.mw-parser-output').each(function (rayy, Ra) {
-      let penjelasan = $(Ra).find('p').text().trim()
-      isi.push(penjelasan)
-    })
-    for (let i of isi) {
-      const data = {
-        status: link.status,
-        result: {
-          judul: judul,
-          thumb: 'https:' + thumb,
-          isi: i
-        }
-      }
-      return data
+let handler = async (m, {
+    text,
+    usedPrefix,
+    command
+}) => {
+    if (!text) throw `Contoh penggunaan ${usedPrefix + command} Javascript`
+    try {
+        let item = await Wikipedia(text)
+        let caption = `*Title:* ${item.title || 'Tidak diketahui'}\n*Content:* ${item.content || 'Tidak diketahui'}\n*Information:* ${item.infoTable || 'Tidak diketahui'}`
+        await conn.sendFile(m.chat, item.image, "", caption, m)
+    } catch (e) {
+        throw e
     }
-  } catch (err) {
-    var notFond = {
-      status: link.status,
-      Pesan: eror
-    }
-    return notFond
-  }
 }
-
-let handler = async (m, { conn, text }) => {
-if (!text) return m.reply('Query??')
-await apivisit
-wikipedia(`${text}`).then(res => {
-    conn.sendFile(m.chat, res.result.thumb, 'wiki.png',`*Judul:* ${res.result.judul}\n\n*Penjelasan:*\n${res.result.isi}\n\n*© Wikipedia*`, m)
-  }).catch(() => { m.reply('Maaf server tidak dapat menemukannya :(') })
-}
-
 handler.help = ['wikipedia'].map(v => v + ' <query>')
 handler.tags = ['tools']
 handler.command = /^(wiki|wikipedia)$/i
 export default handler
+
+async function Wikipedia(query) {
+    const response = await fetch(`https://id.m.wikipedia.org/w/index.php?search=${query}`);
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    const contentArray = [];
+    $('div.mw-parser-output p').each((index, element) => {
+        contentArray.push($(element).text().trim());
+    });
+
+    const infoTable = [];
+    $('table.infobox tr').each((index, element) => {
+        const label = $(element).find('th.infobox-label').text().trim();
+        const value = $(element).find('td.infobox-data').text().trim() || $(element).find('td.infobox-data a').text().trim();
+        if (label && value) {
+            infoTable.push(`${label}: ${value}`);
+        }
+    });
+
+    const data = {
+        title: $('title').text().trim(),
+        content: contentArray.join('\n'), // Menggabungkan konten menjadi satu string dengan newline separator
+        image: 'https:' + ($('#mw-content-text img').attr('src') || '//i.postimg.cc/Z5b1WDwD/1675949861324.jpg'),
+        infoTable: infoTable.join('\n') // Menggabungkan infoTable menjadi satu string dengan newline separator
+    };
+
+    return data;
+};
