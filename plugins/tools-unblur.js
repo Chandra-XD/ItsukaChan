@@ -48,6 +48,9 @@ async function processing(urlPath, method) {
 let handler = async (m, { conn, usedPrefix, command }) => {
 	switch (command) {
 		case "unblur":
+		case "hd":
+		case "hdr":
+		case "remini":
 			{
 				conn.enhancer = conn.enhancer ? conn.enhancer : {};
 				if (m.sender in conn.enhancer)
@@ -103,9 +106,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				}
 			}
 			break
-		case "hd":
-		case "hdr":
-		case "remini":
+		case "dehaze":
 			{
 				conn.hdr = conn.hdr ? conn.hdr : {};
 				if (m.sender in conn.hdr)
@@ -135,6 +136,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 			break
 	}
 }
-handler.command = handler.help = ["unblur", "hd", "remini", "colorize"]
+handler.command = handler.help = ["unblur", "hd", "remini", "colorize", "dehaze"]
 handler.tags = ["tools"]
 export default handler
