@@ -17,7 +17,7 @@
 <br>
 <br>
 
-> **Warning** : Jika ada bug atau error segera lapor ke ([owner](https://pnggilajacn.my.id)), jika ingin pull req silahkan saja selagi tidak menggunakan rest api.
+> **Warning** : Rest apinya mati bro, jadi klo ada fitur yang pake domain https://pnggilajacn.my.id udh nggak work it
 
 <details>
  <summary>Cara Pemasangan</summary>
