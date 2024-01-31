@@ -14,14 +14,7 @@ let handler = async (m, { conn, args }) => {
     } else if (m.quoted && m.quoted.text) {
         text = m.quoted.text
     } else throw query
-    
-    let who
-    if (m.quoted && m.quoted.sender) {
-    who = m.quoted.sender
-    } else if (m.sender) {
-    who = m.sender
-    } else throw m.sender
-    
+    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
    try {
    const obj = {
       "type": "quote",
@@ -57,7 +50,7 @@ let handler = async (m, { conn, args }) => {
 	}
 }
 
-handler.help = ['qc']
+handler.help = ['qc'].map(v => v + ' <text>')
 handler.tags = ['general']
 handler.command = /^(qc|quotly)$/i
 export default handler
