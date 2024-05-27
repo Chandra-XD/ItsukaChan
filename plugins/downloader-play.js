@@ -36,7 +36,7 @@ let handler = async (m, { conn, text }) => {
           conn.sendMessage(m.chat, {         
                 audio: buffer,
                 mimetype: 'audio/mpeg'
-            }, { quoted: m}
+            }, { quoted: m})
           fs.unlinkSync(inputFilePath);
           fs.unlinkSync(outputFilePath);
         })
