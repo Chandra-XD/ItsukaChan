@@ -36,7 +36,7 @@ conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
           conn.sendMessage(m.chat, {         
                 audio: buffer,
                 mimetype: 'audio/mpeg'
-            }, { quoted: m}
+            }, { quoted: m})
           fs.unlinkSync(inputFilePath);
           fs.unlinkSync(outputFilePath);
         })
