@@ -1,25 +1,17 @@
-import yts from 'yt-search'
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper-sosmed'
-import { validateURL, getVideoID } from '../lib/ytUrlUtils.js'
-
 let handler = async (m, { conn, args }) => {
-	if (validateURL(args[0])) {
-		let id = await getVideoID(args[0]), vid = await yts({ videoId: id }), opt = args[1] && args[1].isNumber() ? args[1].replace(/\D/g, '') : ''
-		let { thumbnail, title, description: desc, timestamp, views, uploadDate, ago, author: { name }} = vid
-		await m.reply('Sedang diproses...')
-		let yt = await youtubedl(args[0]).catch(async () => await youtubedlv2(args[0]))
-		let dl_url = await yt.video['360p'].download()
-		let size = await yt.video['360p'].fileSizeH
+  if (/^https?:\/\/.*youtu/i.test(args[0])) {
+    conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
+        let api = (await axios.get("https://mxmxk-helper.hf.space/yt?query="+ args[0])).data 
+		let x1 = api.result
 		let _thumb = {}
-		try { _thumb = { jpegThumbnail: (await conn.getFile(thumbnail)).data } }
+		try { _thumb = { jpegThumbnail: (await conn.getFile(x1.image)).data } }
 		catch (e) { }
-		if (size.split('MB')[0] >= 250) return m.reply(`File melebihi batas unduhan, download sendiri!!\n*Url :* ${dl_url}`)    
-		await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) ? 'document' : 'video']: { url: dl_url }, fileName: `${title}.mp4`, mimetype: 'video/mp4', ..._thumb }, { quoted: m }).then(async (msg) => {
-			let caption = `*Title:* ${title}\n*Channel:* ${name}\n*Duration:* ${timestamp}\n*Upload Date:* ${uploadDate}\n*Views:* ${views}\n*Description:*\n${desc}`
-			await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption }, { quoted: msg })
-		})
-	} else throw 'Invalid URL'
+		let tek = `Title : ${x1.title}\nDescription : ${x1.description}`
+		let vd = await conn.reply(m.chat, tek, m)
+		await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) ? 'document' : 'video']: { url: x1.download.video }, fileName: `${x1.title}.mp4`, mimetype: 'video/mp4', ..._thumb }, { quoted: vd })
+} else throw "Invalid URL"
 }
+
 handler.help = ['mp4'].map(v => 'yt' + v + ` <url>`)
 handler.tags = ['downloader']
 handler.command = /^yt(v|mp4)?$/i

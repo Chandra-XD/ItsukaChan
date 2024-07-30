@@ -1,70 +1,15 @@
-import ytdl from 'ytdl-core'
-import fs from 'fs'
-import ffmpeg from 'fluent-ffmpeg'
-import search from 'yt-search'
-
 let handler = async (m, { conn, args }) => {
-  if (!ytdl.validateURL(args[0])) throw 'Invalid URL'
-conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
-  try {
-    let results = await search(args[0]);
-    let videoId = results.videos[0].videoId;
-    let info = await ytdl.getInfo(videoId);
-    let title = info.videoDetails.title.replace(/[^\w\s]/gi, '');
-    let thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-    let url = info.videoDetails.video_url;
-    let duration = parseInt(info.videoDetails.lengthSeconds);
-    let uploadDate = new Date(info.videoDetails.publishDate).toLocaleDateString();
-    let views = info.videoDetails.viewCount;
-    let minutes = Math.floor(duration / 60);
-    let description = results.videos[0].description;
-    let seconds = duration % 60;
-    let durationText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;       
-    let audio = ytdl(videoId, { quality: 'highestaudio' });
-    let inputFilePath = './tmp/' + title + '.webm';
-    let outputFilePath = './tmp/' + title + '.mp3';
-    let viewsFormatted = formatViews(views);
-    let caption = `*Title*: ${title}\n*Duration*: ${durationText}\n*Upload*: ${uploadDate}\n*Views*: ${viewsFormatted}\n*ID*: ${videoId}\n*Description*: ${description}\n*URL*: ${url}
-  `;
-    const pesan = conn.sendMessage(m.chat, { image: { url: thumbnailUrl }, caption }, { quoted: m})
-
-    audio.pipe(fs.createWriteStream(inputFilePath)).on('finish', async () => {
-      ffmpeg(inputFilePath)
-        .toFormat('mp3')
-        .on('end', async () => {
-          let buffer = fs.readFileSync(outputFilePath);                    
-          conn.sendMessage(m.chat, {         
-                audio: buffer,
-                mimetype: 'audio/mpeg'
-            }, { quoted: m})
-          fs.unlinkSync(inputFilePath);
-          fs.unlinkSync(outputFilePath);
-        })
-        .on('error', (err) => {
-          console.log(err);
-          m.reply(`There was an error converting the audio: ${err.message}`);
-          fs.unlinkSync(inputFilePath);
-          fs.unlinkSync(outputFilePath);
-        })
-        .save(outputFilePath);
-    });
-  } catch (e) {
-    console.log(e);
-    m.reply(`An error occurred while searching for the song: ${e.message}`);
-  }
+  if (/^https?:\/\/.*youtu/i.test(args[0])) {
+    conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
+        let api = (await axios.get("https://mxmxk-helper.hf.space/yt?query="+ args[0])).data 
+        let x1 = api.result
+		let tek = `Title : ${x1.title}\nDescription : ${x1.description}`
+		let vd = await conn.reply(m.chat, tek, m)
+		await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) ? 'document' : 'audio']: { url: x1.download.audio }, fileName: `${x1.title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: vd })
+} else throw "Invalid URL"
 }
 
 handler.help = ['mp3'].map(v => 'yt' + v + ` <url>`)
 handler.tags = ['downloader']
 handler.command = /^yt(a|mp3)$/i
 export default handler
-
-function formatViews(views) {
-  if (views >= 1000000) {
-    return (views / 1000000).toFixed(1) + 'M';
-  } else if (views >= 1000) {
-    return (views / 1000).toFixed(1) + 'K';
-  } else {
-    return views.toString();
-  }
-}
