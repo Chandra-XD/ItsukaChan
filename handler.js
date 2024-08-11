@@ -351,8 +351,8 @@ export async function handler(chatUpdate) {
                 }
                 try {
                     if (!isOwner && !isPrems) {
-                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 6000000)) return
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 0)) return
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 0)) return
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
