@@ -30,7 +30,11 @@ const {
     MessageRetryMap,
     fetchLatestBaileysVersion,
     makeCacheableSignalKeyStore
-} = await (await import('@adiwajshing/baileys')).default;
+} = await (await import('@whiskeysockets/baileys')).default;
+
+import fetch from 'node-fetch'
+import cheerio from 'cheerio'
+import axios from 'axios'
 
 const { CONNECTING } = ws
 const { chain } = lodash
@@ -44,9 +48,11 @@ global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.
 global.timestamp = {
   start: new Date
 }
+global.axios = axios
+global.cheerio = cheerio
+global.fetch = fetch
 
 const __dirname = global.__dirname(import.meta.url)
-
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 
@@ -133,16 +139,52 @@ function clearTmp() {
   })
 }
 
+function purgeSession() {
+    let prekey = [];
+    const directorio = readdirSync('./session');
+    const filesFolderPreKeys = directorio.filter((file) => {
+        return file.startsWith('pre-key-');
+    });
+    const filesFolderSession = directorio.filter((file) => {
+        return file.startsWith('session-');
+    });
+    const filesFolderSesiSW = directorio.filter((file) => {
+        return file.startsWith('sender-key-');
+    });
+    prekey = [...prekey, ...filesFolderPreKeys, ...filesFolderSession, ...filesFolderSesiSW];
+    filesFolderPreKeys.forEach((files) => {
+        unlinkSync(`./session/${files}`);
+    });
+    filesFolderSession.forEach((filesS) => {
+        unlinkSync(`./session/${filesS}`);
+    });
+    filesFolderSesiSW.forEach((fileSW) => {
+        unlinkSync(`./session/${fileSW}`);
+    });
+}
+
 async function connectionUpdate(update) {
   const { connection, lastDisconnect, isNewLogin } = update
+  global.stopped = connection;
   if (isNewLogin) conn.isInit = true
   const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode
   if (code && code !== DisconnectReason.loggedOut && conn?.ws.readyState !== CONNECTING) {
     console.log(await global.reloadHandler(true).catch(console.error))
     global.timestamp.connect = new Date
   }
-  // console.log(JSON.stringify(update, null, 4))
   if (global.db.data == null) loadDatabase()
+  if (connection === "open") {
+        conn.logger.info('\n🚩 R E A D Y')
+    }
+  if (connection == 'close') {
+        conn.logger.error(`\n🚩 Koneksi ditutup, harap hapus folder ${global.authFile} dan pindai ulang kode QR`)
+    }
+    /*
+  if (update.receivedPendingNotifications) {
+  conn.reply(`120363040878906021` + `@g.us`, `*[Notification]* Server starting`, null)
+  }
+  */
+  console.log(JSON.stringify(update, null, 4))
 }
 
 process.on('uncaughtException', console.error)
@@ -181,6 +223,10 @@ global.reloadHandler = async function (restatConn) {
   conn.sSubject = 'Nama grup telah diubah ke\n@subject'
   conn.sIcon = 'Icon grup telah diubah!'
   conn.sRevoke = 'Link group telah diubah ke\n@revoke'
+  conn.sAnnounceOn = 'Group telah di tutup!\nsekarang hanya admin yang dapat mengirim pesan.'
+  conn.sAnnounceOff = 'Group telah di buka!\nsekarang semua peserta dapat mengirim pesan.'
+  conn.sRestrictOn = 'Edit Info Grup di ubah ke hanya admin!'
+  conn.sRestrictOff = 'Edit Info Grup di ubah ke semua peserta!'
   conn.handler = handler.handler.bind(global.conn)
   conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
   conn.groupsUpdate = handler.groupsUpdate.bind(global.conn)
@@ -284,6 +330,39 @@ async function _quickTest() {
   if (s.ffmpeg && !s.ffmpegWebp) conn.logger.warn('Stickers may not animated without libwebp on ffmpeg (--enable-ibwebp while compiling ffmpeg)')
   if (!s.convert && !s.magick && !s.gm) conn.logger.warn('Stickers may not work without imagemagick if libwebp on ffmpeg doesnt isntalled (pkg install imagemagick)')
 }
+
+async function expired() {
+	return new Promise(async (resolve, reject) => {
+		let user = Object.keys(global.db.data.users)
+		for (let jid of user) {
+			var users = global.db.data.users[jid]
+			var {
+				name,
+				premium,
+				expired
+			} = users
+			if (users.premium) {
+				if (Date.now() >= users.expired) {
+					users.premium = false
+					users.expired = 0
+					resolve(console.log(`masa premium ${name} sudah habis`))
+				}
+			}
+		}
+	})
+}
+
+var ramCheck = setInterval(() => {
+	var ramUsage = process.memoryUsage().rss
+	if (ramUsage >= global.ram_usage) {
+		clearInterval(ramCheck)
+		process.send('reset')
+	}
+}, 60 * 1000) // Checking every 1 minutes
+
+setInterval(async () => {
+    await expired()
+}, 1 * 30 * 1000) // 30 secs
 
 _quickTest()
   .then(() => conn.logger.info('Quick Test Done'))

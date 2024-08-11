@@ -6,7 +6,7 @@ import { smsg } from './lib/simple.js'
 import { unwatchFile, watchFile } from 'fs'
 import fs from 'fs'
 
-const { proto } = (await import('@adiwajshing/baileys')).default
+const { proto } = (await import('@whiskeysockets/baileys')).default
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function () {
     clearTimeout(this)
@@ -97,7 +97,8 @@ export async function handler(chatUpdate) {
                     if (!('sPromote' in chat)) chat.sPromote = ''
                     if (!('sDemote' in chat)) chat.sDemote = ''
                     if (!('delete' in chat)) chat.delete = true
-                    if (!('antiLink' in chat)) chat.antiLink = false 
+                    if (!('antiLink' in chat)) chat.antiLink = false
+                    if (!('antiBot' in chat)) chat.antiBot = false 
                     if (!('antiSticker' in chat)) chat.antiSticker = false
                     if (!('stiker' in chat)) chat.stiker = false
                     if (!('mute' in chat)) chat.mute = true 
@@ -118,6 +119,7 @@ export async function handler(chatUpdate) {
                     sDemote: '',
                     delete: true,
                     antiLink: false,
+                    antiBot: false,
                     stiker: false,
                     mute: true,
                     antiSticker: false,
@@ -160,12 +162,11 @@ export async function handler(chatUpdate) {
         const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isOwner = isROwner || m.fromMe
         const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-        // const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isPrems = isROwner || db.data.users[m.sender].premium
         
         if (opts['nyimak']) return
-        if (opts['pconly'] && m.chat.endsWith('g.us')) return
-        if (opts['gconly'] && !m.chat.endsWith('g.us')) return
+        if (opts['pconly'] && m.chat.endsWith('g.us') && !isPrems) return
+        if (opts['gconly'] && !m.chat.endsWith('g.us') && !isPrems) return
         if (opts['swonly'] && m.chat !== 'status@broadcast') return
         if (typeof m.text !== 'string') m.text = ''
         
@@ -183,7 +184,7 @@ export async function handler(chatUpdate) {
         
 //      if(m.isBaileys || m.chat === 'status@broadcast') return
         if(m.isBaileys) return
-        if(m.chat.endsWith('broadcast')) return setTimeout(() => { conn.readMessages([m.key]) }, 60000) // 1 minutes
+        if(m.chat.endsWith('broadcast')) return
         m.exp += Math.ceil(Math.random() * 10)
         let usedPrefix
         let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
@@ -349,9 +350,9 @@ export async function handler(chatUpdate) {
                     __filename
                 }
                 try {
-                    if (!isOwner) {
+                    if (!isOwner && !isPrems) {
                        if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 10000)) return
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 6000000)) return
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false
@@ -400,7 +401,7 @@ export async function handler(chatUpdate) {
             }
             let stat
             if (m.plugin) {
-              let rn = ['recording','composing']
+              let rn = ['unavailable', 'available', 'composing', 'recording', 'paused']
               let jd = rn[Math.floor(Math.random() * rn.length)]
               await this.sendPresenceUpdate(jd,m.chat)
                 let now = +new Date
@@ -434,7 +435,7 @@ export async function handler(chatUpdate) {
         } catch (e) {
             console.log(m, m.quoted, e)
         }
-        if (opts['autoread']) await this.readMessages([m.key]) // this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
+        if (opts['autoread']) await this.readMessages([m.key])
     }
 }
 
@@ -488,6 +489,34 @@ export async function groupsUpdate(groupsUpdate) {
         if (groupUpdate.revoke) text = (chats.sRevoke || this.sRevoke || conn.sRevoke || '```Group link has been changed to```\n@revoke').replace('@revoke', groupUpdate.revoke)
         if (!text) continue
         await this.sendMessage(id, { text, mentions: this.parseMention(text) })
+    }
+}
+
+export async function presenceUpdate(presenceUpdate) {
+    const id = presenceUpdate.id;
+    const nouser = Object.keys(presenceUpdate.presences);
+    const status = presenceUpdate.presences[nouser]?.lastKnownPresence;
+    const user = global.db.data.users[nouser[0]];
+
+    if (user?.afk && status === "composing" && user.afk > -1) {
+        if (user.banned) {
+            user.afk = -1;
+            user.afkReason = "User Banned Afk";
+            return;
+        }
+
+        await console.log("AFK - TICK");
+        const username = nouser[0].split("@")[0];
+        const timeAfk = new Date() - user.afk;
+        const caption = `\n@${username} berhenti afk, dia sedang mengetik\n\nAlasan: ${
+      user.afkReason ? user.afkReason : "No Reason"
+    }\nSelama ${timeAfk.toTimeString()} Yang Lalu\n`;
+
+        this.reply(id, caption, null, {
+            mentions: this.parseMention(caption)
+        });
+        user.afk = -1;
+        user.afkReason = "";
     }
 }
 

@@ -1,5 +1,7 @@
 console.log('Starting...')
 
+import os from 'os'
+import chalk from 'chalk'
 import yargs from 'yargs'
 import cfonts from 'cfonts'
 import { fileURLToPath } from 'url'
@@ -59,8 +61,37 @@ function start(file) {
       p.emit('message', line.trim())
     })
   // console.log(p)
+  
+  console.log(chalk.yellow(`${os.type()}, ${os.release()} - ${os.arch()}`))
+  const ramInGB = os.totalmem() / (1024 * 1024 * 1024);
+  console.log(chalk.yellow(`Total RAM: ${ramInGB.toFixed(2)} GB`))
+  const freeRamInGB = os.freemem() / (1024 * 1024 * 1024);
+  console.log(chalk.yellow(`Free RAM: ${freeRamInGB.toFixed(2)} GB`))
+  console.log(chalk.yellow(`Script by Chandra-XD`))
+
+  const { version, description, author } = require(join(__dirname, './package.json'))
+    console.log(chalk.blue.bold(`\nPackage Information`))
+    console.log(chalk.cyan(`Name: ${name}`))
+    console.log(chalk.cyan(`Version: ${version}`))
+    console.log(chalk.cyan(`Description: ${description}`))
+    console.log(chalk.cyan(`Author: ${author.name}`))
+
+  console.log(chalk.blue.bold(`\nCurrent Time`))
+  const currentTime = new Date().toLocaleString()
+  console.log(chalk.cyan(`${currentTime}`))
 }
 
 start('main.js')
 
-require("http").createServer((_, res) => res.end("Uptime!")).listen(8080)
+// require("http").createServer((_, res) => res.end("Uptime!")).listen(8080)
+
+process.on('unhandledRejection', () => {
+  console.error(chalk.red(`Unhandled promise rejection. Script will restart...`))
+  start('main.js')
+});
+
+process.on('exit', (code) => {
+  console.error(chalk.red(`Exited with code: ${code}`))
+  console.error(chalk.red(`Script will restart...`))
+  start('main.js')
+})
