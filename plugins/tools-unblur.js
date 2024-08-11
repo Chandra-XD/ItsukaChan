@@ -1,5 +1,6 @@
 import FormData from "form-data"
 import Jimp from "jimp"
+import { TMP } from '../lib/tempfile.js';
 
 async function processing(urlPath, method) {
 	return new Promise(async (resolve, reject) => {
@@ -67,7 +68,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				let error;
 				try {
 					const This = await processing(img, "enhance")
-					conn.sendFile(m.chat, This, "", wm, m)
+					const tmp = await TMP(This)
+					conn.sendFile(m.chat, This, "", "_File will be deleted in 60 minutes_ " + tmp, m)
 				} catch (er) {
 					error = true
 				} finally {
@@ -95,7 +97,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				let error;
 				try {
 					const This = await processing(img, "recolor")
-					conn.sendFile(m.chat, This, "", wm, m)
+					const tmp = await TMP(This)
+					conn.sendFile(m.chat, This, "", "_File will be deleted in 60 minutes_ " + tmp, m)
 				} catch (er) {
 					error = true
 				} finally {
@@ -123,7 +126,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				let error;
 				try {
 					const This = await processing(img, "dehaze")
-					conn.sendFile(m.chat, This, "", wm, m)
+					const tmp = await TMP(This)
+					conn.sendFile(m.chat, This, "", "_File will be deleted in 60 minutes_ " + tmp, m)
 				} catch (er) {
 					error = true
 				} finally {

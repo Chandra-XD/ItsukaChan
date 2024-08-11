@@ -12,7 +12,7 @@ let handler = async (m) => {
 Size : ${media.length} Byte
 Expired : ${isTele ? 'No Expiry Date' : 'Unknown'}`)
 }
-handler.help = ['upload (reply media)', 'tourl (reply media)']
+handler.help = ['tourl']
 handler.tags = ['tools']
 handler.command = /^(tourl|upload)$/i
 export default handler

@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import { format } from 'util'
+import { apivisit } from './kanghit.js'
 
 let handler = async (m, { text }) => {
 	if (!/^https?:\/\//.test(text)) throw 'Param *URL* must be starts with http:// or https://'
@@ -15,9 +16,11 @@ let handler = async (m, { text }) => {
 	} finally {
 		m.reply(txt.slice(0, 65536) + '')
 	}
+	await apivisit
 }
 handler.help = ['fetch']
 handler.tags = ['tools']
 handler.alias = ['get', 'fetch']
 handler.command = /^(fetch|get)$/i
+handler.owner = true
 export default handler

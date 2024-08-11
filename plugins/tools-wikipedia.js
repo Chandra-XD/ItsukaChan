@@ -15,7 +15,7 @@ let handler = async (m, {
         throw e
     }
 }
-handler.help = ['wikipedia'].map(v => v + ' <query>')
+handler.help = ['wikipedia']
 handler.tags = ['tools']
 handler.command = /^(wiki|wikipedia)$/i
 export default handler

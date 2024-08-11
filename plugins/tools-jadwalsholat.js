@@ -10,19 +10,19 @@ let handler = async (m, { text }) => {
 	}).join`\n\n`
 	m.reply(res)
 }
-handler.help = handler.alias = ['jadwalsholat'].map(v => v + ' <daerah>')
+handler.help = handler.alias = ['jadwalsholat']
 handler.tags = ['tools']
 handler.command = /^(jadwalsholat)$/i
 
 export default handler
 
 async function jadwalsholat(query) {
-	let id = await (await fetch(`https://api.myquran.com/v1/sholat/kota/cari/${query}`)).json()
+	let id = await (await fetch(`https://api.myquran.com/v2/sholat/kota/cari/${query}`)).json()
 	if (id.status !== true) throw id.message
 	id = id.data
 	let result = [], d = new Date().toLocaleDateString('id', { timeZone: 'Asia/Jakarta' }).split('/')
 	for (let i = 0; i < id.length; i++) {
-		let res = await fetch(`https://api.myquran.com/v1/sholat/jadwal/${id[i].id}/${d[2]}/${d[1]}/${d[0]}`)
+		let res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/${id[i].id}/${d[2]}/${d[1]}/${d[0]}`)
 		res = await res.json()
 		result.push({ lokasi: res.data.lokasi, daerah: res.data.daerah, jadwal: res.data.jadwal })
 	}
