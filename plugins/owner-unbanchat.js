@@ -1,6 +1,9 @@
+import { apivisit } from './kanghit.js'
+
 let handler = async (m) => {
     global.db.data.chats[m.chat].isBanned = false
-    m.reply('Done!')
+    await m.reply('Done!')
+    await apivisit
 }
 handler.help = ['unbanchat']
 handler.tags = ['owner']

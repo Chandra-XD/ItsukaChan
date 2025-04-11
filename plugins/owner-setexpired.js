@@ -11,7 +11,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     else global.db.data.chats[who].expired = now + jumlahHari
     conn.reply(m.chat, `Berhasil menetapkan hari kadaluarsa untuk Grup ini selama ${args[0]} hari.\n\nHitung Mundur : ${msToDate(global.db.data.chats[who].expired - now)}`, m)
 }
-handler.help = ['setexpired'].map(v => v + ' <hari>')
+handler.help = ['setexpired']
 handler.tags = ['owner']
 handler.command = /^(setexpired|addsewa)$/i
 handler.owner = true

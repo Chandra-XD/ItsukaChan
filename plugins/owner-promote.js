@@ -1,4 +1,4 @@
-import { areJidsSameUser } from '@adiwajshing/baileys'
+import { areJidsSameUser } from '@whiskeysockets/baileys'
 let handler = async (m, { conn, participants }) => {
     let users = m.mentionedJid.filter(u => !areJidsSameUser(u, conn.user.id))
     let promoteUser = []
@@ -10,7 +10,7 @@ let handler = async (m, { conn, participants }) => {
     m.reply('Succes')
 
 }
-handler.help = ['opromote'].map(v => v + ' @tag')
+handler.help = ['opromote']
 handler.tags = ['owner']
 handler.command = /^(opromote)$/i
 handler.owner = true

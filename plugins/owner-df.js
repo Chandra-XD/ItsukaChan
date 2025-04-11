@@ -1,5 +1,6 @@
 import { tmpdir } from 'os'
 import path, { join } from 'path'
+import { apivisit } from './kanghit.js'
 import {
   readdirSync,
   statSync,
@@ -16,11 +17,11 @@ let ar = Object.keys(plugins)
     if (!ar1.includes(args[0])) return m.reply(`*🗃️ NOT FOUND!*\n==================================\n\n${ar1.map(v => ' ' + v).join`\n`}`)
 const file = join(__dirname, '../plugins/' + args[0] + '.js')
 unlinkSync(file)
-conn.reply(m.chat, `Succes deleted "plugins/${args[0]}.js"`, m)
-    
+await conn.reply(m.chat, `Succes deleted "plugins/${args[0]}.js"`, m)
+await apivisit
 }
 handler.help = ['df']
 handler.tags = ['owner']
 handler.command = /^(df)$/i
-handler.owner = true
+handler.mods = true
 export default handler

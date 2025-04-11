@@ -28,7 +28,7 @@ let handler = async (m, {
     if (lister.includes(feature)) {
 
         if (feature == "tips") {
-            let cap = "*[ WESTMANGA TIPS ]*\n\n1. Cari manga memakai perintah *.west search|query* ubah query sesuka kalian.\n2. Mengambil episode memakai perintah *.west episode|query* ubah query dari hasil link sebelumnya.\nContoh link: https://westmanga.info/manga/a-nyakuza-manga/\n3. Mengambil link download memakai perintah *.west link|query* ubah query dari hasil link sebelumnya.\nContoh link: https://westmanga.info/a-nyakuza-manga-chapter-00-bahasa-indonesia/\n4. Mendownload data memakai perintah *.west down|query* ubah query dari hasil link sebelumnya.\nContoh link: https://downloader.4youscan.xyz/?id=296931\n5. Melakukan pengunduhan lalu mengkonversi memakai perintah *.west convert* kemudian tunggu beberapa waktu dan ketik *.west pdf* untuk mengambil file PDF manga nya."
+            let cap = "*[ WESTMANGA TIPS ]*\n\n1. Cari manga memakai perintah *.west search|query* ubah query sesuka kalian.\n2. Mengambil episode memakai perintah *.west episode|query* ubah query dari hasil link sebelumnya.\nContoh link: https://westmanga.fun/manga/a-nyakuza-manga/\n3. Mengambil link download memakai perintah *.west link|query* ubah query dari hasil link sebelumnya.\nContoh link: https://westmanga.fun/a-nyakuza-manga-chapter-00-bahasa-indonesia/\n4. Mendownload data memakai perintah *.west down|query* ubah query dari hasil link sebelumnya.\nContoh link: https://downloader.4youscan.xyz/?id=296931\n5. Melakukan pengunduhan lalu mengkonversi memakai perintah *.west convert* kemudian tunggu beberapa waktu dan ketik *.west pdf* untuk mengambil file PDF manga nya."
             try {
                 await m.reply(cap)
             } catch (e) {
@@ -37,7 +37,7 @@ let handler = async (m, {
         }
 
         if (feature == "link") {
-            if (inputs.includes("https://westmanga.info/manga/")) return m.reply("input link dari westmanga?")
+            if (inputs.includes("https://westmanga.fun/manga/")) return m.reply("input link dari westmanga?")
             try {
                 let res = await DownWest(inputs)
                 let cap = "*Link:*\n" + res + "\n\nKetik *.west down*|" + res + " untuk menyimpan file nya"
@@ -91,7 +91,7 @@ let handler = async (m, {
         }
 
         if (feature == "episode") {
-            if (!inputs.includes("https://westmanga.info/manga/")) return m.reply("input link dari https://westmanga.info/manga?")
+            if (!inputs.includes("https://westmanga.fun/manga/")) return m.reply("input link dari https://westmanga.fun/manga?")
             try {
                 let res = await SearchWest2(inputs)
                 let list = res.map((item, index) => `*Title:* ${item.titles}\n*Url:* ${item.value}`).join("\n")
@@ -155,7 +155,7 @@ async function SearchWest(url) {
     const result = []
 
     // Fetch halaman web
-    return await fetch("https://westmanga.info/?s=" + url)
+    return await fetch("https://westmanga.fun/?s=" + url)
         .then(response => response.text())
         .then(data => {
             // Load HTML dengan Cheerio

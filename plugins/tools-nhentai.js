@@ -1,48 +1,37 @@
 import axios from "axios"
-import PDFDocument from "pdfkit"
-import { extractImageThumb } from "@adiwajshing/baileys"
 import fetch from "node-fetch"
 let handler = async(m, { conn, args }) => {
-
-let code = (args[0] || '').replace(/\D/g, '')
-if (!code) throw 'Input code' 
-	await m.reply('Sedang diproses...')
-let data = await nhentaiScraper(code)
+if (isNaN(args[0])) {
+let [query, page] = args.join(' ').split('|')
+page = +page || 1
+let { data } = await axios.get(`https://same.yui.pw/api/v6/search/${query}/popular/${page}`).catch(e => e.response)
+if (!data.result?.[0] || !data || page > data.num_pages) throw `Query "${query}" Not Found`
+let tekss = data.result.map(x => { return `ID: ${x.id}\nTitle: ${x.title.english || x.title.pretty || x.title.japanese}\nLang: ${x.lang}\nPages: ${x.num_pages}`}).filter(x => x).join('\n\n')
+await m.reply(tekss)
+} else {
+try {
+let data = await nhentaiScraper(args[0])
 let pages = []
-let thumb = `https://external-content.duckduckgo.com/iu/?u=https://t.nhentai.net/galleries/${data.media_id}/thumb.jpg`	
+let thumb = `https://t.nhentai.net/galleries/${data.media_id}/cover.jpg`
 data.images.pages.map((v, i) => {
 			let ext = new URL(v.t).pathname.split('.')[1]
-			pages.push(`https://external-content.duckduckgo.com/iu/?u=https://i7.nhentai.net/galleries/${data.media_id}/${i + 1}.${ext}`)
+			pages.push(`https://i.nhentai.net/galleries/${data.media_id}/${i + 1}.${ext}`)
 		})
-let buffer = await (await fetch(thumb)).buffer()		
-let jpegThumbnail = await extractImageThumb(buffer)		
-let imagepdf = await toPDF(pages)		
-await conn.sendMessage(m.chat, { document: imagepdf, jpegThumbnail, fileName: data.title.english + '.pdf', mimetype: 'application/pdf' }, { quoted: m })
-} 
+let imagepdf = await axios.post("https://mxmxk-helper.hf.space/topdf", { images: pages }, { responseType: 'arraybuffer' })
+if (imagepdf.headers['content-type'] !== 'application/pdf') throw imagepdf.data.toString()
+await conn.sendMessage(m.chat, { document: imagepdf.data, fileName: data.title.english + '.pdf', jpegThumbnail: await conn.resize(thumb, 200, 200), mimetype: 'application/pdf' }, { quoted: m })
+} catch (e) {
+await m.reply("Error :\n\n"+ e)
+}
+}
+}
 handler.command = /^(nhentai|nhpdf)$/i
 handler.tags = ['tools']
-handler.help = ['nhentai'].map(v => v + ' <code>')
+handler.help = ['nhentai']
 export default handler 
 
 async function nhentaiScraper(id) {
 	let uri = id ? `https://cin.guru/v/${+id}/` : 'https://cin.guru/'
 	let html = (await axios.get(uri)).data
 	return JSON.parse(html.split('<script id="__NEXT_DATA__" type="application/json">')[1].split('</script>')[0]).props.pageProps.data
-}
-
-function toPDF(images, opt = {}) {
-	return new Promise(async (resolve, reject) => {
-		if (!Array.isArray(images)) images = [images]
-		let buffs = [], doc = new PDFDocument({ margin: 0, size: 'A4' })
-		for (let x = 0; x < images.length; x++) {
-			if (/.webp|.gif/.test(images[x])) continue
-			let data = (await axios.get(images[x], { responseType: 'arraybuffer', ...opt })).data
-			doc.image(data, 0, 0, { fit: [595.28, 841.89], align: 'center', valign: 'center' })
-			if (images.length != x + 1) doc.addPage()
-		}
-		doc.on('data', (chunk) => buffs.push(chunk))
-		doc.on('end', () => resolve(Buffer.concat(buffs)))
-		doc.on('error', (err) => reject(err))
-		doc.end()
-	})
 }

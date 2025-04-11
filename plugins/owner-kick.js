@@ -1,4 +1,4 @@
-import { areJidsSameUser } from '@adiwajshing/baileys'
+import { areJidsSameUser } from '@whiskeysockets/baileys'
 let handler = async (m, { conn, participants }) => {
     let users = m.mentionedJid.filter(u => !areJidsSameUser(u, conn.user.id))
     let kickedUser = []
@@ -11,14 +11,12 @@ let handler = async (m, { conn, participants }) => {
     m.reply(`Succes kick ${kickedUser.map(v => '@' + v.split('@')[0])}`, null, { mentions: kickedUser })
 
 }
-handler.help = ['kick', '-'].map(v => 'o' + v + ' @user')
+handler.help = ['okick']
 handler.tags = ['owner']
 handler.command = /^(okick|o-)$/i
-
 handler.owner = true
 handler.group = true
 handler.botAdmin = true
-
 export default handler
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))

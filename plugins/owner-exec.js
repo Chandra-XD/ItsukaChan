@@ -6,7 +6,7 @@ import { createRequire } from 'module'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(__dirname)
-const baileys = require('@adiwajshing/baileys')
+const baileys = require('@whiskeysockets/baileys')
 
 let handler = async (m, _2) => {
   let { conn, usedPrefix, noPrefix, args, groupMetadata } = _2
@@ -40,7 +40,7 @@ let handler = async (m, _2) => {
 }
 handler.customPrefix = /^=?> /
 handler.command = new RegExp
-handler.rowner = true
+handler.owner = true
 
 export default handler
 
