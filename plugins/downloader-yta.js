@@ -1,13 +1,10 @@
-import { youtubedl } from '../lib/y2mate.js'
-
 let handler = async (m, { conn, args }) => {
   if (/^https?:\/\/.*youtu/i.test(args[0])) {
     conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
-  const data = await youtubedl(args[0]) 
-  const dl = await data.resultUrl.audio[0].download() 
-  const ttl = await data.result.title
+  let api = (await axios.get("https://ochinpo-helper.hf.space/yt?query="+ args[0])).data 
+  let x1 = api.result
   
-  await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) ? 'document' : 'audio']: { url: dl }, fileName: `${ttl}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
+  await conn.sendMessage(m.chat, { [/^(?:-|--)doc$/i.test(args[1]) ? 'document' : 'audio']: { url: x1.download.audio }, fileName: `${x1.title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
 } else throw "Invalid URL"
 }
 

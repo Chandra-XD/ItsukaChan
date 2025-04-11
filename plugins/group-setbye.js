@@ -6,7 +6,7 @@ let handler = async (m, { conn, text, isROwner, isOwner }) => {
     m.reply('Bye berhasil diatur\n@user (Mention)')
   } else throw 'Teksnya mana?'
 }
-handler.help = ['setbye'].map(v => v + ' <text>')
+handler.help = ['setbye']
 handler.tags = ['group']
 handler.command = /^setbye$/i
 handler.group = true

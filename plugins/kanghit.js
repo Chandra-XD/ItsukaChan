@@ -1,13 +1,10 @@
 import axios from 'axios'
 
 async function apivisit() {
-axios.get(`https://status.pnggilajacn.my.id`);
-axios.get(`https://status.pnggilajacn.my.id`);
+axios.get(`https://j9h8165afq51uv11y99.team-skizo.repl.co`);
+// axios.get(`https://`);
 }
-	// By Chandra XD
-	// Follow bang
-	// TikTok : @pnggilajacn
-	// Github : https://github.com/Chandra-XD
+
 export { 
-    apivisit 
+    apivisit
 }

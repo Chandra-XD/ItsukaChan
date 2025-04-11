@@ -4,7 +4,7 @@ await conn.groupUpdateDescription(m.chat, text)
 return m.reply("Done.")
 }
 
-handler.help = ['setdesc'].map(v => v + ' <text>')
+handler.help = ['setdesc']
 handler.tags = ['group']
 handler.command = /^(setdesc|sdesc)$/i
 handler.group = true

@@ -1,28 +1,47 @@
 import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn }) => {
-let tekss = `List harga sewabot :
-5 Hari 3k
-2 Minggu 10k
-1 Bulan 17k
-1 Tahun 50k
+let tekss = `*Jadwal Pelajaran Tekajeh 2*
 
-Fitur
-Downloader
-Tiktok, Instagram, Facebook, Mega, SoundCloud, Telegram Sticker, Twitter, Cocofun, Google Drive, MediaFire, Gitclone, Ytmp3, Ytmp4, Pinterest
+*Senin*
+- B. Inggris
+- Sejarah Indonesia
+- Seni Budaya
+- Upacara
 
-Special Fitur
-Otakudesu Latest, Detail, Download
-Nekopoi Latest, Detail, Download
+*Selasa*
+- PAI
+- Sejarah Indonesia
+- PPKN
 
-*Pembayaran?? all payment*
-Dana/ovo/gopay/qris
-Via pulsa?? nambah 5k
-Chat https://s.id/pnggilajacn`
+*Rabu*
+- B. Inggris
+- Kimia Fisika
+- Seni Budaya
+
+*Kamis*
+- Matematika
+- B. Sunda
+- Simulasi Digital
+
+*Jum'at*
+- Seni Budaya
+- Produktif TKJ
+
+*Sabtu*
+- B. Indonesia
+- Produktif
+
+*Tambahan*
+Jum'at : Administrasi infrastruktur jaringan
+Sabtu : Pemrograman dasar, Administrasi infrastruktur jaringan, Teknologi WAN
+
+
+Piket Gwe Senin`
 await m.reply(tekss)
 await apivisit
 }
-handler.help = ['iklan']
-handler.tags = ['info']
-handler.command = /^(rental|iklan)$/i
+//handler.help = ['iklan']
+//handler.tags = ['info']
+handler.command = /^(tkj2)$/i
 export default handler

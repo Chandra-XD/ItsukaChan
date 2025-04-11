@@ -6,12 +6,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     if (isClose === undefined)
         throw `
 *Format salah! Contoh :*
-  *${l}❌${r} ${usedPrefix + command} close*
-  *${l}✅${r} ${usedPrefix + command} open*
+  *❌ ${usedPrefix + command} close*
+  *✅ ${usedPrefix + command} open*
 `.trim()
     await conn.groupSettingUpdate(m.chat, isClose)
 }
-handler.help = ['group'].map(v => v + ' <open / close>')
+handler.help = ['group']
 handler.tags = ['group']
 handler.command = /^(group|grup)$/i
 handler.group = true

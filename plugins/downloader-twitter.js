@@ -1,14 +1,18 @@
 import axios from 'axios'
-import { apivisit } from './kanghit.js'
+import cheerio from 'cheerio'
 
 let handler = async (m, { conn, text }) => {
 	if (!text) throw 'Input URL'
-	if (!text.match(/(twitter.com)/gi)) throw `Invalid *URL*`
+	if (!text.match(/(twitter.com|x.com)/gi)) throw `Invalid *URL*`
 	try {
-	let res = (await axios.get(API('can', '/api/download/twitter', { url: text }))).data;
-	await m.reply('Sedang diproses...')
-	await apivisit
-	conn.sendFile(m.chat, res.result.HD || res.result.SD, "twt.mp4", res.result.desc, m)
+	await conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
+	let html = await (await axios.get("https://twtube.app/en/download?url="+ text)).data
+    let $ = cheerio.load(html)
+    let k = $('.square-box-img').get().map(el => 
+    $(el).find('img').attr('src') || $(el).find('video').attr('src'))
+    for (let x = 0; x < k.length; x++) {
+		conn.sendFile(m.chat, k[x], '', null, m)
+	}
   } catch (e) {
     console.log(e)
     throw `Error`

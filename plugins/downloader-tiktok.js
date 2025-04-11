@@ -1,1 +1,41 @@
-const _0xe928c0=_0x4459;(function(_0x384738,_0x18ac4e){const _0x555ee6=_0x4459,_0x40ee14=_0x384738();while(!![]){try{const _0x52e841=parseInt(_0x555ee6(0xab))/0x1+-parseInt(_0x555ee6(0x92))/0x2+-parseInt(_0x555ee6(0xa3))/0x3*(-parseInt(_0x555ee6(0x94))/0x4)+parseInt(_0x555ee6(0xbb))/0x5*(-parseInt(_0x555ee6(0xb2))/0x6)+parseInt(_0x555ee6(0xaf))/0x7+-parseInt(_0x555ee6(0xb8))/0x8*(parseInt(_0x555ee6(0x9a))/0x9)+parseInt(_0x555ee6(0xb4))/0xa;if(_0x52e841===_0x18ac4e)break;else _0x40ee14['push'](_0x40ee14['shift']());}catch(_0x3441e0){_0x40ee14['push'](_0x40ee14['shift']());}}}(_0x3700,0x26af0));import _0xe460b0 from'axios';import{apivisit}from'./kanghit.js';let handler=async(_0x49fe06,{conn:_0x55d94c,args:_0x156cf6,usedPrefix:_0x3a3075,command:_0x49153d})=>{const _0x5576ae=_0x4459;if(!_0x156cf6[0x0])throw _0x5576ae(0xb6);if(!/(?:https:?\/{2})?(?:w{3}|vm|vt|t)?\.?tiktok.com\/([^\s&]+)/gi['test'](_0x156cf6[0x0]))throw'Invalid\x20URL';let {data:_0x294408,code:_0x4fd7c5,msg:_0x5a78ea}=await tiktokDl(_0x156cf6[0x0]);if(_0x4fd7c5!==0x0)throw _0x5a78ea;await _0x49fe06[_0x5576ae(0xa4)](_0x5576ae(0xb1));if(_0x294408?.['images']?.[_0x5576ae(0x91)])for(let _0x456cea=0x0;_0x456cea<_0x294408[_0x5576ae(0xaa)][_0x5576ae(0x91)];_0x456cea++){let _0x19f976=_0x456cea==0x0?_0x294408['title']:'';await _0x55d94c['sendMessage'](_0x49fe06['chat'],{'image':{'url':_0x294408[_0x5576ae(0xaa)][_0x456cea]},'caption':_0x19f976},{'quoted':_0x49fe06}),await apivisit;}else{let _0x318faf=/hd$/i[_0x5576ae(0x99)](_0x156cf6[0x1])?_0x5576ae(0xa6)+_0x294408[_0x5576ae(0x9b)]:_0x5576ae(0xa6)+_0x294408[_0x5576ae(0xb7)],_0x2b4173=formatK(_0x294408[_0x5576ae(0x9d)])+_0x5576ae(0xb0)+formatK(_0x294408['comment_count'])+'\x20Comments.\x20TikTok\x20video\x20from\x20'+_0x294408['author'][_0x5576ae(0xb9)]+_0x5576ae(0x95)+_0x294408['author'][_0x5576ae(0xa0)]+_0x5576ae(0x9e)+_0x294408[_0x5576ae(0xa5)]+_0x5576ae(0xac)+_0x294408[_0x5576ae(0xbc)]['title']+'.',_0x14b90f=[{'buttonText':{'displayText':_0x5576ae(0xa1)},'buttonId':_0x3a3075+_0x5576ae(0xbd)}];if(!/hd$/i[_0x5576ae(0x99)](_0x156cf6[0x1]))_0x14b90f[_0x5576ae(0xb3)]({'buttonText':{'displayText':_0x5576ae(0xba)},'buttonId':_0x3a3075+_0x49153d+'\x20'+_0x156cf6[0x0]+_0x5576ae(0x9f)});await _0x55d94c[_0x5576ae(0xad)](_0x49fe06[_0x5576ae(0x9c)],{'video':{'url':_0x318faf},'caption':_0x2b4173},{'quoted':_0x49fe06}),await apivisit;}};handler['help']=[_0xe928c0(0xbe)][_0xe928c0(0xae)](_0x2d1f57=>_0x2d1f57+_0xe928c0(0x93)),handler[_0xe928c0(0xa2)]=[_0xe928c0(0xa7)],handler[_0xe928c0(0xa9)]=/^(tt|tiktok)(dl|nowm)?$/i;export default handler;function _0x4459(_0x1a5684,_0x41cf04){const _0x370042=_0x3700();return _0x4459=function(_0x4459fa,_0x5ab58d){_0x4459fa=_0x4459fa-0x91;let _0x4f30d9=_0x370042[_0x4459fa];return _0x4f30d9;},_0x4459(_0x1a5684,_0x41cf04);}function _0x3700(){const _0x440204=['tomp3','tiktok','length','166586ppOSXQ','\x20<url>','4hNSSmf','\x20(@','compact','en-US','data','test','797058PeLmCc','hdplay','chat','digg_count','):\x20\x22','\x20-hd','unique_id','Audio','tags','343635vnKTfc','reply','title','https://www.tikwm.com','downloader','post','command','images','12234LHOyEk','\x22.\x20','sendMessage','map','244223yIhvgu','\x20Likes,\x20','Sedang\x20diproses...','41790UduChN','push','5895340Agwwif','NumberFormat','Input\x20URL','play','24VzEHOV','nickname','HD\x20Quality','175ncHMMs','music_info'];_0x3700=function(){return _0x440204;};return _0x3700();}function formatK(_0x6c6b41){const _0xf2c733=_0xe928c0;return new Intl[(_0xf2c733(0xb5))](_0xf2c733(0x97),{'notation':_0xf2c733(0x96),'maximumFractionDigits':0x1})['format'](_0x6c6b41);}export async function tiktokDl(_0x17a07c){const _0x20b35d=_0xe928c0;let _0x3b7e75=await _0xe460b0[_0x20b35d(0xa8)]('https://www.tikwm.com/api',{},{'params':{'url':_0x17a07c,'count':0xc,'cursor':0x0,'web':0x1,'hd':0x1}});return _0x3b7e75[_0x20b35d(0x98)];}
+import axios from 'axios'
+import { apivisit } from './kanghit.js'
+
+let handler = async (m, { conn, args, usedPrefix: _p, command }) => {
+	if (!args[0]) throw 'Input URL' 
+	if (!/(?:https:?\/{2})?(?:w{3}|vm|vt|t)?\.?tiktok.com\/([^\s&]+)/gi.test(args[0])) throw 'Invalid URL'
+	let { data, code, msg } = await tiktokDl(args[0])
+	if (code !== 0) throw msg
+	await conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
+	if (data?.images?.length) {
+		for (let x = 0; x < data.images.length; x++) {
+			let capt = x == 0 ? data.title : ''
+			await conn.sendMessage(m.chat, { image: { url: data.images[x] }, caption: capt }, { quoted: m })
+			await apivisit
+		}
+	} else {
+		// let vid = /hd$/i.test(args[1]) ? `https://www.tikwm.com${data.hdplay}` : `https://www.tikwm.com${data.play}`
+		let desc = `${formatK(data.digg_count)} Likes, ${formatK(data.comment_count)} Comments. TikTok video from ${data.author.nickname} (@${data.author.unique_id}): "${data.title}". ${data.music_info.title}.`
+		let buttons = [{ buttonText: { displayText: 'Audio' }, buttonId: `${_p}tomp3` }]
+		if (!/hd$/i.test(args[1])) buttons.push({ buttonText: { displayText: 'HD Quality' }, buttonId: `${_p + command} ${args[0]} -hd` })
+//		await conn.sendMessage(m.chat, { video: { url: vid }, caption: desc, footer: wm, buttons }, { quoted: m })
+    await conn.sendMessage(m.chat, { video: { url: `https://www.tikwm.com${data.play}` }, caption: desc }, { quoted: m })
+		await apivisit
+	}
+}
+handler.help = ['tiktok'].map(v => v + ' <url>')
+handler.tags = ['downloader']
+handler.command = /^(tt|tiktok)(dl|nowm)?$/i
+
+export default handler
+
+function formatK(num) {
+	return new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(num)
+}
+
+export async function tiktokDl(url) {
+	let res = await axios.post('https://www.tikwm.com/api', {}, {
+		params: { url, count: 12, cursor: 0, web: 1, hd: 1 }
+	})
+	return res.data
+}

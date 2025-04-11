@@ -15,12 +15,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!/image\/(jpe?g|png)/.test(mime)) throw `_*Mime ${mime} tidak didukung!*_`
     let img = await q.download()
     let link = await TMP(img)
-    let link2 = link.data.url.replace('tmpfiles.org', 'tmpfiles.org/dl')
-    let meme = `https://api.memegen.link/images/custom/${encodeURIComponent(atas ? atas : '')}/${encodeURIComponent(bawah ? bawah : '')}.png?background=${link2}`
+    let meme = `https://api.memegen.link/images/custom/${encodeURIComponent(bawah ? bawah : '')}/${encodeURIComponent(atas ? atas : '')}.png?background=${link}`
     let stiker = await (new Sticker(meme, { type: 'full', pack: depan, author: blakng })).toMessage()
-	if (stiker) return conn.sendMessage(m.chat, stiker, { quoted: m })
+  if (stiker) return conn.sendMessage(m.chat, stiker, { quoted: m })
 }
-handler.help = ['smeme <teks atas>|<teks bawah>']
-handler.tags = ['general']
-handler.command = /^(smeme)$/i
+handler.command = /^(smeme|memeg|memegen)$/i
 export default handler

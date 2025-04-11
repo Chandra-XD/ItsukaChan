@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
     return { name, ...val }
   })
   stats = stats.sort((a, b) => b.total - a.total)
-  let txt = stats.slice(0, 10).map(({ name, total, last }, idx) => {
+  let txt = stats.slice(0, 15).map(({ name, total, last }, idx) => {
     if (name.includes('-') && name.endsWith('.js')) name = name.split('-')[1].replace('.js', '')
     return `(${idx + 1})\nCommand : *${name}*\nHit : *${total}x*\nLast Used : *${getTime(last)}*`
   }).join`\n\n`

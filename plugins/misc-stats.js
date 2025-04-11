@@ -13,7 +13,7 @@ let formatSize = sizeFormatter({
 let handler = async (m, { conn }) => {
 	let chats = Object.entries(conn.chats).filter(([a, b]) => a && b.isChats),
 		groups = chats.filter(([a]) => a.endsWith('@g.us')),
-		session = fs.statSync(authFile),
+		session = fs.statSync(global.authFile),
 		txt = `
 *BOT:*
 - ${groups.length} Group Chats

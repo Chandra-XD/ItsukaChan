@@ -1,23 +1,18 @@
-//Made By KORONEOFC/SAD-BOT
-
-import cp from 'child_process'
+import cp, { exec as _exec } from 'child_process'
 import { promisify } from 'util'
-let exec = promisify(cp.exec).bind(cp)
-let handler = async (m, { conn}) => {
-	await conn.reply(m.chat, `Please Wait`, m)
-    let o
-    try {
-        o = await exec('python speed.py')
-    } catch (e) {
-        o = e
-    } finally {
-        let { stdout, stderr } = o
-        if (stdout.trim()) conn.sendButton(m.chat, `${htki} SPEEDTEST.NET ${htka}`, stdout, null, [["MENU", ".menu"],["PING", ".ping"]], m)
-        if (stderr.trim()) m.reply(stderr)
-    }
-}
-handler.help = ['speedtest']
-handler.tags = ['info']
-handler.command = /^(speedtest)$/i
+let exec = promisify(_exec).bind(cp)
 
+let handler = async (m, { conn }) => {
+	await m.reply('_Testing speed..._')
+	let o
+	try {
+		o = await exec('speedtest --accept-license')
+	} catch (e) {
+		o = e
+	} finally {
+		if (o.stdout) conn.reply(m.chat, o.stdout.trim(), m) // conn.sendFile(m.chat, o.stdout.split('Result URL: ')[1], '', o.stdout.trim(), m)
+		else if (o.stderr) m.reply(o.stderr)
+	}
+}
+handler.command = /^ping|speed?$/i
 export default handler

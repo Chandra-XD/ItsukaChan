@@ -1,4 +1,4 @@
-import { areJidsSameUser } from '@adiwajshing/baileys'
+import { areJidsSameUser } from '@whiskeysockets/baileys'
 let handler = async (m, { conn, args }) => {
     let group = m.chat
     if (/^[0-9]{5,16}-?[0-9]+@g\.us$/.test(args[0])) group = args[0]
@@ -10,7 +10,7 @@ let handler = async (m, { conn, args }) => {
     if (!me.admin) throw 'Nomor bot bukan admin di group itu.'
     m.reply('https://chat.whatsapp.com/' + await conn.groupInviteCode(group))
 }
-handler.help = ['linkgroup'].map(v => v + ' <jid>')
+handler.help = ['linkgroup']
 handler.tags = ['group']
 handler.command = /^link(gro?up)?$/i
 handler.group = true

@@ -7,7 +7,7 @@ Public ( ${usedPrefix + command} public )
 Simi ( ${usedPrefix + command} simi )
 Antilink ( ${usedPrefix + command} antilink )
 Antidelete ( ${usedPrefix + command} antidelete )
-Detect ( ${usedPrefix + command} detect )
+Detet ( ${usedPrefix + command} detect )
 Documen ( ${usedPrefix + command} document )
 Restrict ( ${usedPrefix + command} restrick )
 Nyimak ( ${usedPrefix + command} nyimak )
@@ -154,7 +154,7 @@ SwOnly ( ${usedPrefix + command} swonly )`
 *For:* ${isAll ? 'This Bot' : isUser ? '' : 'This Chats'}
 `)
 }
-handler.help = ['en', 'dis'].map(v => v + 'able <option>')
+handler.help = ['en', 'dis'].map(v => v + 'able')
 handler.tags = ['group', 'owner']
 handler.command = /^((en|dis)able|(tru|fals)e|(turn)?o(n|ff)|[01])$/i
 export default handler

@@ -2,19 +2,31 @@ import jimp from 'jimp'
 import fs from 'fs'
 import PhoneNumber from 'awesome-phonenumber'
 import moment from 'moment-timezone'
-import { apivisit } from './kanghit.js'
+const {
+  downloadContentFromMessage,
+  BufferJSON,
+  WA_DEFAULT_EPHEMERAL,
+  generateWAMessageFromContent,
+  proto,
+  generateWAMessageContent,
+  generateWAMessage,
+  prepareWAMessageMedia,
+  areJidsSameUser,
+  InteractiveMessage,
+  getContentType,
+} = pkg
+import pkg from "@whiskeysockets/baileys"
 
 let tags = {}
 const defaultMenu = {
   before: `%readmore`,
-  header: '*%category*',
-  body: '• %cmd %islimit %isPremium',
-  footer: '',
-  after: `Bantu Follow Kak :\nTikTok : @pnggilajacn\nInstagram : @pnggilajacn\nGithub : Chandra-XD`,
+  header: '`%category`',
+  body: '> • %cmd %islimit %isPremium',
+  footer: ``,
+  after: ``,
 }
 
 let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
-  try {
     let name = m.pushName || conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
     let locale = 'id'
@@ -49,11 +61,11 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
         enabled: !plugin.disabled,
       }
     })
-    
     /*
 let groups = Object.keys(await conn.groupFetchAllParticipating())
 let chats = Object.keys(await conn.chats)
 let block = await conn.fetchBlocklist()
+
 
 *INFO BOT*
 •> Aktif selama ${uptime}
@@ -63,13 +75,12 @@ let block = await conn.fetchBlocklist()
 •> ${block == undefined ? '*0* Diblokir' : '*' + block.length + '* Diblokir'}
 •> *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
 •> *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned
+` */
+let judul = `*INFO ANTISPAM*
+Chat Pribadi : xxx
+Grup : 10 detik
 
-*/
-
-let judul = `*${ucapan()} ${conn.getName(m.sender)}*
-
-_Join grup bot agar kamu bisa akses bot dimode gruponly_
-https://chat.whatsapp.com/FXyktzaoWTl0biIUl6VvDM
+Join grup bot : https://ln.run/3QVf2
 `
     for (let plugin of help)
       if (plugin && 'tags' in plugin)
@@ -109,16 +120,93 @@ https://chat.whatsapp.com/FXyktzaoWTl0biIUl6VvDM
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let pp = await conn.profilePictureUrl(conn.user.jid, 'image').catch(_ => './src/avatar_contact.png')
     
-let url = `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv${pickRandom([`1`,`2`,`3`,`4`,`5`])}.mp4`
+    conn.menuitsuka = conn.menuitsuka ? conn.menuitsuka : {}
+    if (m.sender in conn.menuitsuka) {
+        let { key } = await conn.reply(m.chat, `*Jangan spam!!*\nBacalah menu yang sudah bot tampilkan.`, null)
+       setTimeout(() => {
+      conn.sendMessage(m.chat, { delete: key })
+    }, 5 * 60 * 1000)
+        throw false
+    }
+  
 let captione = `${judul}${text.trim()}`
-// conn.sendMessage(m.chat, { video: { url }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: captione }, { quoted: m })
-await conn.sendMessage(m.chat, { text: captione, contextInfo: { externalAdReply: { title: conn.user.name, body: '', thumbnailUrl: pp, sourceUrl: "https://wa.me/"+ global.owner[0], mediaType: 1, renderLargerThumbnail: true }}})
-await apivisit
-  } catch (e) {
-    m.reply('An error occurred')
-    throw e
+let { key } = await conn.sendMessage(m.chat, { video: { url: `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv${Math.floor(Math.random() * 5) + 1}.mp4` }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: captione, contextInfo: { mentionedJid: [m.sender], forwardingScore: 155, isForwarded: true, }}, { quoted: { key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast'}, message: { pollCreationMessage: { name: `Simple Bot WhatsApp` } } } })
+
+// await conn.sendMessage(m.chat, { text: captione, contextInfo: { externalAdReply : { mediaType: 1, renderLargerThumbnail: true, description: null, title: `${ucapan()} ${conn.getName(m.sender)}`, body: null, thumbnail: await (await conn.getFile(`https://i.ibb.co/s9Syy6h/IMG-20240515-WA0470.png`)).data, sourceUrl: "https://ln.run/3QVf2" }}})
+
+let msg = generateWAMessageFromContent(
+        m.chat,
+        {
+          viewOnceMessage: {
+            message: {
+              messageContextInfo: {
+                deviceListMetadata: {},
+                deviceListMetadataVersion: 2,
+              },
+              interactiveMessage: proto.Message.InteractiveMessage.create({
+                contextInfo: {
+                  mentionedJid: [m.sender],
+                  isForwarded: true,
+                  forwardedNewsletterMessageInfo: {
+                    newsletterJid: "120363267533195844@newsletter",
+                    newsletterName: "@pnggilajacn",
+                    serverMessageId: -1,
+                  },
+                  businessMessageForwardInfo: {
+                    businessOwnerJid: conn.decodeJid(conn.user.id),
+                  },
+                },
+                body: proto.Message.InteractiveMessage.Body.create({
+                  text: `> Ada kendala atau punya saran silahkan chat owner`,
+                }),
+                footer: proto.Message.InteractiveMessage.Footer.create({
+                  text: wm,
+                }),
+                nativeFlowMessage:
+                  proto.Message.InteractiveMessage.NativeFlowMessage.create(
+                    {
+                      buttons: [
+                        {
+                          name: "cta_url",
+                          buttonParamsJson:
+                            '{"display_text":"Owner","url":"https://wa.me/6283867200198","merchant_url":"https://www.google.com"}',
+                        },
+                      ],
+                    }
+                  ),
+                contextInfo: {
+                  mentionedJid: [m.sender],
+                  forwardingScore: 155,
+                  isForwarded: true,
+                  forwardedNewsletterMessageInfo: {
+                    newsletterJid: "",
+                    newsletterName: wm,
+                    serverMessageId: 143,
+                  },
+                },
+              }),
+            },
+          },
+        },
+        {}
+      );
+
+    await conn.relayMessage(msg.key.remoteJid, msg.message, {
+        messageId: msg.key.id,
+      })
+
+    conn.menuitsuka[m.sender] = [
+    key,
+    setTimeout(() => {
+      conn.sendMessage(m.chat, { delete: key });
+      delete conn.menuitsuka[m.sender];
+    }, 5 * 60 * 1000),
+  ]
+//  } catch (e) {
+//    m.reply('An error occurred')
+//    throw e
+//  }
   }
-  } // Klo mau ganti tampilan menu terserah, asal lu tau caranya kontl, udh gabisa maksa pula
 handler.help = ['menu']
 handler.tags = ['main']
 handler.command = /^(m|menu|help|\?)$/i
@@ -133,10 +221,6 @@ function clockString(ms) {
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
-
-function pickRandom(list) {
-     return list[Math.floor(Math.random() * list.length)]
-  }
 
 async function genProfile(conn, m) {
   let font = await jimp.loadFont('./names.fnt'),

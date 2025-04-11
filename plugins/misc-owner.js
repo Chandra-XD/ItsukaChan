@@ -13,11 +13,11 @@ let ownUrl = `https://pnggilajacn.my.id`
 let ownEmail = `cuancari074@gmail.com`
 
 if (command == 'owner') {
-let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;${ownName}\nNICKNAME:${ownName}\nORG:${ownName}\nTITLE:\nitem1.TEL;waid=${ownNum}:+${ownNum}\nitem1.X-ABLabel:Owner\nitem2.URL:${ownUrl}\nitem2.EMAIL;type=INTERNET:${ownEmail}\nitem2.X-ABLabel:\nitem4.ADR:;;Indonesia;;;;\nEND:VCARD`
+let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;${ownName}\nORG:${ownName}\nTITLE:\nitem1.TEL;waid=${ownNum}:+${ownNum}\nitem1.X-ABLabel:Not a bot and don\'t save\nitem2.URL:${ownUrl}\nitem2.EMAIL;type=INTERNET:${ownEmail}\nitem2.X-ABLabel:\nitem4.ADR:;;Indonesia;;;;\nEND:VCARD`
 await conn.sendMessage(m.chat, { contacts: { displayName: ownName, contacts: [{ vcard }] }}, { quoted: m })
 }
 if (command == 'creator') {
-let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;${ownName}\nNICKNAME:${ownName}\nORG:${ownName}\nTITLE:\nitem1.TEL;waid=${ownNum}:+${ownNum}\nitem1.X-ABLabel:Owner\nitem2.URL:${ownUrl}\nitem2.EMAIL;type=INTERNET:${ownEmail}\nitem2.X-ABLabel:\nitem4.ADR:;;Indonesia;;;;\nEND:VCARD`
+let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;${ownName}\nORG:${ownName}\nTITLE:\nitem1.TEL;waid=${ownNum}:+${ownNum}\nitem1.X-ABLabel:Not a bot and don\'t save\nitem2.URL:${ownUrl}\nitem2.EMAIL;type=INTERNET:${ownEmail}\nitem2.X-ABLabel:\nitem4.ADR:;;Indonesia;;;;\nEND:VCARD`
 await conn.sendMessage(m.chat, { contacts: { displayName: ownName, contacts: [{ vcard }] }}, { quoted: m })
 }
 }

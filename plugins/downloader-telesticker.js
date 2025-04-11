@@ -3,6 +3,7 @@ import { stickerTelegram } from '@bochilteam/scraper'
 import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, args }) => {
+    try {
 	if (args[0] && args[0].match(/(https:\/\/t.me\/addstickers\/)/gi)) {
 		let res = await Telesticker(args[0])
 		await m.reply(`Sending ${res.length} stickers...`)
@@ -24,6 +25,9 @@ let handler = async (m, { conn, args }) => {
 		m.reply(res.map(v => `*${v.title}*\n_${v.link}_`).join('\n\n'))
 		await apivisit
 	} else throw 'Input Query / Telesticker Url'
+} catch (e) {
+throw `Error`
+}
 }
 handler.help = ['telesticker'].map(v => v + ' <query / url>')
 handler.tags = ['downloader']

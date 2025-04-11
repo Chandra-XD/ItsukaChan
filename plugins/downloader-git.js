@@ -12,7 +12,7 @@ let handler = async (m, { conn, args }) => {
 	if (res.status !== 200) throw res.statusText
 	let fileName = res.headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
 	let mimetype = res.headers.get('content-type')
-	await await m.reply('Sedang diproses...')
+	await conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
 	conn.sendMessage(m.chat, { document: { url }, fileName, mimetype }, { quoted: m })
 	await apivisit
 }

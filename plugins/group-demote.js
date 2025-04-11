@@ -4,7 +4,7 @@ let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender :
 await conn.groupParticipantsUpdate(m.chat, [users], 'demote')
 m.reply(`@${users.split("@")[0]} sekarang bukan admin`, { mentions: [users]})
 }
-handler.help = ['demote'].map(v => v + ' @tag')
+handler.help = ['demote']
 handler.tags = ["group"]
 handler.command = /^(demote)$/i
 handler.botAdmin = true

@@ -6,7 +6,7 @@ let image = res.getRandom()
 let link = image
 conn.sendFile(m.chat, link, 'gimage.jpg', `Result from : `+ text, m)
 }
-handler.help = ['gimage'].map(v => v + ' <query>')
+handler.help = ['gimage']
 handler.tags = ['internet']
 handler.command = /^(gimage|googleimage)$/i
 export default handler
