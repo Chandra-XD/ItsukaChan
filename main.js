@@ -33,7 +33,7 @@ const {
 } = await (await import('@whiskeysockets/baileys')).default;
 
 import fetch from 'node-fetch'
-import cheerio from 'cheerio'
+import * as cheerio from 'cheerio'
 import axios from 'axios'
 
 const { CONNECTING } = ws
