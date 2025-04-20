@@ -1,7 +1,6 @@
 import axios from 'axios'
-import cheerio from 'cheerio'
+import * as cheerio from 'cheerio'
 import baileys from '@whiskeysockets/baileys'
-import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (text.match(baileys.URL_REGEX)) {
@@ -18,7 +17,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 		if (!res.length) throw `Query "${text}" Not Found`
 		let teksnya = res.map((v) => `${v.title}\n${v.view}\n${v.link}`).join('\n\n')
 		await m.reply(`Berikut adalah informasi yang kita dapat dari wikihow\n\n${teksnya}`)
-		await apivisit
 	} else throw 'Input Query' 
 }
 handler.help = ['wikihow']
