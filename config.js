@@ -4,21 +4,22 @@ import { watchFile, unwatchFile } from 'fs'
 
 // Ini owner real no fek"
 global.owner = [
-  ['6285785705233'], // global owner 0
-  ['628990085223'], // global owner 1
-  ['6283848947227'], // global owner 2
-  ['6285785705233', 'Chandra XD', true] // global owner 3
+  ['6281882884550'], // global owner 0
+  ['6283835786010'], // global owner 1
+  ['6287774569531'],
+  ['212701929375'], ['212706611366'], // global owner 2
+  ['6281882884550', 'Chandra XD', true] // global owner 3
 ]
 
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
 global.APIs = {
   can: 'https://pnggilajacn.my.id',
-  skizo: 'https://xzn.wtf'
+  skizo: 'https://skizo.tech'
 }
 global.APIKeys = {
   'https://pnggilajacn.my.id': 'ItsukaChan',
-  'https://xzn.wtf': 'Rippanteq7'
+  'https://skizo.tech': 'Chandra-pecinta-milf'
 }
 
 global.thumbnailUrl = [
@@ -31,21 +32,23 @@ global.thumbnailUrl = [
 
 //====== Url Template Buttons ======//
 global.dtu = 'ᴅᴏɴᴀᴛᴇ'
-global.urlnya = "https://pnggilajacn.my.id/contacts"
+global.urlnya = "https://pnggilajacn.my.id"
 //========== callButtons ==========//
 global.dtc = 'ᴄᴀʟʟ ᴏᴡɴᴇʀ'
-global.phn = '+62 857-8570-5233'
+global.phn = '+62 818-8288-4550'
 
 // Sticker WM
 global.packname = `ItsukaBot-Md`
-global.author = `© 2021-2023`
+global.author = `© 2021-2025`
 
 // Random
 global.wm = `Powered by https://pnggilajacn.my.id`
 global.doc = pickRandom(["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/msword", "application/pdf"])
 global.ephemeral = '86400' // 86400 = 24jam, kalo ingin di hilangkan ganti '86400' jadi 'null' atau ''
-global.monitor = `YOUR-API` // Ambil di https://uptimerobot.com
+global.monitor = `u2106481-76cf864349cc28f91d3e626f` // Ambil di https://uptimerobot.com
+global.audd = `44b0ffae4931bc9e512780b8df62d858`
 global.multiplier = 69 // The higher, The harder levelup
+global.ram_usage = 600000000 // 600 MB in this example [Ram Limiter (if your server ram is 1GB put 900MB in bytes, later the server will auto restart before using 1GB ram)]
 
 let file = fileURLToPath(import.meta.url)
 watchFile(file, () => {
