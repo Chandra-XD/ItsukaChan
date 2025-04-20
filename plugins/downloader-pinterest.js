@@ -1,4 +1,4 @@
-import cheerio from 'cheerio'
+import * as cheerio from 'cheerio'
 import fetch from 'node-fetch'
 import { lookup } from 'mime-types'
 import { URL_REGEX } from '@whiskeysockets/baileys'
