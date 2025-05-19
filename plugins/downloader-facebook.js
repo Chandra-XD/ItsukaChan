@@ -1,9 +1,10 @@
 import axios from 'axios'
-import * as cheerio from 'cheerio'
+import cheerio from 'cheerio'
 
 let handler = async (m, { conn, args, command }) => {
 	if (!args[0]) throw 'Input URL'
 	await conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
+	/*
 	try {
 	const config = {
         'id': args[0],
@@ -24,6 +25,10 @@ let handler = async (m, { conn, args, command }) => {
 	await conn.sendMessage(m.chat, { video: { url: HD || SD }, caption: TT || ' '}, { quoted: m })
 	} catch (e) {
 	}
+	*/
+	let api = await (await axios.get("https://api.agatz.xyz/api/facebook?url="+args[0])).data
+	let result = api.data
+	conn.sendMessage(m.chat, { video: { url: result.hd || result.sd }, caption: result.title || ' '}, { quoted: m })
 }
 handler.help = handler.alias = ['facebook'].map(v => v + ' <url>')
 handler.tags = ['downloader']
