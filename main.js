@@ -177,7 +177,8 @@ async function connectionUpdate(update) {
         conn.logger.info('\n🚩 R E A D Y')
     }
   if (connection == 'close') {
-        conn.logger.error(`\n🚩 Koneksi ditutup, harap hapus folder ${global.authFile} dan pindai ulang kode QR`)
+        console.log(await global.reloadHandler(true).catch(console.error))
+    global.timestamp.connect = new Date
     }
     /*
   if (update.receivedPendingNotifications) {
