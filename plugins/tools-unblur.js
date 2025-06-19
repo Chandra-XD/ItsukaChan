@@ -68,9 +68,10 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 				let error;
 				try {
 					const This =  await upscale(img, 2) //await processing(img, "enhance")
-					//const tmp = await TMP(This)
+					const tmp = await TMP(img)
 					//conn.sendFile(m.chat, This, "", "_File will be deleted in 60 minutes_ " + tmp, m)
-					conn.sendFile(m.chat, This.image, "", "", m)
+					//conn.sendFile(m.chat, This.image, "", "", m)
+					conn.sendFile(m.chat, `https://fastrestapis.fasturl.cloud/aiimage/upscale?imageUrl=`+ tmp +`&resize=2`, "", "_File will be deleted in 60 minutes_ " + tmp, m)
 				} catch (er) {
 					error = true
 				} finally {
