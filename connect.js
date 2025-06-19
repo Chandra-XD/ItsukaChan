@@ -9,7 +9,7 @@ async function startSock() {
 	const authState = await useMultiFileAuthState('session')
 	
 	const conn = makeWASocket({
-	version: [ 2, 3000, 1015901307 ],
+	version: [2, 3000, 1019441105],
 		auth: authState.state,
 		browser: ['Linux', 'Chrome', '22'],
 		logger: P({ level: 'silent' }),
