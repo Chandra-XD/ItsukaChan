@@ -6,7 +6,7 @@ import { smsg } from './lib/simple.js'
 import { unwatchFile, watchFile } from 'fs'
 import fs from 'fs'
 
-const { proto } = (await import('@whiskeysockets/baileys')).default
+const { WAProto } = (await import('@whiskeysockets/baileys'))
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function () {
     clearTimeout(this)
@@ -351,8 +351,8 @@ export async function handler(chatUpdate) {
                 }
                 try {
                     if (!isOwner && !isPrems) {
-                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 0)) return
-                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 0)) return
+                       if (m.isGroup && (new Date - global.db.data.chats[m.chat].delay < 10000)) return
+                       if (!m.isGroup && (new Date - global.db.data.users[m.sender].delay < 6000000)) return
                     }
                     await plugin.call(this, m, extra)
                     if (!isPrems) m.limit = m.limit || plugin.limit || false

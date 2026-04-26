@@ -30,7 +30,7 @@ const {
     MessageRetryMap,
     fetchLatestBaileysVersion,
     makeCacheableSignalKeyStore
-} = await (await import('@whiskeysockets/baileys')).default;
+} = await (await import('@whiskeysockets/baileys'))
 
 import fetch from 'node-fetch'
 import * as cheerio from 'cheerio'
