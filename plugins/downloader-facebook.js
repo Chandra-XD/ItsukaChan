@@ -1,35 +1,12 @@
 import axios from 'axios'
-import cheerio from 'cheerio'
 
 let handler = async (m, { conn, args, command }) => {
 	if (!args[0]) throw 'Input URL'
 	await conn.sendMessage(m.chat, { react: { text: `🕑`, key: m.key }})
-	/*
-	try {
-	const config = {
-        'id': args[0],
-        'locale': 'id'
-      }
-    const { data, status } = await axios('https://getmyfb.com/process', {
-        method: 'POST',
-        data: new URLSearchParams(Object.entries(config)),
-        headers: {
-          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
-          "cookie": "PHPSESSID=914a5et39uur28e84t9env0378; popCookie=1; prefetchAd_4301805=true"
-        }
-      })
-      const $ = cheerio.load(data)
-      const TT = $('div.container > div.results-item > div.results-item-text').text().trim()
-      const HD = $('div.container > div.results-download > ul > li:nth-child(1) > a').attr('href')
-      const SD = $('div.container > div.results-download > ul > li:nth-child(2) > a').attr('href')
-	await conn.sendMessage(m.chat, { video: { url: HD || SD }, caption: TT || ' '}, { quoted: m })
-	} catch (e) {
+	let api = await (await axios.get("https://api.ammaricano.my.id/api/download/facebook?url="+args[0])).data
+	let result = api.result
+	await conn.sendMessage(m.chat, { video: { url: result.hd || result.sd }}, { quoted: m })
 	}
-	*/
-	let api = await (await axios.get("https://api.agatz.xyz/api/facebook?url="+args[0])).data
-	let result = api.data
-	conn.sendMessage(m.chat, { video: { url: result.hd || result.sd }, caption: result.title || ' '}, { quoted: m })
-}
 handler.help = handler.alias = ['facebook'].map(v => v + ' <url>')
 handler.tags = ['downloader']
 handler.command = /^((facebook|fb)(dl)?)$/i
