@@ -28,7 +28,8 @@ npm install
 ATAU BISA PAKE
 
 ```bash
-yarn .```
+yarn .
+```
 
 KALO UDH AMBIL SESSION BUAT KONEKIN KE WA CARANYA 
 
