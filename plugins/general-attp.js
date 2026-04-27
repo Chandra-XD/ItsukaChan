@@ -1,5 +1,5 @@
 import { Sticker } from 'wa-sticker-formatter'
-import * as cheerio from 'cheerio'
+import cheerio from "cheerio"
 import fetch from "node-fetch"
 
 let handler = async (m, { conn, text, command }) => {

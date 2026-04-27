@@ -1,4 +1,4 @@
-import jimp from 'jimp'
+import { Jimp } from 'jimp'
 import fs from 'fs'
 import PhoneNumber from 'awesome-phonenumber'
 import moment from 'moment-timezone'
@@ -7,7 +7,7 @@ const {
   BufferJSON,
   WA_DEFAULT_EPHEMERAL,
   generateWAMessageFromContent,
-  proto,
+  WAProto,
   generateWAMessageContent,
   generateWAMessage,
   prepareWAMessageMedia,
@@ -130,70 +130,19 @@ Join grup bot : https://ln.run/3QVf2
     }
   
 let captione = `${judul}${text.trim()}`
-let { key } = await conn.sendMessage(m.chat, { video: { url: `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv${Math.floor(Math.random() * 5) + 1}.mp4` }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: captione, contextInfo: { mentionedJid: [m.sender], forwardingScore: 155, isForwarded: true, }}, { quoted: { key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast'}, message: { pollCreationMessage: { name: `Simple Bot WhatsApp` } } } })
+let { key } = await conn.sendMessage(m.chat, { video: { url: `https://github.com/Chandra-XD/cn-grabbed-result/raw/main/media/video/amv${Math.floor(Math.random() * 5) + 1}.mp4` }, gifPlayback: true, gifAttribution: ~~(Math.random() * 2), caption: captione, contextInfo: { mentionedJid: [m.sender], forwardingScore: 155, isForwarded: true, }}, { 
+  quoted: { 
+    key: { 
+      participant: '0@s.whatsapp.net', 
+      remoteJid: 'status@broadcast' 
+    }, 
+    message: { 
+      conversation: "Simple Bot WhatsApp" 
+    } 
+  } 
+})
 
 // await conn.sendMessage(m.chat, { text: captione, contextInfo: { externalAdReply : { mediaType: 1, renderLargerThumbnail: true, description: null, title: `${ucapan()} ${conn.getName(m.sender)}`, body: null, thumbnail: await (await conn.getFile(`https://i.ibb.co/s9Syy6h/IMG-20240515-WA0470.png`)).data, sourceUrl: "https://ln.run/3QVf2" }}})
-
-let msg = generateWAMessageFromContent(
-        m.chat,
-        {
-          viewOnceMessage: {
-            message: {
-              messageContextInfo: {
-                deviceListMetadata: {},
-                deviceListMetadataVersion: 2,
-              },
-              interactiveMessage: proto.Message.InteractiveMessage.create({
-                contextInfo: {
-                  mentionedJid: [m.sender],
-                  isForwarded: true,
-                  forwardedNewsletterMessageInfo: {
-                    newsletterJid: "120363267533195844@newsletter",
-                    newsletterName: "@pnggilajacn",
-                    serverMessageId: -1,
-                  },
-                  businessMessageForwardInfo: {
-                    businessOwnerJid: conn.decodeJid(conn.user.id),
-                  },
-                },
-                body: proto.Message.InteractiveMessage.Body.create({
-                  text: `> Ada kendala atau punya saran silahkan chat owner`,
-                }),
-                footer: proto.Message.InteractiveMessage.Footer.create({
-                  text: wm,
-                }),
-                nativeFlowMessage:
-                  proto.Message.InteractiveMessage.NativeFlowMessage.create(
-                    {
-                      buttons: [
-                        {
-                          name: "cta_url",
-                          buttonParamsJson:
-                            '{"display_text":"Owner","url":"https://wa.me/6283867200198","merchant_url":"https://www.google.com"}',
-                        },
-                      ],
-                    }
-                  ),
-                contextInfo: {
-                  mentionedJid: [m.sender],
-                  forwardingScore: 155,
-                  isForwarded: true,
-                  forwardedNewsletterMessageInfo: {
-                    newsletterJid: "",
-                    newsletterName: wm,
-                    serverMessageId: 143,
-                  },
-                },
-              }),
-            },
-          },
-        },
-        {}
-      );
-
-    await conn.relayMessage(msg.key.remoteJid, msg.message, {
-        messageId: msg.key.id,
-      })
 
     conn.menuitsuka[m.sender] = [
     key,
@@ -223,10 +172,10 @@ function clockString(ms) {
 }
 
 async function genProfile(conn, m) {
-  let font = await jimp.loadFont('./names.fnt'),
-    mask = await jimp.read('https://i.imgur.com/552kzaW.png'),
-    welcome = await jimp.read(thumbnailUrl.getRandom()),
-    avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')),
+  let font = await Jimp.loadFont('./names.fnt'),
+    mask = await Jimp.read('https://i.imgur.com/552kzaW.png'),
+    welcome = await Jimp.read(thumbnailUrl.getRandom()),
+    avatar = await Jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')),
     status = (await conn.fetchStatus(m.sender).catch(console.log) || {}).status?.slice(0, 30) || 'Not Detected'
     await avatar.resize(460, 460)
     await mask.resize(460, 460)

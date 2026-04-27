@@ -1,5 +1,3 @@
-import { apivisit } from './kanghit.js'
-
 let handler = async (m, { conn }) => {
 let tekss = `*• Thanks To •*
 *- Allah SWT*
@@ -35,7 +33,6 @@ let tekss = `*• Thanks To •*
 
 Terimakasih atas kalian jika tidak ada kalian maka bot ini tidak akan berkembang....`
 await m.reply(tekss)
-await apivisit
 }
 handler.help = ['thanksto']
 handler.tags = ['info']

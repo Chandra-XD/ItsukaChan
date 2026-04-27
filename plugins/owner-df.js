@@ -1,6 +1,5 @@
 import { tmpdir } from 'os'
 import path, { join } from 'path'
-import { apivisit } from './kanghit.js'
 import {
   readdirSync,
   statSync,
@@ -18,7 +17,6 @@ let ar = Object.keys(plugins)
 const file = join(__dirname, '../plugins/' + args[0] + '.js')
 unlinkSync(file)
 await conn.reply(m.chat, `Succes deleted "plugins/${args[0]}.js"`, m)
-await apivisit
 }
 handler.help = ['df']
 handler.tags = ['owner']

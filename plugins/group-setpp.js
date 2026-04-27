@@ -18,7 +18,7 @@ handler.command = /^setpp(gc|grup|group)$/i
 handler.group = handler.admin = handler.botAdmin = true
 export default handler
 */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 
 let handler = async (m, { conn, args }) => {
 const q = m.quoted ? m.quoted : m;

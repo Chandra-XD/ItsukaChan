@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn }) => {
 	let d = new Date

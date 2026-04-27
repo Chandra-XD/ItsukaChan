@@ -1,7 +1,6 @@
 import fs from 'fs'
 import os from 'os'
 import { sizeFormatter } from 'human-readable'
-import { apivisit } from './kanghit.js'
 
 let formatSize = sizeFormatter({
 	std: 'JEDEC',
@@ -27,7 +26,6 @@ let handler = async (m, { conn }) => {
 - Memory: ${formatSize(os.totalmem() - os.freemem())} / ${formatSize(os.totalmem())}
 `
 	await m.reply(txt.trim())
-	await apivisit
 }
 handler.alias = ['stats']
 handler.command = /^(stats)$/i

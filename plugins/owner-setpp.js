@@ -1,5 +1,5 @@
 import { S_WHATSAPP_NET } from '@whiskeysockets/baileys'
-import Jimp from "jimp";
+import { Jimp, JimpMime } from "jimp";
 
 let handler = async (m, { conn, args }) => {
 const q = m.quoted ? m.quoted : m;
@@ -11,15 +11,20 @@ const q = m.quoted ? m.quoted : m;
 
 		const media = await q.download();
 
-        async function pepek() {
-            const image = await Jimp.read(media);
-            const mwmwx = image.getWidth() > image.getHeight() ? image.resize(720, Jimp.AUTO) : image.resize(Jimp.AUTO, 720)
-            return {
-              img: await mwmwx.getBufferAsync(Jimp.MIME_JPEG)
-            }
-        }
+		async function pp() {
+			const image = await Jimp.read(media);
+			let resized;
+			if (image.width > image.height) {
+				resized = image.resize({ w: 720, h: Jimp.RESIZE_AUTO });
+			} else {
+				resized = image.resize({ w: Jimp.RESIZE_AUTO, h: 720 });
+			}
+			return {
+				img: await resized.getBuffer(JimpMime.jpeg),
+			};
+		}
 
-        let { img } = await pepek();
+        let { img } = await pp();
         if (!img) {
             return m.reply("Failed.")
         }
