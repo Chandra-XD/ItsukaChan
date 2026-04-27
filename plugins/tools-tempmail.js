@@ -1,5 +1,4 @@
 import { TempMail } from 'tempmail.lol'
-import { apivisit } from './kanghit.js'
 const tempmail = new TempMail()
 
 let handler = async (m, { conn, text, args, command }) => {
@@ -8,8 +7,7 @@ let handler = async (m, { conn, text, args, command }) => {
 	case "tempmail": {
     let api = tempmail.createInbox().then(inbox => {
     conn.reply(m.chat, `*Email :*\n${inbox.address}\n\n\n*Token :* \n${inbox.token}`, m)
-})
-    await apivisit }
+})}
     break
 
     case "tmpmailcek":
@@ -20,8 +18,7 @@ let handler = async (m, { conn, text, args, command }) => {
     for(let i = 0; i < emails.length; i++) {
         conn.reply(m.chat, `Email ${i}: ${JSON.stringify(emails[i])}`, m)
     }
-})
-    await apivisit }
+})}
     break
 	// By Chandra XD
 	// Follow bang

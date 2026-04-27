@@ -1,5 +1,4 @@
 import axios from "axios"
-import { apivisit } from './kanghit.js'
 
 let handler = async (m, { conn }) => {
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36';
@@ -39,7 +38,6 @@ Link: ${result.com_gbwhatsapp.link}
 Name: ${result.com_yowhatsapp.name}
 Package: com.yowhatsapp
 Link: ${result.com_yowhatsapp.link}`, m)
-        await apivisit
 	}
 handler.help = ['fmmods']
 handler.tags = ['tools']

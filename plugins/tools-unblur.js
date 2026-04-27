@@ -1,4 +1,4 @@
-import jimp from "jimp"
+import { Jimp } from "jimp"
 import FormData from "form-data";
 import { TMP } from '../lib/tempfile.js';
 
@@ -155,7 +155,7 @@ async function upscale(buffer, size = 2, anime = false) {
       if(!buffer) return reject("undefined buffer input!");
       if(!Buffer.isBuffer(buffer)) return reject("invalid buffer input");
       if(!/(2|4|6|8|16)/.test(size.toString())) return reject("invalid upscale size!")
-      jimp.read(Buffer.from(buffer)).then(image => {
+      Jimp.read(Buffer.from(buffer)).then(image => {
         const { width, height } = image.bitmap;
         let newWidth = width * size;
         let newHeight = height * size;
