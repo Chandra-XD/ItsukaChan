@@ -1,11 +1,10 @@
 <img src="https://camo.githubusercontent.com/82291b0fe831bfc6781e07fc5090cbd0a8b912bb8b8d4fec0696c881834f81ac/68747470733a2f2f70726f626f742e6d656469612f394575424971676170492e676966" width="800" height="3">
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=ItsukaBot+-+Md;Ini+sc+gratis+anj;+ketahuan+jual??;+langsung+gw+delete!!;+Btw+jangan+hapus+wm+anj;+hargain+gw+sedikit+aja;+Intinya+wm+jangan+dihapus!!;+Oiya+waifu+gwe+cantikkan+bang???;+hehehheh+:v)](https://github.com/Chandra-XD/ItsukaChan)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=ItsukaBot+-+Md;+Self+bot+ini+bang;+Sama+fiturnya+itu-itu+doang+hehehe)](https://github.com/Chandra-XD/ItsukaChan)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/Chandra-XD/cn-grabbed-result/main/media/gif/itsuka%20kotori%20on%20Tumblr.gif" />
 </p>
-<a href="https://visitor-badge.glitch.me/badge?page_id=Chandra-XD/ItsukaChan"><img title="Visitor" src="https://visitor-badge.glitch.me/badge?page_id=Chandra-XD/ItsukaChan"></a>
 <a href="https://github.com/Chandra-XD/ItsukaChan/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Chandra-XD/ItsukaChan?label=Forks&color=blue&style=flat-square"></a>
 <a href="https://github.com/Chandra-XD/ItsukaChan/watchers"><img title="Watchers" src="https://img.shields.io/github/watchers/Chandra-XD/ItsukaChan?label=Watchers&color=green&style=flat-square"></a>
 <a href="https://github.com/Chandra-XD/ItsukaChan/stargazers"><img title="Stars" src="https://img.shields.io/github/stars/Chandra-XD/ItsukaChan?label=Stars&color=yellow&style=flat-square"></a>
@@ -16,8 +15,6 @@
 <a href="https://github.com/Chandra-XD/ItsukaChan/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Chandra-XD/ItsukaChan?label=PullRequest&color=red&style=flat-square"></a>
 <br>
 <br>
-
-> **Warning** : Rest apinya mati bro, jadi klo ada fitur yang pake domain https://pnggilajacn.my.id udh nggak work it
 
 <details>
  <summary>Cara Pemasangan</summary>
@@ -56,19 +53,6 @@ git clone https://github.com/Chandra-XD/ItsukaChan
 cd ItsukaChan
 npm install
 npm update
-```
-
----------
-
-## FOR REPLIT
-[![Run on Repl.it](https://repl.it/badge/github/FadliDarmawan/haruno)](https://repl.it/github/Chandra-XD/ItsukaChan)
-```cmd
-Buka Shell
-
-------------
-> yarn
--------------
-Click Run
 ```
 
 ---------
@@ -192,14 +176,14 @@ gconly: false, // If that chat not from group, bot will ignore
 <details>
  <summary>Sosmed Gwe</summary><br>
 
-[![Instagram Badge](https://img.shields.io/badge/-Instagram-e4405f?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/pnggilajacn)
+[![Instagram Badge](https://img.shields.io/badge/-Instagram-e4405f?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/pngglajacn)
 [![Facebook Badge](https://img.shields.io/badge/-Facebook-0088cc?style=flat-square&logo=Facebook&logoColor=white)](https://facebook.com/pnggilajacn)
 [![Telegram Badge](https://img.shields.io/badge/-Telegram-0088cc?style=flat-square&logo=Telegram&logoColor=white)](https://t.me/pnggilajacn)
 [![Whatsapp Badge](https://img.shields.io/badge/-Whatsapp-%808080?style=flat-square&logo=Whatsapp&logoColor=white)](https://s.id/pnggilajacn)
-[![Email Badge](https://img.shields.io/badge/Email-3b5998?style=flat-square&logo=email&logoColor=white)](mailto:cuancari074@gmail.com)
+[![Email Badge](https://img.shields.io/badge/Email-3b5998?style=flat-square&logo=email&logoColor=white)](mailto:gk6hxi5@hotmail.com)
 <a href="https://github.com/Chandra-XD"><img src="https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github" /> 
 <a href="https://komarev.com/ghpvc/?username=ChandraXD307&color=blue&style=flat-square&label=Profile+Views"><img title="Watching" src="https://komarev.com/ghpvc/?username=ChandraXD307&color=green&style=flat-square&label=Profile+View"></a>
-[![Twitter Badge](https://img.shields.io/badge/-Twitter-0088cc?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/@Chandra_XD307)
+[![Twitter Badge](https://img.shields.io/badge/-Twitter-0088cc?style=flat-square&logo=Twitter&logoColor=white)](https://x.com/@pnggilajacn)
 <a href="https://tiktok.com/@pnggilajacn"><img src="https://img.shields.io/badge/-TikTok-black?style=flat-square&logo=tiktok" /> 
 [![YouTube Badge](https://img.shields.io/badge/-YouTube-e4405f?style=flat-square&logo=YouTube&logoColor=white)](https://youtube.com/@ChandraXD307)
 
@@ -208,12 +192,6 @@ gconly: false, // If that chat not from group, bot will ignore
 <details>
  <summary>Donasi bang</summary>
 
-### Pulsa
-- Axis: 083848947227
-- Indosat: 085785705233
-- Three: 08990085223
-
-### Uang digital
 - [Saweria](https://saweria.co/pnggilajacn)
 - [Trakteer](https://trakteer.id/pnggilajacn)
 </details>
